@@ -18,36 +18,36 @@ import { loadUser } from '../actions/auth';
 
 // Alert Options
 const alertOptions = {
-  timeout: 3000,
-  position: 'top center',
+	timeout: 3000,
+	position: 'top center'
 };
-
+// updating blanes personal branch poggers
 class App extends Component {
-  componentDidMount() {
-    store.dispatch(loadUser());
-  }
+	componentDidMount() {
+		store.dispatch(loadUser());
+	}
 
-  render() {
-    return (
-      <Provider store={store}>
-        <AlertProvider template={AlertTemplate} {...alertOptions}>
-          <Router>
-            <Fragment>
-              <Header />
-              <Alerts />
-              <div className="container">
-                <Switch>
-                  <PrivateRoute exact path="/" component={Dashboard} />
-                  <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
-                </Switch>
-              </div>
-            </Fragment>
-          </Router>
-        </AlertProvider>
-      </Provider>
-    );
-  }
+	render() {
+		return (
+			<Provider store={store}>
+				<AlertProvider template={AlertTemplate} {...alertOptions}>
+					<Router>
+						<Fragment>
+							<Header />
+							<Alerts />
+							<div className="container">
+								<Switch>
+									<PrivateRoute exact path="/" component={Dashboard} />
+									<Route exact path="/register" component={Register} />
+									<Route exact path="/login" component={Login} />
+								</Switch>
+							</div>
+						</Fragment>
+					</Router>
+				</AlertProvider>
+			</Provider>
+		);
+	}
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
