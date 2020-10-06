@@ -21,7 +21,7 @@ const alertOptions = {
 	timeout: 3000,
 	position: 'top center'
 };
-//blane testing master push
+//blane testing master push two
 class App extends Component {
 	componentDidMount() {
 		store.dispatch(loadUser());
