@@ -35,7 +35,7 @@ export class Form extends Component {
         <h2>Add Lead</h2>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label>Name</label>
+            <label>stick</label>
             <input
               className="form-control"
               type="text"
