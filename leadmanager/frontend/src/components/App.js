@@ -16,6 +16,8 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
 
+
+
 // Alert Options
 const alertOptions = {
 	timeout: 3000,
