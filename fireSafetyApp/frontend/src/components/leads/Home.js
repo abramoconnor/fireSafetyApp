@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLeads, deleteLead } from '../../actions/leads';
-import Header from '../fet/components/header.jsx';
 import '../fet/app.css';
 
 /* the main part, the "adjustdown" is a css function in button.css, I was learning how to move the button. the problem is I cant just copy and past this button code
@@ -35,83 +34,9 @@ export class Home extends Component{
     render(){
         return(
     <Fragment>
-		<Header />
-		<div className="App buttons">
-			<a href="about">
-				<li>
-					<Link to="/about">
-						<Button
-							onClick={() => {
-								console.log('click click click');
-							}}
-							type="button"
-							buttonStyle="btn--white--outline"
-							buttonSize="btn--medium"
-						>
-							Building 1
-						</Button>
-					</Link>
-				</li>
-			</a>
 
-			<Button
-				onClick={() => {
-					console.log('click click click');
-				}}
-				type="button"
-				buttonStyle="btn--white--outline"
-				buttonSize="btn--medium"
-			>
-				Building 2
-			</Button>
+	getLeads()
 
-			<Button
-				onClick={() => {
-					console.log('click click click');
-				}}
-				type="button"
-				buttonStyle="btn--white--outline"
-				buttonSize="btn--medium"
-			>
-				Building 3
-			</Button>
-
-			<Button
-				onClick={() => {
-					console.log('click click click');
-				}}
-				type="button"
-				buttonStyle="btn--white--outline"
-				buttonSize="btn--medium"
-			>
-				Building 4
-			</Button>
-
-			<Button
-				onClick={() => {
-					console.log('click click click');
-				}}
-				type="button"
-				buttonStyle="btn--white--outline"
-				buttonSize="btn--medium"
-			>
-				Building 5
-			</Button>
-
-			<Button
-				onClick={() => {
-					console.log('click click click');
-				}}
-				type="button"
-				buttonStyle="btn--white--outline"
-				buttonSize="btn--medium"
-			>
-				Building 6
-			</Button>
-		</div>
-		<footer className="footer, footertext">
-			<div>Internet Explorers 2020 ©</div>
-		</footer>
 	</Fragment>
         );
     }

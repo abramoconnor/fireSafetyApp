@@ -23,8 +23,8 @@ export class Leads extends Component {
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>stick</th>
-              <th>Message</th>
+              <th>Code</th>
+              <th>Last Inspected</th>
               <th />
             </tr>
           </thead>
@@ -33,8 +33,8 @@ export class Leads extends Component {
               <tr key={lead.id}>
                 <td>{lead.id}</td>
                 <td>{lead.name}</td>
-                <td>{lead.email}</td>
-                <td>{lead.message}</td>
+                <td>{lead.code}</td>
+                <td>{lead.last_inspection}</td>
                 <td>
                   <button
                     onClick={this.props.deleteLead.bind(this, lead.id)}
