@@ -5,11 +5,12 @@ import { getLeads, deleteLead } from '../../actions/leads';
 import '../fet/app.css';
 import {Card, Button} from "react-bootstrap";
 import {form} from "react-bootstrap";
+import leads from '../../reducers/leads';
 
 const BuildingCards = () => {
-
+    
     const buildingInfo = [
-        	{title: "Rhatigan Student Center", text: "Click here to access"},
+        	{title: "something", text: "Click here to access"},
         	{title: "Shocker Hall", text: "Click here to access"},
         	{title: "Heskett Center", text: "Click here to access"},
         	{title: "Koch Arena", text: "Click here to access"}
@@ -17,7 +18,7 @@ const BuildingCards = () => {
 
     const renderCard = (card, index) => {
         return(
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '18rem' }} key={index}>
                 <Card.Body>
                 <Card.Title> {card.title} </Card.Title>
                 <Card.Text>
