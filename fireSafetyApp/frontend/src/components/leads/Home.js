@@ -21,12 +21,12 @@ export class Leads extends Component {
 	  return (
 		<Fragment>
 			{this.props.leads.map((lead) => (
-				<li>
+				<li key={lead.id}>
 					<Link to={{ pathname: '/Staging', state:{lead:lead}}}>
 						<Button onClick={() => {
 								console.log('click click click');
 							}}
-							key={lead.id}>{lead.name}
+							>{lead.name}
 							</Button>
 					</Link>
 				</li>
