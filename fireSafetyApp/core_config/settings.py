@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'buildings',
+    'fire_extinguish',
     'rest_framework',
     'frontend',
     'knox',
