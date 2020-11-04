@@ -12,3 +12,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const CLEAR_LEADS = 'CLEAR_LEADS';
+export const GET_FEs = 'GET_FEs';
+export const DELETE_FEs = 'DELETE_FEs';
+export const ADD_FEs = 'ADD_FEs';
+export const CLEAR_FEs = 'CLEAR_FEs';
