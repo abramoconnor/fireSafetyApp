@@ -1,20 +1,17 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getLeads, deleteLead } from '../../actions/leads';
-import {Link, useLocation} from "react-router-dom";
-import {Card, Button} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 export class Staging extends Component {
 
     render() {
-        const {lead} = this.props.location.state
-        console.log(lead);
+        const {building} = this.props.location.state
+        console.log(building);
         return (
             <Fragment>
-                <h1>{lead.name}</h1>
+                <h1>{building.name}</h1>
 				<li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{lead:lead}}}>
+					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
 						<Button onClick={() => {
 								console.log('click click click');
 							}}
@@ -23,7 +20,7 @@ export class Staging extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{lead:lead}}}>
+					<Link to={{ pathname: '/AED', state:{building:building}}}>
 						<Button onClick={() => {
 								console.log('click click click');
 							}}
@@ -32,7 +29,7 @@ export class Staging extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{lead:lead}}}>
+					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
 						<Button onClick={() => {
 								console.log('click click click');
 							}}
@@ -41,7 +38,7 @@ export class Staging extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{lead:lead}}}>
+					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
 						<Button onClick={() => {
 								console.log('click click click');
 							}}

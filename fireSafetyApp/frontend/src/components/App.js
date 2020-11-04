@@ -6,13 +6,14 @@ import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 
 import Header from './layout/Header';
-import Dashboard from './leads/Dashboard';
+import Dashboard from './buildings/Dashboard';
 import Alerts from './layout/Alerts';
 import Login from './accounts/Login';
 import Register from './accounts/Register';
 import PrivateRoute from './common/PrivateRoute';
-import Staging from './leads/Staging';
-import Fire_Extinguisher from './leads/Fire Extinguisher';
+import Staging from './buildings/Staging';
+import Fire_Extinguisher from './buildings/Fire Extinguisher';
+import AED from './buildings/AED';
 
 import { Provider } from 'react-redux';
 import store from '../store';
@@ -44,6 +45,7 @@ class App extends Component {
 									<Route exact path="/login" component={Login} />
 									<PrivateRoute exact path="/Staging" component={Staging} />
 									<PrivateRoute exact path="/Fire Extinguisher" component={Fire_Extinguisher} />
+									<PrivateRoute exact path="/AED" component={AED} />
 								</Switch>
 							</div>
 						</Fragment>
