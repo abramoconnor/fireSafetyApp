@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLeads, deleteLead } from '../../actions/leads';
-import {Card, Button} from "react-bootstrap";
+import './button.css';
+import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export class Leads extends Component {
@@ -22,11 +23,14 @@ export class Leads extends Component {
 			{this.props.leads.map((lead) => (
 				<li key={lead.id}>
 					<Link to={{ pathname: '/Staging', state:{lead:lead}}}>
-						<Button onClick={() => {
-								console.log('click click click');
-							}}
-							>{lead.name}
-							</Button>
+						<div className =  "App">
+						<button
+							className={"btn btn--medium adjustdown"} 
+							type = "button"
+							onClick={() => {console.log('yh y yt');}}>
+							{lead.name}
+							</button>
+						</div>	
 					</Link>
 				</li>
             ))}
