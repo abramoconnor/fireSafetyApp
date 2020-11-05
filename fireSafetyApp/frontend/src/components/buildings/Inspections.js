@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFEs, deleteFEs } from '../../actions/FEs';
-import {Card, Button} from "react-bootstrap";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import Form from "./Home"
 
 export class Fire_Extinguisher extends Component {
 
@@ -18,10 +18,10 @@ export class Fire_Extinguisher extends Component {
       }
 
 	render() {
-        const {lead} = this.props.location.state
+        const {building} = this.props.location.state
 	  return (
 		<Fragment>
-			  <h2>Fire Extinguishers for {lead.name}</h2>
+			  <h2>Fire Extinguishers for {building.name}</h2>
               
         <table className="table table-striped">
           <thead>
@@ -41,11 +41,11 @@ export class Fire_Extinguisher extends Component {
                 <td>{FE.upcoming_inspection}</td>
                 <td>
                   <button
-                    onClick={this.props.deleteFEs.bind(this, FE.id)}
+                  onClick = {() => {<Form/>}}
                     className="btn btn-danger btn-sm"
                   >
                     {' '}
-                    Delete
+                    Inspections
                   </button>
                 </td>
               </tr>
@@ -61,4 +61,4 @@ export class Fire_Extinguisher extends Component {
     FEs: state.FEs.FEs,
   });
   
-  export default connect(mapStateToProps, { getFEs, deleteFEs })(Fire_Extinguisher);
+  export default withRouter(connect(mapStateToProps, { getFEs, deleteFEs })(Fire_Extinguisher));

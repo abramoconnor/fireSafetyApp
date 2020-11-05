@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'buildings',
     'fire_extinguish',
+    'AEDs',
     'rest_framework',
     'frontend',
     'knox',

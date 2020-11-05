@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getLeads, deleteLead } from '../../actions/leads';
 import '../fet/app.css';
 import {Card, Button} from "react-bootstrap";
-import {form} from "react-bootstrap";
-import leads from '../../reducers/leads';
+
 
 const BuildingCards = () => {
     

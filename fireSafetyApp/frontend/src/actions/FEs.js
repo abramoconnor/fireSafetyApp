@@ -4,7 +4,7 @@ import { tokenConfig } from './auth';
 
 import { GET_FEs, DELETE_FEs, ADD_FEs } from './types';
 
-// GET LEADS
+// GET Fire Extinguishers
 export const getFEs = () => (dispatch, getState) => {
   axios
     .get('/fire_extinguish', tokenConfig(getState))
@@ -17,7 +17,7 @@ export const getFEs = () => (dispatch, getState) => {
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// DELETE LEAD
+// DELETE Fire Extinguishers
 export const deleteFEs = (id) => (dispatch, getState) => {
   axios
     .delete(`/fire_extinguish/${id}/`, tokenConfig(getState))
@@ -31,7 +31,7 @@ export const deleteFEs = (id) => (dispatch, getState) => {
     .catch((err) => console.log(err));
 };
 
-// ADD LEAD
+// ADD Fire Extinguishers
 export const addFEs = (FE) => (dispatch, getState) => {
   axios
     .post('/fire_extinguish', FE, tokenConfig(getState))
