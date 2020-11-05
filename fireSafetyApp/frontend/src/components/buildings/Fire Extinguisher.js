@@ -38,12 +38,12 @@ export class Fire_Extinguisher extends Component {
                 <tr key={FE.id}>
                   <td>{FE.id}</td>
                   <td>{FE.code}</td>
-                  <td>{FE.last_inspection}</td>
-                  <td>{FE.upcoming_inspection}</td>
+                  <td>{FE.last_inspection.split("T")[0]}</td>
+                  <td>{FE.upcoming_inspection.split("T")[0]}</td>
                   <td>
                       <Link to={{ pathname: '/FEInspection', state:{building:building, fe: FE}}}>
                         <div className="App">
-                          <button className={"btn btn--medium"} type="button" onClick={() => {console.log("to inspection")}}>
+                          <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections
                           </button>
                         </div>	

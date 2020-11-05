@@ -38,11 +38,11 @@ export class FEInspection_List extends Component {
               {this.props.FEInspecs.map((FEI) => (
                 <tr key={FEI.id}>
                   <td>{FEI.id}</td>
-                  <td>{FEI.date_tested}</td>
+                  <td>{FEI.date_tested.split("T")[0]}</td>
                   <td>{FEI.tester}</td>
                   <td>
                     <div className="App">
-                        <button className={"btn btn--medium"} type="button" onClick={() => {this.displayPDF(FEI.id)}}>
+                        <button className={"btn btn--small"} type="button" onClick={() => {this.displayPDF(FEI.id)}}>
                             View PDF
                         </button>
                     </div>	
