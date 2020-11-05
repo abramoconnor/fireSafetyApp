@@ -1,10 +1,11 @@
 from rest_framework import routers
 from django.urls import path
-from .api import FEViewSet
+from .api import FEViewSet, FEInspectionViewSet
 from .views import fe_inspection_render_pdf_view
 
 router = routers.DefaultRouter()
 router.register('fire_extinguish', FEViewSet, 'fire_extinguish')
+router.register('fe_inspection', FEInspectionViewSet, 'fe_inspection')
 
 urlpatterns = [
     path('fe_insp_pdf/<pk>', fe_inspection_render_pdf_view, name='fe_insp_pdf'),
