@@ -14,15 +14,10 @@ export class Fire_Extinguisher extends Component {
     FEs: PropTypes.array.isRequired,
     getFEs: PropTypes.func.isRequired,
     deleteFEs: PropTypes.func.isRequired,
-    displayFEInspectionPDF: PropTypes.func.isRequired
   };
   
   componentDidMount() {
     this.props.getFEs();
-  }
-  
-  displayPDF = (id) => {
-    this.props.displayFEInspectionPDF(id);
   }
     
   render() {
@@ -47,16 +42,13 @@ export class Fire_Extinguisher extends Component {
                   <td>{FE.last_inspection}</td>
                   <td>{FE.upcoming_inspection}</td>
                   <td>
-                  {/* <Link to={{ pathname: '/Form'}}> */}
-              <div className =  "App">
-              <button
-                className={"btn btn--medium "} 
-                type = "button"
-                onClick={() => {this.displayPDF(FE.id)}}>
-                  List of Inspections
-                </button>
-              </div>	
-            {/* </Link> */}
+                    <Link to={{ pathname: '/FEInspection', state:{building:building, fe: FE}}}>
+                      <div className="App">
+                        <button className={"btn btn--medium"} type="button" onClick={() => {console.log("to inspection")}}>
+                          List of Inspections
+                        </button>
+                      </div>	
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -71,4 +63,4 @@ export class Fire_Extinguisher extends Component {
     FEs: state.FEs.FEs,
   });
   
-  export default withRouter(connect(mapStateToProps, { getFEs, deleteFEs, displayFEInspectionPDF })(Fire_Extinguisher));
+  export default withRouter(connect(mapStateToProps, { getFEs, deleteFEs })(Fire_Extinguisher));

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FEs, DELETE_FEs, ADD_FEs } from './types';
+import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP } from './types';
 
 // GET Fire Extinguishers
 export const getFEs = () => (dispatch, getState) => {
@@ -39,6 +39,19 @@ export const addFEs = (FE) => (dispatch, getState) => {
       dispatch(createMessage({ addFE: 'FE Added' }));
       dispatch({
         type: ADD_FEs,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET FE Inspections
+export const getFEInspecs = () => (dispatch, getState) => {
+  axios
+    .get('/fe_inspection', tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: GET_FE_INSP,
         payload: res.data,
       });
     })
