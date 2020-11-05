@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import {Link, withRouter} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { getBuildings, deleteBuilding } from '../../actions/buildings';
-import { Fire_Extinguisher } from './Fire Extinguisher';
 
 export class Staging extends Component {
 
@@ -13,7 +11,7 @@ export class Staging extends Component {
         console.log(this.props.location.state);
         return (
             <Fragment>
-                <h1 className={"buildingNames"}>{building.name}</h1>
+                <h1 className={"buildingNames"}>{building.name}'s Assets</h1>
 				<li>
 					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
 						<Button 
