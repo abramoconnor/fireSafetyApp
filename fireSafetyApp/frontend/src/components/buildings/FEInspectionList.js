@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFEInspecs } from '../../actions/FEs';
 import { displayFEInspectionPDF } from "../../actions/pdfs";
-import { Link } from 'react-router-dom';
 
 export class FEInspection_List extends Component {
   static propTypes = {

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFEs, deleteFEs } from '../../actions/FEs';
-import { displayFEInspectionPDF } from "../../actions/pdfs";
 import { Link, withRouter } from 'react-router-dom';
 
 export class Fire_Extinguisher extends Component {
@@ -42,13 +41,13 @@ export class Fire_Extinguisher extends Component {
                   <td>{FE.last_inspection}</td>
                   <td>{FE.upcoming_inspection}</td>
                   <td>
-                    <Link to={{ pathname: '/FEInspection', state:{building:building, fe: FE}}}>
-                      <div className="App">
-                        <button className={"btn btn--medium"} type="button" onClick={() => {console.log("to inspection")}}>
-                          List of Inspections
-                        </button>
-                      </div>	
-                    </Link>
+                      <Link to={{ pathname: '/FEInspection', state:{building:building, fe: FE}}}>
+                        <div className="App">
+                          <button className={"btn btn--medium"} type="button" onClick={() => {console.log("to inspection")}}>
+                            List of Inspections
+                          </button>
+                        </div>	
+                      </Link>
                   </td>
                 </tr>
               ))}

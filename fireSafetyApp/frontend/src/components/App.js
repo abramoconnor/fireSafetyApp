@@ -15,11 +15,10 @@ import Staging from './buildings/Staging';
 import Fire_Extinguisher from './buildings/Fire Extinguisher';
 import FEInspection_List from "./buildings/FEInspectionList";
 import AED from './buildings/AED';
-
+import Form from "./buildings/Form";
 import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
-import Form from "./buildings/Form";
 
 // Alert Options
 const alertOptions = {
@@ -47,9 +46,9 @@ class App extends Component {
 									<Route exact path="/login" component={Login} />
 									<PrivateRoute exact path="/Staging" component={Staging} />
 									<PrivateRoute exact path="/Fire Extinguisher" component={Fire_Extinguisher} />
+									<PrivateRoute exact path="/FEInspection" component={FEInspection_List} />
 									<PrivateRoute exact path="/AED" component={AED} />
 									<PrivateRoute exact path="/Form" component={Form} />
-									<PrivateRoute exact path="/FEInspection" component={FEInspection_List} />
 								</Switch>
 							</div>
 						</Fragment>
