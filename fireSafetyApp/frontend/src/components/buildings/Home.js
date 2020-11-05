@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getBuildings, deleteBuilding } from '../../actions/buildings';
-import './button.css';
-import './App.css';
+import './buttonStyles.css';
+import './format.css';
 import { Link, withRouter } from 'react-router-dom';
 
 export class Buildings extends Component {
@@ -20,20 +20,25 @@ export class Buildings extends Component {
 	render() {
 	  return (
 		<Fragment>
+			<h1 className={"buildingNames"}> Buildings
+			<div className = "Style grid">
+			
 			{this.props.buildings.map((building) => (
 				<li key={building.id}>
 					<Link to={{ pathname: '/Staging', state:{building:building}}}>
 						<div className =  "App">
 						<button
-							className={"btn btn--medium adjustdown"} 
+							className={"btn btn--medium"} 
 							type = "button"
-							onClick={() => {console.log('yh y yt');}}>
+							onClick={() => {console.log('ya');}}>
 							{building.name}
 							</button>
 						</div>	
 					</Link>
 				</li>
             ))}
+			</div>
+			</h1>
 		</Fragment>
 	  );
 	}

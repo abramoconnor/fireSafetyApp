@@ -13,10 +13,12 @@ export class Staging extends Component {
         console.log(this.props.location.state);
         return (
             <Fragment>
-                <h1>{building.name}</h1>
+                <h1 className={"buildingNames"}>{building.name}</h1>
 				<li>
 					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
-						<Button onClick={() => {
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
 								this.state.history.push("/Staging", building);
 							}}
 							> Fire Extinguisher
@@ -25,7 +27,9 @@ export class Staging extends Component {
 				</li>
                 <li>
 					<Link to={{ pathname: '/AED', state:{building:building}}}>
-						<Button onClick={() => {
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
 								console.log('click click click');
 							}}
 							> AED
@@ -34,7 +38,9 @@ export class Staging extends Component {
 				</li>
                 <li>
 					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
-						<Button onClick={() => {
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
 								console.log('click click click');
 							}}
 							> Sprinkler
@@ -43,7 +49,9 @@ export class Staging extends Component {
 				</li>
                 <li>
 					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
-						<Button onClick={() => {
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
 								console.log('click click click');
 							}}
 							> Alarms
