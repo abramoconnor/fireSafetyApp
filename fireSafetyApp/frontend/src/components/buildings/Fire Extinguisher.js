@@ -20,7 +20,7 @@ export class Fire_Extinguisher extends Component {
   }
     
   render() {
-    const {building} = this.props.location.state
+    const {building} = this.props.location.state;
     return (
       <Fragment>
           <h2>Fire Extinguishers for {building.name}</h2>   

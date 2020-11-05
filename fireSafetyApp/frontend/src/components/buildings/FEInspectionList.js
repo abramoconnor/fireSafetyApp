@@ -12,7 +12,9 @@ export class FEInspection_List extends Component {
   };
   
   componentDidMount() {
+    console.log(this.props);
     this.props.getFEInspecs();
+    console.log('2:', this.props)
   }
   
   displayPDF = (id) => {
@@ -58,4 +60,4 @@ export class FEInspection_List extends Component {
     FEInspecs: state.FEInspecs.FEInspecs,
   });
   
-  export default connect(mapStateToProps, { getFEInspecs, displayFEInspectionPDF })(FEInspection_List);
+export default connect(mapStateToProps, { getFEInspecs, displayFEInspectionPDF })(FEInspection_List);
