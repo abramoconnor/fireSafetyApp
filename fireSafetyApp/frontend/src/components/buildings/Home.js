@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getBuildings, deleteBuilding } from '../../actions/buildings';
 import './button.css';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 export class Buildings extends Component {
 	static propTypes = {
@@ -43,4 +43,4 @@ export class Buildings extends Component {
 	buildings: state.buildings.buildings,
   });
   
-  export default connect(mapStateToProps, { getBuildings, deleteBuilding })(Buildings);
+  export default withRouter(connect(mapStateToProps, { getBuildings, deleteBuilding })(Buildings));

@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFEs, deleteFEs } from '../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
-import Form from "./Form";
+import Form from "./Home"
 
 export class Fire_Extinguisher extends Component {
-  state = {
-		building: this.props.location.state.building
-	  };
 
     static propTypes = {
         FEs: PropTypes.array.isRequired,
@@ -19,8 +16,8 @@ export class Fire_Extinguisher extends Component {
       componentDidMount() {
         this.props.getFEs();
       }
-      
-      render() {
+
+	render() {
         const {building} = this.props.location.state
 	  return (
 		<Fragment>
@@ -43,15 +40,13 @@ export class Fire_Extinguisher extends Component {
                 <td>{FE.last_inspection}</td>
                 <td>{FE.upcoming_inspection}</td>
                 <td>
-                <Link to={{ pathname: '/Form'}}>
-						<div className =  "App">
-						<button
-							className={"btn btn--medium adjustdown"} 
-							type = "button"
-							onClick={() => {this.props.history.push("/Staging", this.state)}}>
-							</button>
-						</div>	
-					</Link>
+                  <button
+                  onClick = {() => {<Form/>}}
+                    className="btn btn-danger btn-sm"
+                  >
+                    {' '}
+                    Inspections
+                  </button>
                 </td>
               </tr>
             ))}

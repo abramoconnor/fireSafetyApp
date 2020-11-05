@@ -7,8 +7,8 @@ import { addBuilding } from '../../actions/buildings';
 export class Form extends Component {
   state = {
     name: '',
-    email: '',
-    message: '',
+    code: '',
+    date_last_inspected: '',
   };
 
   static propTypes = {
@@ -19,21 +19,21 @@ export class Form extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, email, message } = this.state;
-    const building = { name, email, message };
-    this.props.addBuilding(building);
+    const { name, code, date_last_inspected } = this.state;
+    const building = { name, code, date_last_inspected };
+    //this.props.addBuilding(building);
     this.setState({
       name: '',
-      email: '',
-      message: '',
+      code: '',
+      date_last_inspected: '',
     });
   };
 
   render() {
-    const { name, email, message } = this.state;
+    const { name, code, date_last_inspected } = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
-        <h2>Add Building</h2>
+        <h2>Add ext</h2>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>foo</label>
@@ -46,23 +46,23 @@ export class Form extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Email</label>
+            <label>Code</label>
             <input
               className="form-control"
-              type="email"
-              name="email"
+              type="text"
+              name="code"
               onChange={this.onChange}
-              value={email}
+              value={code}
             />
           </div>
           <div className="form-group">
-            <label>Message</label>
+            <label>date_last_inspected</label>
             <textarea
               className="form-control"
               type="text"
-              name="message"
+              name="date_last_inspected"
               onChange={this.onChange}
-              value={message}
+              value={date_last_inspected}
             />
           </div>
           <div className="form-group">

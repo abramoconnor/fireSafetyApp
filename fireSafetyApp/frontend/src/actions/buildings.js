@@ -34,7 +34,7 @@ export const deleteBuilding = (id) => (dispatch, getState) => {
 // ADD BUILDING
 export const addBuilding = (building) => (dispatch, getState) => {
   axios
-    .post('/buildings', building, tokenConfig(getState))
+    .post('/buildings/', building, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addBuilding: 'Building Added' }));
       dispatch({
