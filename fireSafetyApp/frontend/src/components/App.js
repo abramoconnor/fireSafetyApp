@@ -15,12 +15,14 @@ import Staging from './buildings/Staging';
 import Fire_Extinguisher from './buildings/Fire Extinguisher';
 import FEInspection_List from "./buildings/FEInspectionList";
 import AED from './buildings/AED';
+import AEDInspection_List from "./buildings/AEDInspectionList";
 import Form from "./buildings/Form";
 import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
 import Home from "./buildings/Home";
 import Sprinkler from "./buildings/Sprinkler";
+import SprinklerInspection_List from "./buildings/SprinklerInspectionList";
 import Alarm from "./buildings/Alarm";
 import AlarmInspection_List from "./buildings/AlarmInspectionList";
 
@@ -52,11 +54,13 @@ class App extends Component {
 									<PrivateRoute exact path="/Fire Extinguisher" component={Fire_Extinguisher} />
 									<PrivateRoute exact path="/FEInspection" component={FEInspection_List} />
 									<PrivateRoute exact path="/AED" component={AED} />
+									<PrivateRoute exact path="/AEDInspection" component={AEDInspection_List} />
 									<PrivateRoute exact path="/Form" component={Form} />
 									<PrivateRoute exact path="/Home" component={Home} />
 									<PrivateRoute exact path="/Alarm" component={Alarm} />
 									<PrivateRoute exact path="/AlarmInspection" component={AlarmInspection_List} />
 									<PrivateRoute exact path="/Sprinkler" component={Sprinkler} />
+									<PrivateRoute exact path="/SprinklerInspection" component={SprinklerInspection_List} />
 								</Switch>
 							</div>
 						</Fragment>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_AEDs, DELETE_AEDs, ADD_AEDs } from './types';
+import { GET_AEDs, DELETE_AEDs, ADD_AEDs, GET_AED_INSP } from './types';
 
 // GET AEDs
 export const getAEDs = () => (dispatch, getState) => {
@@ -39,6 +39,19 @@ export const addAEDs = (AED) => (dispatch, getState) => {
       dispatch(createMessage({ addAED: 'AED Added' }));
       dispatch({
         type: ADD_AEDs,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET AED Inspections
+export const getAEDInspecs = () => (dispatch, getState) => {
+  axios
+    .get('/aed_inspection', tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: GET_AED_INSP,
         payload: res.data,
       });
     })

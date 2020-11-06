@@ -40,7 +40,7 @@ export class SPRINKLER extends Component {
                   <td>{SPRINKLER.last_inspection.split("T")[0]}</td>
                   <td>{SPRINKLER.upcoming_inspection.split("T")[0]}</td>
                   <td>
-                      <Link to={{ pathname: '/FEInspection', state:{building:building, sprinkler: SPRINKLER}}}>
+                      <Link to={{ pathname: '/SprinklerInspection', state:{building:building, sprinkler: SPRINKLER}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections
