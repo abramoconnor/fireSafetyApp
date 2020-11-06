@@ -26,10 +26,10 @@ export class AED extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
+              <th>ID</th>
                 <th>Code</th>
                 <th>Last Inspected</th>
-                <th>Upcomming inspection</th>
+                <th>Upcoming Inspection</th>
               </tr>
             </thead>
             <tbody>
@@ -54,7 +54,7 @@ export class AED extends Component {
           </table>
           <Link to={{ pathname: '/Staging', state:{building:building}}}>
 						<Button 
-						className={"btn btn--mediumSmall"}
+						className={"btn btn--back"}
 						onClick={() => {
 							}}
 							> Back

@@ -15,7 +15,9 @@ export class Staging extends Component {
 		const {building} = this.props.history.location.state
         return (
             <Fragment>
+				
                 <h1 className={"buildingNames"}>{building.name}'s Assets</h1>
+				<div className = "grid">
 				<li>
 					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
 						<Button 
@@ -58,15 +60,18 @@ export class Staging extends Component {
 							> Alarms
 							</Button>
 					</Link>
-				</li>
-          <Link to={{ pathname: '/Home', state:{building:building}}}>
+				</li>  
+			</div>
+			<div className = "grid">
+			<Link to={{ pathname: '/Home', state:{building:building}}}>
 						<Button 
-						className={"btn btn--mediumSmall"}
+						className={"btn btn--back"}
 						onClick={() => {
 							}}
 							> Back
 							</Button>
 					</Link>
+			</div>
       </Fragment>
     );
 }

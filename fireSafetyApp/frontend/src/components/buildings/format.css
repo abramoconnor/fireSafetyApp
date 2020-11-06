@@ -1,12 +1,15 @@
-.Style {
-	text-align: left;
+.style {
+	text-align: middle;
 }
 
 .grid {
 	min-height: 100%;
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-wrap: wrap;
 	flex-direction: row;
+	object-fit: contain;
 }
 
 .buildingNames {
@@ -33,6 +36,10 @@
 }
 as
 */
+
+.marginTop {
+	margin-top: 50px;
+}
 
 .App-header {
 	background-color: #ffffff;
