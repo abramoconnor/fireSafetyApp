@@ -56,7 +56,7 @@ export class FEInspection_List extends Component {
           </table>
           <Link to={{ pathname: "/Fire Extinguisher", state:{building:building}}}>
 						<Button 
-						className={"btn btn--mediumSmall"}
+						className={"btn btn--back"}
 						onClick={() => {
 							}}
 							> Back

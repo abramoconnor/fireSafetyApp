@@ -26,10 +26,10 @@ export class Fire_Extinguisher extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
+              <th>ID</th>
                 <th>Code</th>
                 <th>Last Inspected</th>
-                <th>Upcomming inspection</th>
+                <th>Upcoming Inspection</th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +43,7 @@ export class Fire_Extinguisher extends Component {
                       <Link to={{ pathname: '/FEInspection', state:{building:building, fe: FE}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
-                            List of Inspections
+                            Inspection List
                           </button>
                         </div>	
                       </Link>
@@ -54,7 +54,7 @@ export class Fire_Extinguisher extends Component {
           </table>
           <Link to={{ pathname: '/Staging', state:{building:building}}}>
 						<Button 
-						className={"btn btn--mediumSmall"}
+						className={"btn btn--back"}
 						onClick={() => {
 							}}
 							> Back

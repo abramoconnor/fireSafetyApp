@@ -56,7 +56,7 @@ export class AlarmInspection_List extends Component {
           </table>
           <Link to={{ pathname: "/Alarm", state:{building:building}}}>
 						<Button 
-						className={"btn btn--mediumSmall"}
+						className={"btn btn--back"}
 						onClick={() => {
 							}}
 							> Back

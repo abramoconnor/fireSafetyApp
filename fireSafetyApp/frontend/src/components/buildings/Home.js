@@ -20,8 +20,8 @@ export class Buildings extends Component {
 	render() {
 	  return (
 		<Fragment>
-			<h1 className={"buildingNames"}> Buildings
-			<div className = "Style grid">
+			<h1 className={"buildingNames style"}> Buildings</h1>
+			<div className = "grid">
 			
 			{this.props.buildings.map((building) => (
 				<li key={building.id}>
@@ -29,7 +29,6 @@ export class Buildings extends Component {
 						<div className =  "App">
 						<button
 							className={"btn btn--medium"} 
-							type = "button"
 							onClick={() => {this.setState(this)}}>
 							{building.name}
 							</button>
@@ -38,7 +37,7 @@ export class Buildings extends Component {
 				</li>
             ))}
 			</div>
-			</h1>
+			
 		</Fragment>
 	  );
 	}

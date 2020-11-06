@@ -17,14 +17,18 @@
 	background-color: transparent;
 	border: 2px solid var(--dark);
 	color: var(--dark);
-	display: inline-flex;
 }
 
 .btn:hover {
 	transform: translateY(-3px);
 	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+	background-color: #ff5c5c;
+	color: white;
 }
 
+.limit {
+	max-height: 35vh;
+}
 .logout {
 	font-family: 'Manrope', sans-serif;
 	font-weight: 400;
@@ -34,6 +38,10 @@
 	background-color: transparent;
 	border: 2px solid var(--dark);
 	color: var(--dark);
+}
+
+.thickFont {
+	font-weight: 100;
 }
 
 /* Button Colors and Styling for it */
@@ -91,19 +99,31 @@
 }
 
 .btn--medium {
-	padding: 80px 80px;
-	font-size: 60px;
-}
-
-.btn--mediumSmall {
-	padding: 40px 40px;
+	height: 300px;
+	width: 300px;
 	font-size: 30px;
 }
 
+.btn--mediumSmall {
+	height: 100px;
+	width: 300px;
+	font-size: 30px;
+}
+
+.btn--back {
+	height: 100px;
+	width: 150px;
+	font-size: 30px;
+}
 .btn--small {
 	font-family: 'Manrope', sans-serif;
 	padding: 5px 10px;
 	font-size: 12px;
+}
+.btn--tiny {
+	font-family: 'Manrope', sans-serif;
+	padding: 5px 10px;
+	font-size: 10px;
 }
 
 .tar {
