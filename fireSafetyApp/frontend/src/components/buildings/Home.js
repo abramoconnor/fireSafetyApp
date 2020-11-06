@@ -30,7 +30,7 @@ export class Buildings extends Component {
 						<button
 							className={"btn btn--medium"} 
 							type = "button"
-							onClick={() => {console.log('ya');}}>
+							onClick={() => {this.setState(this)}}>
 							{building.name}
 							</button>
 						</div>	

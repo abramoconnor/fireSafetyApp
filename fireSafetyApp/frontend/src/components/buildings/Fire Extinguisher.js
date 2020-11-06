@@ -3,22 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFEs, deleteFEs } from '../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
+import {Button} from "react-bootstrap";
 
 export class Fire_Extinguisher extends Component {
-  state = {
-		building: this.props.location.state.building
-	};
 
   static propTypes = {
     FEs: PropTypes.array.isRequired,
     getFEs: PropTypes.func.isRequired,
     deleteFEs: PropTypes.func.isRequired,
   };
-  
+
   componentDidMount() {
     this.props.getFEs();
+    this.setState();
   }
-    
+  
   render() {
     const {building} = this.props.location.state;
     return (
@@ -53,6 +52,14 @@ export class Fire_Extinguisher extends Component {
               ))}
             </tbody>
           </table>
+          <Link to={{ pathname: '/Staging', state:{building:building}}}>
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
+							}}
+							> Back
+							</Button>
+					</Link>
       </Fragment>
       );
     }

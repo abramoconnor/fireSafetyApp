@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFEInspecs } from '../../actions/FEs';
 import { displayFEInspectionPDF } from "../../actions/pdfs";
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 export class FEInspection_List extends Component {
   static propTypes = {
@@ -12,9 +14,7 @@ export class FEInspection_List extends Component {
   };
   
   componentDidMount() {
-    console.log(this.props);
     this.props.getFEInspecs();
-    console.log('2:', this.props)
   }
   
   displayPDF = (id) => {
@@ -47,10 +47,21 @@ export class FEInspection_List extends Component {
                         </button>
                     </div>	
                   </td>
+                  <td>
+
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <Link to={{ pathname: "/Fire Extinguisher", state:{building:building}}}>
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
+							}}
+							> Back
+							</Button>
+					</Link>
       </Fragment>
       );
     }

@@ -6,9 +6,13 @@ import { getBuildings, deleteBuilding } from '../../actions/buildings';
 
 export class Staging extends Component {
 
+
+	componentDidMount() {
+		this.setState();
+	  }
+
     render() {
-		const {building} = this.props.location.state
-        console.log(this.props.location.state);
+		const {building} = this.props.history.location.state
         return (
             <Fragment>
                 <h1 className={"buildingNames"}>{building.name}'s Assets</h1>
@@ -17,7 +21,6 @@ export class Staging extends Component {
 						<Button 
 						className={"btn btn--mediumSmall"}
 						onClick={() => {
-								this.state.history.push("/Staging", building);
 							}}
 							> Fire Extinguisher
 							</Button>
@@ -56,6 +59,14 @@ export class Staging extends Component {
 							</Button>
 					</Link>
 				</li>
+          <Link to={{ pathname: '/Home', state:{building:building}}}>
+						<Button 
+						className={"btn btn--mediumSmall"}
+						onClick={() => {
+							}}
+							> Back
+							</Button>
+					</Link>
       </Fragment>
     );
 }

@@ -19,6 +19,7 @@ import Form from "./buildings/Form";
 import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
+import Home from "./buildings/Home";
 
 // Alert Options
 const alertOptions = {
@@ -49,6 +50,7 @@ class App extends Component {
 									<PrivateRoute exact path="/FEInspection" component={FEInspection_List} />
 									<PrivateRoute exact path="/AED" component={AED} />
 									<PrivateRoute exact path="/Form" component={Form} />
+									<PrivateRoute exact path="/Home" component={Home} />
 								</Switch>
 							</div>
 						</Fragment>
