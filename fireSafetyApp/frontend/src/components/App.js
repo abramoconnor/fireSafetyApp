@@ -20,6 +20,8 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
 import Home from "./buildings/Home";
+import Sprinkler from "./buildings/Sprinkler";
+import Alarm from "./buildings/Alarm";
 
 // Alert Options
 const alertOptions = {
@@ -51,6 +53,8 @@ class App extends Component {
 									<PrivateRoute exact path="/AED" component={AED} />
 									<PrivateRoute exact path="/Form" component={Form} />
 									<PrivateRoute exact path="/Home" component={Home} />
+									<PrivateRoute exact path="/Alarm" component={Alarm} />
+									<PrivateRoute exact path="/Sprinkler" component={Sprinkler} />
 								</Switch>
 							</div>
 						</Fragment>

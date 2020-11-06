@@ -27,3 +27,13 @@ export const ADD_FEs = 'ADD_FEs';
 export const CLEAR_FEs = 'CLEAR_FEs';
 
 export const GET_FE_INSP = 'GET_FE_INSP';
+
+export const GET_SPRINKLERs = 'GET_SPRINKLERs';
+export const DELETE_SPRINKLERs = 'DELETE_SPRINKLERs';
+export const ADD_SPRINKLERs = 'ADD_SPRINKLERs';
+export const CLEAR_SPRINKLERs = 'CLEAR_SPRINKLERs';
+
+export const GET_ALARMs = 'GET_ALARMs';
+export const DELETE_ALARMs = 'DELETE_ALARMs';
+export const ADD_ALARMs = 'ADD_ALARMs';
+export const CLEAR_ALARMs = 'CLEAR_ALARMs';

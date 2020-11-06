@@ -38,7 +38,7 @@ export class Staging extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
+					<Link to={{ pathname: '/Sprinkler', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
 						onClick={() => {
@@ -49,7 +49,7 @@ export class Staging extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
+					<Link to={{ pathname: '/Alarm', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
 						onClick={() => {

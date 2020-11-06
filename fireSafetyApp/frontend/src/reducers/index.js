@@ -6,12 +6,16 @@ import auth from './auth';
 import FEs from './FEs';
 import AEDs from './AEDs';
 import FEInspecs from './FEInsp';
+import SPRINKLERs from './Sprinklers';
+import ALARMs from './Alarms';
 
 export default combineReducers({
   buildings,
   FEs,
   FEInspecs,
   AEDs,
+  SPRINKLERs,
+  ALARMs,
   errors,
   messages,
   auth,
