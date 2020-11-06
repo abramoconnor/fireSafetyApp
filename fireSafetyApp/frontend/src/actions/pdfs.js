@@ -15,3 +15,15 @@ export const displayFEInspectionPDF = (id) => (dispatch, getState) => {
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
+
+// GET Alarm Inspection pdf
+export const displayAlarmInspectionPDF = (id) => (dispatch, getState) => {
+  axios
+    .get(`/alarm_insp_pdf/${id}`, tokenConfig(getState))
+    .then((res) => {
+        const file = new Blob([res.data], {type: 'application/pdf'});
+        const pdf = URL.createObjectURL(file);
+        window.open(pdf);
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};

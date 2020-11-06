@@ -7,7 +7,7 @@ import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs } from './types';
 // GET SPRINKLERs
 export const getSPRINKLERs = () => (dispatch, getState) => {
   axios
-    .get('/SPRINKLERs', tokenConfig(getState))
+    .get('/sprinklers', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_SPRINKLERs,
@@ -20,7 +20,7 @@ export const getSPRINKLERs = () => (dispatch, getState) => {
 // DELETE SPRINKLERs
 export const deleteSPRINKLERs = (id) => (dispatch, getState) => {
   axios
-    .delete(`/SPRINKLERs/${id}/`, tokenConfig(getState))
+    .delete(`/sprinklers/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ deleteSPRINKLERs: 'SPRINKLER Deleted' }));
       dispatch({
@@ -32,9 +32,9 @@ export const deleteSPRINKLERs = (id) => (dispatch, getState) => {
 };
 
 // ADD SPRINKLERs
-export const addSPRINKLERs = (SPRINKLER) => (dispatch, getState) => {
+export const addSPRINKLERs = (sprinkler) => (dispatch, getState) => {
   axios
-    .post('/SPRINKLERs', SPRINKLER, tokenConfig(getState))
+    .post('/sprinklers', sprinkler, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addSPRINKLER: 'SPRINKLER Added' }));
       dispatch({

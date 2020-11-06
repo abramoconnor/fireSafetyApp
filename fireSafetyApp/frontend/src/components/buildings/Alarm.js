@@ -22,7 +22,7 @@ export class ALARM extends Component {
     const {building} = this.props.location.state;
     return (
       <Fragment>
-          <h2>ALARMs for {building.name}</h2>   
+          <h2>Alarms for {building.name}</h2>   
           <table className="table table-striped">
             <thead>
               <tr>
@@ -40,7 +40,7 @@ export class ALARM extends Component {
                   <td>{ALARM.last_inspection.split("T")[0]}</td>
                   <td>{ALARM.upcoming_inspection.split("T")[0]}</td>
                   <td>
-                      <Link to={{ pathname: '/FEInspection', state:{building:building, ALARM: ALARM}}}>
+                      <Link to={{ pathname: '/AlarmInspection', state:{building:building, alarm: ALARM}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections

@@ -22,7 +22,7 @@ export class SPRINKLER extends Component {
     const {building} = this.props.location.state;
     return (
       <Fragment>
-          <h2>SPRINKLERs for {building.name}</h2>   
+          <h2>Sprinklers for {building.name}</h2>   
           <table className="table table-striped">
             <thead>
               <tr>
@@ -40,7 +40,7 @@ export class SPRINKLER extends Component {
                   <td>{SPRINKLER.last_inspection.split("T")[0]}</td>
                   <td>{SPRINKLER.upcoming_inspection.split("T")[0]}</td>
                   <td>
-                      <Link to={{ pathname: '/FEInspection', state:{building:building, SPRINKLER: SPRINKLER}}}>
+                      <Link to={{ pathname: '/FEInspection', state:{building:building, sprinkler: SPRINKLER}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections

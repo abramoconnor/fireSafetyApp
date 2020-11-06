@@ -22,6 +22,7 @@ import { loadUser } from '../actions/auth';
 import Home from "./buildings/Home";
 import Sprinkler from "./buildings/Sprinkler";
 import Alarm from "./buildings/Alarm";
+import AlarmInspection_List from "./buildings/AlarmInspectionList";
 
 // Alert Options
 const alertOptions = {
@@ -54,6 +55,7 @@ class App extends Component {
 									<PrivateRoute exact path="/Form" component={Form} />
 									<PrivateRoute exact path="/Home" component={Home} />
 									<PrivateRoute exact path="/Alarm" component={Alarm} />
+									<PrivateRoute exact path="/AlarmInspection" component={AlarmInspection_List} />
 									<PrivateRoute exact path="/Sprinkler" component={Sprinkler} />
 								</Switch>
 							</div>

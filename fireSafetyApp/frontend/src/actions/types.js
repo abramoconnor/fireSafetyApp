@@ -25,7 +25,6 @@ export const GET_FEs = 'GET_FEs';
 export const DELETE_FEs = 'DELETE_FEs';
 export const ADD_FEs = 'ADD_FEs';
 export const CLEAR_FEs = 'CLEAR_FEs';
-
 export const GET_FE_INSP = 'GET_FE_INSP';
 
 export const GET_SPRINKLERs = 'GET_SPRINKLERs';
@@ -37,3 +36,4 @@ export const GET_ALARMs = 'GET_ALARMs';
 export const DELETE_ALARMs = 'DELETE_ALARMs';
 export const ADD_ALARMs = 'ADD_ALARMs';
 export const CLEAR_ALARMs = 'CLEAR_ALARMs';
+export const GET_ALARM_INSP = 'GET_ALARM_INSP';
