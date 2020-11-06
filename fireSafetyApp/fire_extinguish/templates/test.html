@@ -4,9 +4,16 @@
         <title>Fire Extinguisher Inspection Form</title>
     </head>
     <body>
-        {{fei}}
+        <h1>Fire Extinguisher Inspection Form</h1>
+        <p>Test Date: {{fei.date_tested}}</p>
+        <p>Performed By: {{fei.tester}}</p>
         <hr>
-        {{fei.last_inspection}}
+        <br>
+        <h2>Tests Performed: </h2>
+        <p>Ionization and/or Photo Electric Detectors: {{fei.ionization_test}}</p>
+        <p>Thermal (Heat Detectors): {{fei.heat_detector_test}}</p>
+        <p>Manual Pull Stations: {{fei.manual_pull_station_test}}</p>
+        <p>Lamp Test: {{fei.lamp_test}}</p>        
     </body>
 </html>
 
