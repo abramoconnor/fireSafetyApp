@@ -35,8 +35,8 @@ export class AED extends Component {
               <tr key={AED.id}>
                 <td>{AED.id}</td>
                 <td>{AED.code}</td>
-                <td>{AED.last_inspection}</td>
-                <td>{AED.upcoming_inspection}</td>
+                <td>{AED.last_inspection.split("T")[0]}</td>
+                <td>{AED.upcoming_inspection.split("T")[0]}</td>
                 <td>
                   <button
                     onClick={this.props.deleteAEDs.bind(this, AED.id)}
