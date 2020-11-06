@@ -1,7 +1,13 @@
 from rest_framework import serializers
-from fire_extinguish.models import FireExtinguisher
+from alarms.models import Alarms, AlarmInspectionForm
 
-class FESerializer(serializers.ModelSerializer):
+class AlarmsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FireExtinguisher
+        model = Alarms
+        fields = '__all__'
+
+
+class AlarmInspectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AlarmInspectionForm
         fields = '__all__'

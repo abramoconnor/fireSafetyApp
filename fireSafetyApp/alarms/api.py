@@ -1,11 +1,18 @@
 from rest_framework import viewsets, permissions
-from fire_extinguish.models import FireExtinguisher
-from .serializers import FESerializer
+from alarms.models import Alarms, AlarmInspectionForm
+from .serializers import AlarmsSerializer, AlarmInspectionSerializer
 
 
-class FEViewSet(viewsets.ModelViewSet):
-    queryset = FireExtinguisher.objects.all()
+class AlarmsViewSet(viewsets.ModelViewSet):
+    queryset = Alarms.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = FESerializer
+    serializer_class = AlarmsSerializer 
+
+class AlarmInspectionViewSet(viewsets.ModelViewSet):
+    queryset = AlarmInspectionForm.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = AlarmInspectionSerializer

@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from fire_extinguish.models import FireExtinguisher
+from sprinklers.models import Sprinklers
 
-class FESerializer(serializers.ModelSerializer):
+class SprinklersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FireExtinguisher
+        model = Sprinklers
         fields = '__all__'

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'buildings',
     'fire_extinguish',
     'AEDs',
+    'sprinklers',
+    'alarms',
     'rest_framework',
     'frontend',
     'knox',

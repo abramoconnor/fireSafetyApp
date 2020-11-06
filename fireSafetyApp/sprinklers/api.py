@@ -1,11 +1,11 @@
 from rest_framework import viewsets, permissions
-from fire_extinguish.models import FireExtinguisher
-from .serializers import FESerializer
+from sprinklers.models import Sprinklers
+from .serializers import SprinklersSerializer
 
 
-class FEViewSet(viewsets.ModelViewSet):
-    queryset = FireExtinguisher.objects.all()
+class SprinklerViewSet(viewsets.ModelViewSet):
+    queryset = Sprinklers.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = FESerializer
+    serializer_class = SprinklersSerializer 

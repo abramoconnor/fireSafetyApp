@@ -1,7 +1,7 @@
 from rest_framework import routers
-from .api import FEViewSet
+from .api import SprinklerViewSet
 
 router = routers.DefaultRouter()
-router.register('fire_extinguish', FEViewSet, 'fire_extinguish')
+router.register('sprinklers', SprinklerViewSet, 'sprinklers')
 
 urlpatterns = router.urls
