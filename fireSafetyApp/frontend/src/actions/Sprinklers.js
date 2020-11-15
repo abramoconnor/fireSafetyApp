@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs } from './types';
+import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs, GET_SPRINKLER_INSP } from './types';
 
 // GET SPRINKLERs
 export const getSPRINKLERs = () => (dispatch, getState) => {
@@ -39,6 +39,19 @@ export const addSPRINKLERs = (sprinkler) => (dispatch, getState) => {
       dispatch(createMessage({ addSPRINKLER: 'SPRINKLER Added' }));
       dispatch({
         type: ADD_SPRINKLERs,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Sprinkler Inspections
+export const getSprinklerInspecs = () => (dispatch, getState) => {
+  axios
+    .get('/sprinkler_inspection', tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: GET_SPRINKLER_INSP,
         payload: res.data,
       });
     })

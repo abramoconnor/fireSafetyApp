@@ -40,7 +40,7 @@ export class AED extends Component {
                   <td>{AED.last_inspection.split("T")[0]}</td>
                   <td>{AED.upcoming_inspection.split("T")[0]}</td>
                   <td>
-                      <Link to={{ pathname: '/FEInspection', state:{building:building, aed: AED}}}>
+                      <Link to={{ pathname: '/AEDInspection', state:{building:building, aed: AED}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections

@@ -20,6 +20,7 @@ export const GET_AEDs = 'GET_AEDs';
 export const DELETE_AEDs = 'DELETE_AEDs';
 export const ADD_AEDs = 'ADD_AEDs';
 export const CLEAR_AEDs = 'CLEAR_AEDs';
+export const GET_AED_INSP = 'GET_AED_INSP';
 
 export const GET_FEs = 'GET_FEs';
 export const DELETE_FEs = 'DELETE_FEs';
@@ -31,6 +32,7 @@ export const GET_SPRINKLERs = 'GET_SPRINKLERs';
 export const DELETE_SPRINKLERs = 'DELETE_SPRINKLERs';
 export const ADD_SPRINKLERs = 'ADD_SPRINKLERs';
 export const CLEAR_SPRINKLERs = 'CLEAR_SPRINKLERs';
+export const GET_SPRINKLER_INSP = 'GET_SPRINKLER_INSP';
 
 export const GET_ALARMs = 'GET_ALARMs';
 export const DELETE_ALARMs = 'DELETE_ALARMs';
