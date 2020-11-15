@@ -18,8 +18,8 @@ export class Alerts extends Component {
     }
 
     if (message !== prevProps.message) {
-      if (message.deleteFE) alert.success(message.deleteBuilding);
-      if (message.addFE) alert.success(message.addBuilding);
+      if (message.deleteFE) alert.success(message.deleteFE);
+      if (message.addFE) alert.success(message.addFE);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
     }
   }
