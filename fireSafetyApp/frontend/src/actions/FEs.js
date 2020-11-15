@@ -22,7 +22,7 @@ export const deleteFE = (id) => (dispatch, getState) => {
   axios
     .delete(`/fire_extinguish/${id}/`, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ deleteFEs: 'FE Deleted' }));
+      dispatch(createMessage({ deleteFE: 'Fire Extinguishers Deleted' }));
       dispatch({
         type: DELETE_FEs,
         payload: id,
@@ -36,7 +36,7 @@ export const createFE = (FE) => (dispatch, getState) => {
   axios
     .post('/fire_extinguish/', FE, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ addFE: 'FE Added' }));
+      dispatch(createMessage({ addFE: 'Fire Extinguisher Added' }));
       dispatch({
         type: ADD_FEs,
         payload: res.data,
