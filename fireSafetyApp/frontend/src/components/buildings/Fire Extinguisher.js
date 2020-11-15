@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFEs, deleteFEs } from '../../actions/FEs';
+import { getFEs, deleteFE } from '../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
@@ -10,19 +10,27 @@ export class Fire_Extinguisher extends Component {
   static propTypes = {
     FEs: PropTypes.array.isRequired,
     getFEs: PropTypes.func.isRequired,
-    deleteFEs: PropTypes.func.isRequired,
+    deleteFE: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.props.getFEs();
     this.setState();
   }
+
+  deleteFireExtinguisher = (id) => {
+    this.props.deleteFE(id);
+  }
   
   render() {
     const {building} = this.props.location.state;
     return (
       <Fragment>
-          <h2>Fire Extinguishers for {building.name}</h2>   
+          <h2>Fire Extinguishers for {building.name}</h2>
+          {/* ???button on same line */}
+          <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
+            <button className={"btn btn--small"} type="button" onClick={() => {console.log("addnew")}}>+</button>   
+          </Link>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -48,6 +56,11 @@ export class Fire_Extinguisher extends Component {
                         </div>	
                       </Link>
                   </td>
+                  <td>
+                    <button className={"btn btn--small"} type="button" onClick={() => {this.deleteFireExtinguisher(FE.id)}}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -69,4 +82,4 @@ export class Fire_Extinguisher extends Component {
     FEs: state.FEs.FEs,
   });
   
-  export default withRouter(connect(mapStateToProps, { getFEs, deleteFEs })(Fire_Extinguisher));
+  export default withRouter(connect(mapStateToProps, { getFEs, deleteFE })(Fire_Extinguisher));
