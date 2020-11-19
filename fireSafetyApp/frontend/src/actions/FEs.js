@@ -4,10 +4,26 @@ import { tokenConfig } from './auth';
 
 import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP } from './types';
 
-// GET Fire Extinguishers
+// GET all Fire Extinguishers
 export const getFEs = () => (dispatch, getState) => {
   axios
     .get('/fire_extinguish', tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: GET_FEs,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Fire Extinguishers by building id
+export const getFEsByBuilding = (building_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.building = building_id;
+  axios
+    .get('/fire_extinguish', config)
     .then((res) => {
       dispatch({
         type: GET_FEs,
@@ -22,7 +38,7 @@ export const deleteFE = (id) => (dispatch, getState) => {
   axios
     .delete(`/fire_extinguish/${id}/`, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ deleteFE: 'Fire Extinguishers Deleted' }));
+      dispatch(createMessage({ deleteFE: 'Fire Extinguisher Deleted' }));
       dispatch({
         type: DELETE_FEs,
         payload: id,

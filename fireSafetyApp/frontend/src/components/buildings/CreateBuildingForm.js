@@ -1,48 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createFE } from '../../actions/FEs';
+import { createBuilding } from '../../actions/buildings';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
 
-export class CreateFEForm extends Component {
+export class CreateBuildingForm extends Component {
   state = {
-    code: '',
+    name: '',
   };
 
   static propTypes = {
-    createFE: PropTypes.func.isRequired,
+    createBuilding: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   onSubmit = (e) => {
     e.preventDefault();
-    const building = this.props.location.state.building.id;
-    const { code } = this.state;
-    const FE = { code, building };
-    console.log(FE);
-    this.props.createFE(FE);
+    const { name } = this.state;
+    const building = { name };
+    this.props.createBuilding(building);
     this.setState({
-      code: '',
+        name: '',
     });
   };
 
   render() {
-    const { code } = this.state;
+    const { name } = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
-        <h2>Create New Fire Extinguisher</h2>
+        <h2>Create New Building</h2>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Code</label>
+        <div className="form-group">
+            <label>Name</label>
             <input
               className="form-control"
               type="text"
-              name="code"
+              name="name"
               onChange={this.onChange}
-              value={code}
+              value={name}
             />
           </div>
           <div className="form-group">
@@ -51,7 +49,7 @@ export class CreateFEForm extends Component {
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/Fire Extinguisher", state: this.props.location.state}}>
+        <Link to={{ pathname: "/Home", state: this.props.location.state}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		</Link>
       </div>
@@ -59,4 +57,4 @@ export class CreateFEForm extends Component {
   }
 }
 
-export default connect(null, { createFE })(CreateFEForm);
+export default connect(null, { createBuilding })(CreateBuildingForm);

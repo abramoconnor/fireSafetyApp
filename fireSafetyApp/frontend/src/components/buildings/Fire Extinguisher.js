@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFEs, deleteFE } from '../../actions/FEs';
+import { getFEsByBuilding, deleteFE } from '../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
@@ -9,12 +9,13 @@ export class Fire_Extinguisher extends Component {
 
   static propTypes = {
     FEs: PropTypes.array.isRequired,
-    getFEs: PropTypes.func.isRequired,
+    getFEsByBuilding: PropTypes.func.isRequired,
     deleteFE: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.getFEs();
+    console.log(this.props)
+    this.props.getFEsByBuilding(this.props.location.state.building.id);
     this.setState();
   }
 
@@ -82,4 +83,4 @@ export class Fire_Extinguisher extends Component {
     FEs: state.FEs.FEs,
   });
   
-  export default withRouter(connect(mapStateToProps, { getFEs, deleteFE })(Fire_Extinguisher));
+  export default withRouter(connect(mapStateToProps, { getFEsByBuilding, deleteFE })(Fire_Extinguisher));

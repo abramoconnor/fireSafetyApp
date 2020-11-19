@@ -22,32 +22,34 @@ export class Buildings extends Component {
 		{
 			return(
 			<li key={building.id}>
-					<Link to={{ pathname: '/Staging', state:{building:building}}}>
-						<div className =  "App">
-						<button
-							className={"btn btn--medium"} 
-							onClick={() => {this.setState(this)}}>
-							{building.name}
-							</button>
-						</div>	
-					</Link>
-				</li>)
+				<Link to={{ pathname: '/Staging', state:{building:building}}}>
+					<div className =  "App">
+					<button
+						className={"btn btn--medium"} 
+						onClick={() => {this.setState(this)}}>
+						{building.name}
+						</button>
+					</div>	
+				</Link>
+			</li>
+			)
 		}
 		
 		else if(building.name.toLowerCase().includes(this.state.search.toLowerCase()))
 		{
 			return(
 			<li key={building.id}>
-					<Link to={{ pathname: '/Staging', state:{building:building}}}>
-						<div className =  "App">
-						<button
-							className={"btn btn--medium"} 
-							onClick={() => {this.setState(this)}}>
-							{building.name}
-							</button>
-						</div>	
-					</Link>
-				</li>)
+				<Link to={{ pathname: '/Staging', state:{building:building}}}>
+					<div className =  "App">
+					<button
+						className={"btn btn--medium"} 
+						onClick={() => {this.setState(this)}}>
+						{building.name}
+						</button>
+					</div>	
+				</Link>
+			</li>
+			)
 		}
 	}
 
@@ -63,18 +65,18 @@ export class Buildings extends Component {
 	render() {
 		return (
 			<Fragment>
-			<SearchField
-			placeholder="Search..."
-			type = "text" 
-			onChange={(e)=>this.setSearchKey(e)}
-			/>
-			<h1 className={"buildingNames style"}> Buildings</h1>
-			<div className = "grid">
-			{this.props.buildings.map((building) => (
-			this.filter(building)
-            ))}
-			</div>
-		</Fragment>
+				<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+				<h1 className={"buildingNames style"}> Buildings</h1>
+				<Link to={{ pathname: '/CreateBuildingForm', state:{}}}>
+            		<button className={"btn btn--small"} type="button" onClick={() => {console.log("addnew building")}}>+</button>   
+          		</Link>
+				<div className = "grid">
+					{this.props.buildings.map((building) => (
+						this.filter(building)
+						)
+					)}
+				</div>
+			</Fragment>
 	  );
 	}
   }

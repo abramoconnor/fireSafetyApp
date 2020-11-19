@@ -32,11 +32,11 @@ export const deleteBuilding = (id) => (dispatch, getState) => {
 };
 
 // ADD BUILDING
-export const addBuilding = (building) => (dispatch, getState) => {
+export const createBuilding = (building) => (dispatch, getState) => {
   axios
     .post('/buildings/', building, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ addBuilding: 'Building Added' }));
+      dispatch(createMessage({ addBuilding: `${building.name} created` }));
       dispatch({
         type: ADD_BUILDING,
         payload: res.data,

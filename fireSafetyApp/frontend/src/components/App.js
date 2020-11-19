@@ -26,6 +26,8 @@ import SprinklerInspection_List from "./buildings/SprinklerInspectionList";
 import Alarm from "./buildings/Alarm";
 import AlarmInspection_List from "./buildings/AlarmInspectionList";
 import CreateFEForm  from "./buildings/CreateFEForm";
+import CreateBuildingForm  from "./buildings/CreateBuildingForm";
+
 
 // Alert Options
 const alertOptions = {
@@ -63,6 +65,7 @@ class App extends Component {
 									<PrivateRoute exact path="/Sprinkler" component={Sprinkler} />
 									<PrivateRoute exact path="/SprinklerInspection" component={SprinklerInspection_List} />
 									<PrivateRoute exact path="/CreateFEForm" component={CreateFEForm} />
+									<PrivateRoute exact path="/CreateBuildingForm" component={CreateBuildingForm} />
 								</Switch>
 							</div>
 						</Fragment>

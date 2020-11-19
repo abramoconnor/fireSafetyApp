@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils import timezone
+from buildings.models import Building
 
 class FireExtinguisher(models.Model):
     code = models.CharField(max_length=100, unique=True)
-    last_inspection = models.DateTimeField(default=timezone.now,)
+    last_inspection = models.DateTimeField(default=timezone.now)
     upcoming_inspection = models.DateTimeField(default=timezone.now)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name="buildings", default=0)
 
 class FEInspectionForm(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
