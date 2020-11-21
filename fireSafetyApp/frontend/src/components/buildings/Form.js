@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addBuilding } from '../../actions/buildings';
+import { createBuilding } from '../../actions/buildings';
 
 
 export class Form extends Component {
@@ -12,7 +12,7 @@ export class Form extends Component {
   };
 
   static propTypes = {
-    addBuilding: PropTypes.func.isRequired,
+    createBuilding: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -76,4 +76,4 @@ export class Form extends Component {
   }
 }
 
-export default connect(null, { addBuilding })(Form);
+export default connect(null, { createBuilding })(Form);
