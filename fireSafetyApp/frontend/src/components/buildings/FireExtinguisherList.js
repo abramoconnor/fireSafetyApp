@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getFEsByBuilding } from '../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
+import SearchField from "react-search-field"
 
 export class FireExtinguisherList extends Component {
 
@@ -11,6 +12,52 @@ export class FireExtinguisherList extends Component {
     FEs: PropTypes.array.isRequired,
     getFEsByBuilding: PropTypes.func.isRequired,
   };
+
+  state = {search:null};
+
+  filter = (fe ,building) => {
+		if (this.state.search == null)
+		{
+			return(
+        <tr key={fe.id}>
+        {/* ???Blane make this button blue text and underline, no box */}
+        <td>
+          <Link to={{ pathname: '/FireExtinguisher', state:{building:building, fe: fe}}}>
+            <button>
+            {fe.exnum}
+            </button>
+          </Link>
+        </td>
+        {/* ???logic to get next upcoming */}
+        <td>{this.nextInspection(fe)}</td>
+      </tr>
+			)
+		}
+		
+		else if(fe.exnum.toLowerCase().includes(this.state.search.toLowerCase()))
+		{
+			return(
+        <tr key={fe.id}>
+        {/* ???Blane make this button blue text and underline, no box */}
+        <td>
+          <Link to={{ pathname: '/FireExtinguisher', state:{building:building, fe: fe}}}>
+            <button>
+            {fe.exnum}
+            </button>
+          </Link>
+        </td>
+        {/* ???logic to get next upcoming */}
+        <td>{this.nextInspection(fe)}</td>
+      </tr>
+			)
+    }
+  }
+	
+
+	setSearchKey = (key) =>
+	{
+		this.setState({search:key})
+	}
 
   componentDidMount() {
     this.props.getFEsByBuilding(this.props.location.state.building.id);
@@ -33,6 +80,7 @@ export class FireExtinguisherList extends Component {
     const {building} = this.props.location.state;
     return (
       <Fragment>
+        <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
           <h2>Fire Extinguishers for {building.name}</h2>
           <p>Number of Extinguishers in {building.name}: {this.props.FEs.length}</p>
           {/* ???button on same line */}
@@ -48,16 +96,7 @@ export class FireExtinguisherList extends Component {
             </thead>
             <tbody>
               {this.props.FEs.map((FE) => (
-                <tr key={FE.id}>
-                  {/* ???Blane make this button blue text and underline, no box */}
-                  <td>
-                    <Link to={{ pathname: '/FireExtinguisher', state:{building:building, fe: FE}}}>
-                      <button>{FE.exnum}</button>
-                    </Link>
-                  </td>
-                  {/* ???logic to get next upcoming */}
-                  <td>{this.nextInspection(FE)}</td>
-                </tr>
+               this.filter(FE, building)
               ))}
             </tbody>
           </table>

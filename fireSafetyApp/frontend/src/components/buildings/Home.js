@@ -55,7 +55,7 @@ export class Buildings extends Component {
 
 	setSearchKey = (key) =>
 	{
-		this.setState({search:key})
+		this.setState({search:key, building:building})
 	}
 	
 	componentDidMount() {
