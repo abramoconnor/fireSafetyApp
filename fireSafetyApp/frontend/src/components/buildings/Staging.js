@@ -19,7 +19,7 @@ export class Staging extends Component {
                 <h1 className={"buildingNames"}>{building.name}'s Assets</h1>
 				<div className = "grid">
 				<li>
-					<Link to={{ pathname: '/Fire Extinguisher', state:{building:building}}}>
+					<Link to={{ pathname: '/FireExtinguisherList', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
 						onClick={() => {

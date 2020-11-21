@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .models import FEInspectionForm
+from .models import FEInspection
 
 
 def fe_inspection_render_pdf_view(request, *args, **kwargs):
     pk = kwargs.get('pk')
-    fei = get_object_or_404(FEInspectionForm, pk=pk)
+    fei = get_object_or_404(FEInspection, pk=pk)
 
     template_path = 'test.html'
     context = {'fei': fei}

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP } from './types';
+import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP, ADD_FE_INSP } from './types';
 
 // GET all Fire Extinguishers
 export const getFEs = () => (dispatch, getState) => {
@@ -61,10 +61,41 @@ export const createFE = (FE) => (dispatch, getState) => {
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// GET FE Inspections
-export const getFEInspecs = () => (dispatch, getState) => {
+// UPDATE Fire Extinguisher dates
+export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
+  let requestBody = {};
+  if (i.inspection_type === "monthly") {
+    requestBody.last_monthly_inspection = i.date_tested;
+    // requestBody.upcoming_monthly_inspection = 
+  }
+  else if (i.inspection_type === "annual") {
+    requestBody.last_annual_inspection = i.date_tested;
+  }
+  else if (i.inspection_type === "6year") {
+    requestBody.last_6year_service = i.date_tested;
+  }
+  else if (i.inspection_type === "12year") {
+    requestBody.last_12year_test = i.date_tested;
+  }
   axios
-    .get('/fe_inspection', tokenConfig(getState))
+    .patch(`/fire_extinguish/${FE.id}`, FE, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addFE: 'Fire Extinguisher Added' }));
+      dispatch({
+        type: ADD_FEs,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET FE Inspections
+export const getFEInspecsById = (fe_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.fire_extinguisher = fe_id;
+  axios
+    .get(`/fe_inspection`, config)
     .then((res) => {
       dispatch({
         type: GET_FE_INSP,
@@ -73,3 +104,19 @@ export const getFEInspecs = () => (dispatch, getState) => {
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
+
+// CREATE FE Inspections
+export const createFEInspection = (i) => (dispatch, getState) => {
+  console.log(i);
+  axios
+    .post('/fe_inspection/', i, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addFEInspection: 'Inspection Completed' }));
+      dispatch({
+        type: ADD_FE_INSP,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+

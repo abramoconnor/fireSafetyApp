@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions
-from fire_extinguish.models import FireExtinguisher, FEInspectionForm
+from fire_extinguish.models import FireExtinguisher, FEInspection
 from .serializers import FESerializer, FEInspectionSerializer
 
 
@@ -18,8 +18,13 @@ class FEViewSet(viewsets.ModelViewSet):
     
 
 class FEInspectionViewSet(viewsets.ModelViewSet):
-    queryset = FEInspectionForm.objects.all()
+    serializer_class = FEInspectionSerializer
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = FEInspectionSerializer
+    def get_queryset(self):
+        queryset = FEInspection.objects.all()
+        fire_extinguisher = self.request.query_params.get('fire_extinguisher', None)
+        if fire_extinguisher is not None:
+            queryset = queryset.filter(fire_extinguisher=fire_extinguisher)
+        return queryset

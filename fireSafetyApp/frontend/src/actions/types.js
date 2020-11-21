@@ -27,6 +27,7 @@ export const DELETE_FEs = 'DELETE_FEs';
 export const ADD_FEs = 'ADD_FEs';
 export const CLEAR_FEs = 'CLEAR_FEs';
 export const GET_FE_INSP = 'GET_FE_INSP';
+export const ADD_FE_INSP = 'ADD_FE_INSP';
 
 export const GET_SPRINKLERs = 'GET_SPRINKLERs';
 export const DELETE_SPRINKLERs = 'DELETE_SPRINKLERs';

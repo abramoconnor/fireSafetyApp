@@ -71,10 +71,7 @@ export class Buildings extends Component {
             		<button className={"btn btn--small"} type="button" onClick={() => {console.log("addnew building")}}>+</button>   
           		</Link>
 				<div className = "grid">
-					{this.props.buildings.map((building) => (
-						this.filter(building)
-						)
-					)}
+					{this.props.buildings.map(building => this.filter(building))}
 				</div>
 			</Fragment>
 	  );

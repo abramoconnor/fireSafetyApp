@@ -1,26 +1,32 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFEsByBuilding, deleteFE } from '../../actions/FEs';
+import { getFEsByBuilding } from '../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
-export class Fire_Extinguisher extends Component {
+export class FireExtinguisherList extends Component {
 
   static propTypes = {
     FEs: PropTypes.array.isRequired,
     getFEsByBuilding: PropTypes.func.isRequired,
-    deleteFE: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    console.log(this.props)
     this.props.getFEsByBuilding(this.props.location.state.building.id);
-    this.setState();
+    console.log(this)
   }
 
-  deleteFireExtinguisher = (id) => {
-    this.props.deleteFE(id);
+  nextInspection = (fe) => {
+    let next = fe.upcoming_monthly_inspection;
+    if (fe.upcoming_annual_inspection < next ) {
+      next = fe.upcoming_annual_inspection
+    } else if (fe.upcoming_6year_service < next) {
+      next = fe.upcoming_6year_service
+    } else if (fe.upcoming_12year_test < next) {
+      next = fe.upcoming_12year_test
+    }
+    return next.split("T")[0];
   }
   
   render() {
@@ -28,6 +34,7 @@ export class Fire_Extinguisher extends Component {
     return (
       <Fragment>
           <h2>Fire Extinguishers for {building.name}</h2>
+          <p>Number of Extinguishers in {building.name}: {this.props.FEs.length}</p>
           {/* ???button on same line */}
           <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
             <button className={"btn btn--small"} type="button" onClick={() => {console.log("addnew")}}>+</button>   
@@ -35,33 +42,21 @@ export class Fire_Extinguisher extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-              <th>ID</th>
-                <th>Code</th>
-                <th>Last Inspected</th>
-                <th>Upcoming Inspection</th>
+                <th>Extinguisher Number</th>
+                <th>Next Upcoming Inspection</th>
               </tr>
             </thead>
             <tbody>
               {this.props.FEs.map((FE) => (
                 <tr key={FE.id}>
-                  <td>{FE.id}</td>
-                  <td>{FE.code}</td>
-                  <td>{FE.last_inspection.split("T")[0]}</td>
-                  <td>{FE.upcoming_inspection.split("T")[0]}</td>
+                  {/* ???Blane make this button blue text and underline, no box */}
                   <td>
-                      <Link to={{ pathname: '/FEInspection', state:{building:building, fe: FE}}}>
-                        <div className="App">
-                          <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
-                            Inspection List
-                          </button>
-                        </div>	
-                      </Link>
+                    <Link to={{ pathname: '/FireExtinguisher', state:{building:building, fe: FE}}}>
+                      <button>{FE.exnum}</button>
+                    </Link>
                   </td>
-                  <td>
-                    <button className={"btn btn--small"} type="button" onClick={() => {this.deleteFireExtinguisher(FE.id)}}>
-                      Delete
-                    </button>
-                  </td>
+                  {/* ???logic to get next upcoming */}
+                  <td>{this.nextInspection(FE)}</td>
                 </tr>
               ))}
             </tbody>
@@ -83,4 +78,4 @@ export class Fire_Extinguisher extends Component {
     FEs: state.FEs.FEs,
   });
   
-  export default withRouter(connect(mapStateToProps, { getFEsByBuilding, deleteFE })(Fire_Extinguisher));
+  export default withRouter(connect(mapStateToProps, { getFEsByBuilding })(FireExtinguisherList));

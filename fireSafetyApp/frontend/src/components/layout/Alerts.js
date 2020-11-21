@@ -12,13 +12,14 @@ export class Alerts extends Component {
   componentDidUpdate(prevProps) {
     const { error, alert, message } = this.props;
     if (error !== prevProps.error) {
-      if (error.msg.code) alert.error(`Code: ${error.msg.code.join()}`);
+      if (error.msg.exnum) alert.error(`Extinguisher Number: ${error.msg.exnum.join()}`);
       if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
       if (error.msg.username) alert.error(error.msg.username.join());
     }
 
     if (message !== prevProps.message) {
       if (message.addBuilding) alert.success(message.addBuilding);
+      if (message.addFEInspection) alert.success(message.addFEInspection);
       if (message.deleteFE) alert.success(message.deleteFE);
       if (message.addFE) alert.success(message.addFE);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
