@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getALARMs, deleteALARMs } from '../../actions/ALARMs';
+import { getALARMs, deleteALARMs } from '../../actions/Alarms';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
