@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP, ADD_FE_INSP } from './types';
+import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP, ADD_FE_INSP, UPDATE_FE } from './types';
 
 // GET all Fire Extinguishers
 export const getFEs = () => (dispatch, getState) => {
@@ -49,6 +49,14 @@ export const deleteFE = (id) => (dispatch, getState) => {
 
 // ADD Fire Extinguisher
 export const createFE = (FE) => (dispatch, getState) => {
+  let d = new Date();
+  FE.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
+  d = new Date();
+  FE.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  d = new Date();
+  FE.upcoming_6year_service = new Date(d.setFullYear(d.getFullYear()+6));
+  d = new Date();
+  FE.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
   axios
     .post('/fire_extinguish/', FE, tokenConfig(getState))
     .then((res) => {
@@ -64,25 +72,30 @@ export const createFE = (FE) => (dispatch, getState) => {
 // UPDATE Fire Extinguisher dates
 export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
   let requestBody = {};
+  let d = new Date(i.date_tested);
   if (i.inspection_type === "monthly") {
     requestBody.last_monthly_inspection = i.date_tested;
-    // requestBody.upcoming_monthly_inspection = 
+    requestBody.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
   }
   else if (i.inspection_type === "annual") {
     requestBody.last_annual_inspection = i.date_tested;
+    requestBody.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   else if (i.inspection_type === "6year") {
     requestBody.last_6year_service = i.date_tested;
+    requestBody.upcoming_6year_service = new Date(d.setFullYear(d.getFullYear()+6));
   }
   else if (i.inspection_type === "12year") {
     requestBody.last_12year_test = i.date_tested;
+    requestBody.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
   }
+  console.log(requestBody);
   axios
-    .patch(`/fire_extinguish/${FE.id}`, FE, tokenConfig(getState))
+    .patch(`/fire_extinguish/${FE.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ addFE: 'Fire Extinguisher Added' }));
+      dispatch(createMessage({ updateFE: 'Fire Extinguisher Updated' }));
       dispatch({
-        type: ADD_FEs,
+        type: UPDATE_FE,
         payload: res.data,
       });
     })

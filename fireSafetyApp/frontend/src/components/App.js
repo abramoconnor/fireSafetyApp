@@ -28,6 +28,7 @@ import Alarm from "./buildings/Alarm";
 import AlarmInspection_List from "./buildings/AlarmInspectionList";
 import CreateFEForm  from "./buildings/CreateFEForm";
 import CreateBuildingForm  from "./buildings/CreateBuildingForm";
+import FEReport  from "./buildings/FEReport";
 
 
 // Alert Options
@@ -68,6 +69,7 @@ class App extends Component {
 									<PrivateRoute exact path="/SprinklerInspection" component={SprinklerInspection_List} />
 									<PrivateRoute exact path="/CreateFEForm" component={CreateFEForm} />
 									<PrivateRoute exact path="/CreateBuildingForm" component={CreateBuildingForm} />
+									<PrivateRoute exact path="/FEReport" component={FEReport} />
 								</Switch>
 							</div>
 						</Fragment>

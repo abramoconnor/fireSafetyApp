@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createFEInspection } from '../../actions/FEs';
+import { createFEInspection, updateFEInspectionDate } from '../../actions/FEs';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
@@ -12,12 +12,14 @@ export class FEInspection extends Component {
 
   static propTypes = {
     createFEInspection: PropTypes.func.isRequired,
+    updateFEInspectionDate: PropTypes.func.isRequired
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   onSubmit = (e) => {
     e.preventDefault();
+    let fire_extinguisher = this.props.location.state.fe;
     let inspection = {
       inspection_type: this.state.type,
       date_tested: new Date(),
@@ -25,6 +27,7 @@ export class FEInspection extends Component {
       fire_extinguisher: this.props.location.state.fe.id
     };
     this.props.createFEInspection(inspection);
+    this.props.updateFEInspectionDate(fire_extinguisher, inspection)
     this.setState({ type: ''});
   }
     
@@ -71,4 +74,4 @@ export class FEInspection extends Component {
     }
   }
   
-export default connect(null, { createFEInspection })(FEInspection);
+export default connect(null, { createFEInspection, updateFEInspectionDate })(FEInspection);

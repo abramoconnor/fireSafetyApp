@@ -1,4 +1,4 @@
-import { GET_FEs, DELETE_FEs, ADD_FEs, CLEAR_FEs } from '../actions/types.js';
+import { GET_FEs, DELETE_FEs, ADD_FEs, CLEAR_FEs, UPDATE_FE } from '../actions/types.js';
 
 const initialState = {
   FEs: [],
@@ -21,6 +21,15 @@ export default function (state = initialState, action) {
         ...state,
         FEs: [...state.FEs, action.payload],
       };
+    case UPDATE_FE:
+      return {
+        ...state,
+        FEs: state.FEs.map((FE) => {
+          if (FE.id === action.payload.id) {
+            return action.payload;
+          } else return FE;
+        })
+      }
     case CLEAR_FEs:
       return {
         ...state,

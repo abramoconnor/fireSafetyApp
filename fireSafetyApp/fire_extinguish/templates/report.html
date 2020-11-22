@@ -1,19 +1,20 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Fire Extinguisher Inspection Form</title>
+        <title>Fire Extinguisher Report</title>
     </head>
     <body>
-        <h1 style="font-size:300%;">Fire Extinguisher Inspection Form</h1>
-        <p style="font-size:160%; padding-left:30px;">Test Date: {{fei.date_tested}}</p>
-        <p style="font-size:160%; padding-left:30px;">Performed By: {{fei.tester}}</p>
+        <h1 style="font-size:300%;">Fire Extinguisher Report</h1>
+        <p style="font-size:160%; padding-left:30px;">Date: </p>
+        <p style="font-size:160%; padding-left:30px;">Extinguisher Number: {{fe.exnum}}</p>
+        <p style="font-size:160%; padding-left:30px;">Location: {{building.name}}</p>
         <hr>
         <br>
-        <h2 style="font-size:300%;">Tests Performed: </h2>
+        {% comment %} <h2 style="font-size:300%;">Tests Performed: </h2>
         <p style="font-size:160%; padding-left:30px;">Ionization and/or Photo Electric Detectors: {{fei.ionization_test}}</p>
         <p style="font-size:160%; padding-left:30px;">Thermal (Heat Detectors): {{fei.heat_detector_test}}</p>
         <p style="font-size:160%; padding-left:30px;">Manual Pull Stations: {{fei.manual_pull_station_test}}</p>
-        <p style="font-size:160%; padding-left:30px;">Lamp Test: {{fei.lamp_test}}</p>        
+        <p style="font-size:160%; padding-left:30px;">Lamp Test: {{fei.lamp_test}}</p>         {% endcomment %}
         {% comment %} <img src="C:\Users\abram\Pictures\wsu.jpg"> {% endcomment %}
     </body>
 </html>

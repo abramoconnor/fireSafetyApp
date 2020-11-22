@@ -4,9 +4,11 @@ import { tokenConfig } from './auth';
 
 
 // GET Fire Extinguisher Inspection pdf
-export const displayFEInspectionPDF = (id) => (dispatch, getState) => {
+export const displayFEInspectionPDF = (params) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  console.log(config);
   axios
-    .get(`/fe_insp_pdf/${id}`, tokenConfig(getState))
+    .post(`/fe_report_pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);

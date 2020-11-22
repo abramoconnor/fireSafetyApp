@@ -25,6 +25,7 @@ export const GET_AED_INSP = 'GET_AED_INSP';
 export const GET_FEs = 'GET_FEs';
 export const DELETE_FEs = 'DELETE_FEs';
 export const ADD_FEs = 'ADD_FEs';
+export const UPDATE_FE = 'UPDATE_FE';
 export const CLEAR_FEs = 'CLEAR_FEs';
 export const GET_FE_INSP = 'GET_FE_INSP';
 export const ADD_FE_INSP = 'ADD_FE_INSP';

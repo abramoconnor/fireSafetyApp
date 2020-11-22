@@ -15,7 +15,6 @@ export class FireExtinguisher extends Component {
 
   componentDidMount() {
     this.props.getFEInspecsById(this.props.location.state.fe.id);
-    console.log(this);
   }
   
   deleteFireExtinguisher = (id) => {
@@ -73,12 +72,14 @@ export class FireExtinguisher extends Component {
           <h2>Fire Extinguisher: {fe.exnum}</h2>
           <p>Located in: {building.name}</p>
           <Link to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}>
-				<Button className={"btn btn--small"} onClick={() => {this.deleteFireExtinguisher(fe.id)}}>Delete</Button>
-		  </Link>
-          <Link to={{ pathname: '/FEInspection', state: this.props.location.state}}>
-				<Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
-		  </Link>
-          <button className={"btn btn--small"}>Generate Report</button>
+				    <Button className={"btn btn--small"} onClick={() => {this.deleteFireExtinguisher(fe.id)}}>Delete</Button>
+          </Link>
+          <Link to={{ pathname: '/FEInspection', state: {building: building, fe: fe}}}>
+            <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
+          </Link>
+          <Link to={{ pathname: '/FEReport', state: {building: building, fe: fe}}}>
+            <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
+          </Link>
           <table className="table table-striped">
             <caption>Monthly Inspections</caption>
             <thead>
