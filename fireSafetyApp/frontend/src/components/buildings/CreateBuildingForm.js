@@ -44,14 +44,16 @@ export class CreateBuildingForm extends Component {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Submit
+            <button type="submit" className="btn2 btn--submit">
+              SUBMIT
             </button>
           </div>
         </form>
+        <div>
         <Link to={{ pathname: "/Home", state: this.props.location.state}}>
-			<Button className={"btn btn--back"}>Back</Button>
-		</Link>
+			    <Button className={"btn btn--back"}>Back</Button>
+		    </Link>
+      </div>
       </div>
     );
   }

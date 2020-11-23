@@ -105,14 +105,16 @@ export class CreateFEForm extends Component {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Submit
+            <button type="submit" className="btn2 btn--submit">
+              SUBMIT
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/FireExtinguisherList", state: this.props.location.state}}>
-			<Button className={"btn btn--back"}>Back</Button>
-		</Link>
+          <div>
+             <Link to={{ pathname: "/FireExtinguisherList", state: this.props.location.state}}>		
+               <Button className={"btn btn--back"}>Back</Button>   
+		         </Link>
+          </div> 
       </div>
     );
   }

@@ -64,19 +64,32 @@ export class Buildings extends Component {
 	
 	render() {
 		return (
-			<Fragment>
-				<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
-				<h1 className={"buildingNames style"}> Buildings</h1>
-				<Link to={{ pathname: '/CreateBuildingForm', state:{}}}>
-            		<button className={"btn btn--small"} type="button" onClick={() => {console.log("addnew building")}}>+</button>   
-          		</Link>
+			<Fragment>	
+					<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+					<h1 className={"buildingNames style"}> Buildings</h1>
+				
 				<div className = "grid">
 					{this.props.buildings.map(building => this.filter(building))}
+				</div>
+				<div className = "grid">
+				<Link to={{ pathname: '/CreateBuildingForm', state:{}}}>
+            		<button className={"btn2 btn--mediumSmall"} type="button" onClick={() => {console.log("addnew building")}}>Add New Building</button>   
+          		</Link>
 				</div>
 			</Fragment>
 	  );
 	}
   }
+
+  /* failed searchbar code
+
+  	<div class='search-bar'>
+						<input type='text' className='search-bar__input' placeholder="Search...">
+						</input>
+						<button className='search-bar__submit'>Go</button>
+	</div>
+
+  */
   
   const mapStateToProps = (state) => ({
 	buildings: state.buildings.buildings,

@@ -84,9 +84,6 @@ export class FireExtinguisherList extends Component {
           <h2>Fire Extinguishers for {building.name}</h2>
           <p>Number of Extinguishers in {building.name}: {this.props.FEs.length}</p>
           {/* ???button on same line */}
-          <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
-            <button className={"btn btn--small"} type="button" onClick={() => {console.log("addnew")}}>+</button>   
-          </Link>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -100,14 +97,19 @@ export class FireExtinguisherList extends Component {
               ))}
             </tbody>
           </table>
+          <div className = "grid">
+          <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
+            <button className={"btn2 btn--back"} type="button" onClick={() => {console.log("addnew")}}>Add New FE</button>   
+          </Link>
           <Link to={{ pathname: '/Staging', state:{building:building}}}>
 						<Button 
 						className={"btn btn--back"}
 						onClick={() => {
 							}}
 							> Back
-							</Button>
+							</Button>      
 					</Link>
+          </div>
       </Fragment>
       );
     }
