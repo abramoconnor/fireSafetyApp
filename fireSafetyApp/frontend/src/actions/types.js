@@ -29,6 +29,9 @@ export const UPDATE_FE = 'UPDATE_FE';
 export const CLEAR_FEs = 'CLEAR_FEs';
 export const GET_FE_INSP = 'GET_FE_INSP';
 export const ADD_FE_INSP = 'ADD_FE_INSP';
+export const GET_FE_NOTES = 'GET_FE_NOTES';
+export const ADD_FE_NOTES = 'ADD_FE_NOTES';
+
 
 export const GET_SPRINKLERs = 'GET_SPRINKLERs';
 export const DELETE_SPRINKLERs = 'DELETE_SPRINKLERs';

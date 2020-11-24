@@ -2,19 +2,24 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteFE, getFEInspecsById } from '../../actions/FEs';
+import {getFENotesById} from "../../actions/notes"
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
+import NoteInputToggler from "./addNote";
 
 export class FireExtinguisher extends Component {
 
   static propTypes = {
     FEInspecs: PropTypes.array.isRequired,
+    FENotes: PropTypes.array.isRequired,
+    getFENotesById: PropTypes.func.isRequired,
     getFEInspecsById: PropTypes.func.isRequired,
     deleteFE: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.props.getFEInspecsById(this.props.location.state.fe.id);
+    this.props.getFENotesById(this.props.location.state.fe.id);
   }
   
   deleteFireExtinguisher = (id) => {
@@ -128,6 +133,16 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parse12YearTests(i))}
             </tbody>
           </table>
+          <div>
+            <h5>Notes</h5>
+            <NoteInputToggler fe={fe}/>
+            <ul>
+                {this.props.FENotes.map((n) => 
+                <li key={n.id}>
+                  {n.note}
+                </li>)}
+            </ul>
+          </div>
           <Link to={{ pathname: '/FireExtinguisherList', state: {building: building}}}>
 				<Button className={"btn btn--back"} onClick={() => console.log(building)}>Back</Button>
 		  </Link>
@@ -138,6 +153,7 @@ export class FireExtinguisher extends Component {
   
   const mapStateToProps = (state) => ({
     FEInspecs: state.FEInspecs.FEInspecs,
+    FENotes: state.FENotes.FENotes,
   });
 
-  export default withRouter(connect(mapStateToProps, { deleteFE, getFEInspecsById })(FireExtinguisher));
+  export default withRouter(connect(mapStateToProps, { deleteFE, getFEInspecsById, getFENotesById })(FireExtinguisher));

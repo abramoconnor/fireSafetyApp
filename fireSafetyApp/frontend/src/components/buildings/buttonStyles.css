@@ -180,3 +180,7 @@ Then consecutive button styles were put together depending on need, etc.
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
+
+.hide {
+	display: none;
+}

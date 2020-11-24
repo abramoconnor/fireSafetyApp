@@ -19,3 +19,7 @@ class FEInspection(models.Model):
     date_tested = models.DateTimeField(default=timezone.now)
     tester = models.CharField(max_length=100)
     fire_extinguisher = models.ForeignKey(FireExtinguisher, on_delete=models.CASCADE, related_name="fire_extinguish", default=0)
+
+class FENotes(models.Model):
+    note = models.CharField(max_length=240)
+    fire_extinguisher = models.ForeignKey(FireExtinguisher, on_delete=models.CASCADE, related_name="fire_extinguisher", default=0)

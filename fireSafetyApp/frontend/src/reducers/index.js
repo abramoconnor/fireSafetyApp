@@ -11,11 +11,13 @@ import FEInspecs from './FEInsp';
 import AlarmInspecs from "./AlarmInsp";
 import SprinklerInspecs from "./SprinklerInsp";
 import AEDInspecs from "./AEDInsp";
+import FENotes from "./FENotes"
 
 export default combineReducers({
   buildings,
   FEs,
   FEInspecs,
+  FENotes,
   AEDs,
   AEDInspecs,
   SPRINKLERs,

@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createFEInspection, updateFEInspectionDate } from '../../actions/FEs';
+import {createFENote} from "../../actions/notes"
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
 export class FEInspection extends Component {
   state = {
     type: 'monthly',
+    note: '',
   }
 
   static propTypes = {
     createFEInspection: PropTypes.func.isRequired,
-    updateFEInspectionDate: PropTypes.func.isRequired
+    updateFEInspectionDate: PropTypes.func.isRequired,
+    createFENote: PropTypes.func.isRequired
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -27,13 +30,20 @@ export class FEInspection extends Component {
       fire_extinguisher: this.props.location.state.fe.id
     };
     this.props.createFEInspection(inspection);
-    this.props.updateFEInspectionDate(fire_extinguisher, inspection)
-    this.setState({ type: ''});
+    this.props.updateFEInspectionDate(fire_extinguisher, inspection);
+    if (this.state.note) {
+      let n = {
+        note: this.state.note,
+        fire_extinguisher: this.props.location.state.fe.id
+      }
+      this.props.createFENote(n);
+    }
+    this.setState({ type: '', note: ''});
   }
     
   render() {
     const {building, fe} = this.props.location.state
-    const {type} = this.state;
+    const {type, note} = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
         {/* ???Blane format this thing LOL */}
@@ -50,16 +60,16 @@ export class FEInspection extends Component {
               <option value="12year">12 Year</option>
             </select>
           </div>
-          {/* <div className="form-group">
+          <div className="form-group">
             <label>Notes</label>
             <input
               className="form-control"
               type="text"
-              name="notes"
+              name="note"
               onChange={this.onChange}
-              value={notes}
+              value={note}
             />
-          </div> */}
+          </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
               Submit
@@ -74,4 +84,4 @@ export class FEInspection extends Component {
     }
   }
   
-export default connect(null, { createFEInspection, updateFEInspectionDate })(FEInspection);
+export default connect(null, { createFEInspection, updateFEInspectionDate, createFENote })(FEInspection);
