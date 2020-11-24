@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from .models import FEInspection
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
 
 # def fe_inspection_render_pdf_view(request, *args, **kwargs):
@@ -29,9 +31,11 @@ from .models import FEInspection
 #        return HttpResponse('We had some errors <pre>' + html + '</pre>')
 #     return response
 
+@csrf_exempt
+@api_view(['POST'])
 def fe_generate_report_pdf_view(request, *args, **kwargs):
-    building = request.data.building
-    fe = request.data.fe
+    building = request.data['building']
+    fe = request.data['fe']
 
     template_path = 'report.html'
     context = {'building': building, 'fe': fe}

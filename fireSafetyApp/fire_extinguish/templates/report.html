@@ -5,16 +5,20 @@
     </head>
     <body>
         <h1 style="font-size:300%;">Fire Extinguisher Report</h1>
-        <p style="font-size:160%; padding-left:30px;">Date: </p>
+        <p style="font-size:160%; padding-left:30px;">Date: {% now "F jS Y" %}</p>
         <p style="font-size:160%; padding-left:30px;">Extinguisher Number: {{fe.exnum}}</p>
         <p style="font-size:160%; padding-left:30px;">Location: {{building.name}}</p>
         <hr>
         <br>
-        {% comment %} <h2 style="font-size:300%;">Tests Performed: </h2>
-        <p style="font-size:160%; padding-left:30px;">Ionization and/or Photo Electric Detectors: {{fei.ionization_test}}</p>
-        <p style="font-size:160%; padding-left:30px;">Thermal (Heat Detectors): {{fei.heat_detector_test}}</p>
-        <p style="font-size:160%; padding-left:30px;">Manual Pull Stations: {{fei.manual_pull_station_test}}</p>
-        <p style="font-size:160%; padding-left:30px;">Lamp Test: {{fei.lamp_test}}</p>         {% endcomment %}
+        <h2 style="font-size:300%;">Tests Performed: </h2>
+        <p style="font-size:160%; padding-left:30px;">Last Monthly Inspection: {{fe.last_monthly_inspection}}</p>
+        <p style="font-size:160%; padding-left:30px;">Upcoming Monthly Inspection: {{fe.upcoming_monthly_inspection}}</p>
+        <p style="font-size:160%; padding-left:30px;">Last Annual Inspection: {{fe.last_annual_inspection}}</p>
+        <p style="font-size:160%; padding-left:30px;">Upcoming Annual Inspection: {{fe.upcoming_annual_inspection}}</p>
+        <p style="font-size:160%; padding-left:30px;">Last 6 Year Service: {{fe.last_6year_service}}</p>
+        <p style="font-size:160%; padding-left:30px;">Upcoming 6 Year Service: {{fe.upcoming_6year_service}}</p>
+        <p style="font-size:160%; padding-left:30px;">Last 12 Year Test: {{fe.last_12year_test}}</p>
+        <p style="font-size:160%; padding-left:30px;">Upcoming 12 Year Test: {{fe.upcoming_12year_test}}</p>
         {% comment %} <img src="C:\Users\abram\Pictures\wsu.jpg"> {% endcomment %}
     </body>
 </html>

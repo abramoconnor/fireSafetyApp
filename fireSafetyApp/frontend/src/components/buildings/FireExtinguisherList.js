@@ -29,7 +29,7 @@ export class FireExtinguisherList extends Component {
           </Link>
         </td>
         {/* ???logic to get next upcoming */}
-        <td>{this.nextInspection(fe)}</td>
+        {this.nextInspection(fe)}
       </tr>
 			)
 		}
@@ -47,7 +47,7 @@ export class FireExtinguisherList extends Component {
           </Link>
         </td>
         {/* ???logic to get next upcoming */}
-        <td>{this.nextInspection(fe)}</td>
+        {this.nextInspection(fe)}
       </tr>
 			)
     }
@@ -66,14 +66,20 @@ export class FireExtinguisherList extends Component {
 
   nextInspection = (fe) => {
     let next = fe.upcoming_monthly_inspection;
+    let type = "(Monthly Inspection)";
     if (fe.upcoming_annual_inspection < next ) {
-      next = fe.upcoming_annual_inspection
+      next = fe.upcoming_annual_inspection;
+      type = "(Annual Inspection)";
     } else if (fe.upcoming_6year_service < next) {
-      next = fe.upcoming_6year_service
+      next = fe.upcoming_6year_service;
+      type = "(6 Year Service)";
     } else if (fe.upcoming_12year_test < next) {
-      next = fe.upcoming_12year_test
+      next = fe.upcoming_12year_test;
+      type = "(12 Year Test)";
     }
-    return next.split("T")[0];
+    return (
+      <td>{next.split("T")[0]} {type}</td>
+    )
   }
   
   render() {
