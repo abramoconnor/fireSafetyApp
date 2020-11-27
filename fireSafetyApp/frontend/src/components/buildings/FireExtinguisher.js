@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteFE, getFEInspecsById } from '../../actions/FEs';
 import {getFENotesById, deleteFENote} from "../../actions/notes"
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect, useHistory } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import NoteInputToggler from "./addFENote";
 
 export class FireExtinguisher extends Component {
+  state = {
+    isDeleted: false,
+    extra: ""
+  }
 
   static propTypes = {
     FEInspecs: PropTypes.array.isRequired,
@@ -22,9 +26,17 @@ export class FireExtinguisher extends Component {
     this.props.getFEInspecsById(this.props.location.state.fe.id);
     this.props.getFENotesById(this.props.location.state.fe.id);
   }
+
+  // comment this function
+  componentDidUpdate() {
+    if (this.state.isDeleted === "true") {
+      this.setState({extra: "goBack"});
+    }
+  }
   
   deleteFireExtinguisher = (id) => {
     this.props.deleteFE(id);
+    this.setState({isDeleted: "true"})
   }
   
   deleteNote = (id) => {
@@ -75,15 +87,21 @@ export class FireExtinguisher extends Component {
     }
   }
   render() {
+    if (this.state.isDeleted) {
+      return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
+    }
     const {building, fe} = this.props.location.state;
     return (
       <Fragment>
           {/* ???Blane put captions on top of table */}
           <h2>Fire Extinguisher: {fe.exnum}</h2>
           <p>Located in: {building.name}</p>
-          <Link to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}>
-				    <Button className={"btn btn--small"} onClick={() => {this.deleteFireExtinguisher(fe.id)}}>Delete</Button>
-          </Link>
+				    <Button className={"btn btn--small"} onClick={() => {
+              if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
+                this.deleteFireExtinguisher(fe.id);
+              }}}>
+              Delete
+            </Button>
           <Link to={{ pathname: '/FEInspection', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
@@ -145,7 +163,12 @@ export class FireExtinguisher extends Component {
                 {this.props.FENotes.map((n) => 
                 <li key={n.id}>
                   {n.note}
-                  <button className={"btn btn--small"} onClick={() => {this.deleteNote(n.id)}}>Delete Note</button>
+                  <button className={"btn btn--small"} onClick={() => {
+                    if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
+                      this.deleteNote(n.id);
+                    }}}>
+                      Delete Note
+                  </button>
                 </li>)}
             </ul>
           </div>
