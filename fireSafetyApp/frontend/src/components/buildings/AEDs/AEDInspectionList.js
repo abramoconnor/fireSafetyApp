@@ -1,31 +1,31 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAlarmInspecs } from '../../actions/Alarms';
-import { displayAlarmInspectionPDF } from "../../actions/pdfs";
+import { getAEDInspecs } from '../../../actions/AEDs';
+import { displayAEDInspectionPDF } from "../../../actions/pdfs";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
-export class AlarmInspection_List extends Component {
+export class AEDInspection_List extends Component {
   static propTypes = {
-    AlarmInspecs: PropTypes.array.isRequired,
-    getAlarmInspecs: PropTypes.func.isRequired,
-    displayAlarmInspectionPDF: PropTypes.func.isRequired
+    AEDInspecs: PropTypes.array.isRequired,
+    getAEDInspecs: PropTypes.func.isRequired,
+    displayAEDInspectionPDF: PropTypes.func.isRequired
   };
   
   componentDidMount() {
-    this.props.getAlarmInspecs();
+    this.props.getAEDInspecs();
   }
   
   displayPDF = (id) => {
-    this.props.displayAlarmInspectionPDF(id);
+    this.props.displayAEDInspectionPDF(id);
   }
     
   render() {
-    const {building, alarm} = this.props.location.state
+    const {building, aed} = this.props.location.state
     return (
       <Fragment>
-          <h2>Inspections for Alarm: {alarm.code}</h2>   
+          <h2>Inspections for AED: {aed.code}</h2>   
           <table className="table table-striped">
             <thead>
               <tr>
@@ -35,14 +35,14 @@ export class AlarmInspection_List extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.AlarmInspecs.map((alarm) => (
-                <tr key={alarm.id}>
-                  <td>{alarm.id}</td>
-                  <td>{alarm.date_tested.split("T")[0]}</td>
-                  <td>{alarm.tester}</td>
+              {this.props.AEDInspecs.map((aed) => (
+                <tr key={aed.id}>
+                  <td>{aed.id}</td>
+                  <td>{aed.date_tested.split("T")[0]}</td>
+                  <td>{aed.tester}</td>
                   <td>
                     <div className="App">
-                        <button className={"btn btn--small"} type="button" onClick={() => {this.displayPDF(alarm.id)}}>
+                        <button className={"btn btn--small"} type="button" onClick={() => {this.displayPDF(aed.id)}}>
                             View PDF
                         </button>
                     </div>	
@@ -54,7 +54,7 @@ export class AlarmInspection_List extends Component {
               ))}
             </tbody>
           </table>
-          <Link to={{ pathname: "/Alarm", state:{building:building}}}>
+          <Link to={{ pathname: "/AED", state:{building:building}}}>
 						<Button 
 						className={"btn btn--back"}
 						onClick={() => {
@@ -68,7 +68,7 @@ export class AlarmInspection_List extends Component {
   }
   
   const mapStateToProps = (state) => ({
-    AlarmInspecs: state.AlarmInspecs.AlarmInspecs,
+    AEDInspecs: state.AEDInspecs.AEDInspecs,
   });
   
-export default connect(mapStateToProps, { getAlarmInspecs, displayAlarmInspectionPDF })(AlarmInspection_List);
+export default connect(mapStateToProps, { getAEDInspecs, displayAEDInspectionPDF })(AEDInspection_List);

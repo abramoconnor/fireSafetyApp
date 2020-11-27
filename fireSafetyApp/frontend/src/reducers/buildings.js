@@ -1,4 +1,4 @@
-import { GET_BUILDINGS, DELETE_BUILDING, ADD_BUILDING, CLEAR_BUILDINGS } from '../actions/types.js';
+import { GET_BUILDINGS, DELETE_BUILDING, ADD_BUILDING } from '../actions/types.js';
 
 const initialState = {
   buildings: [],
@@ -20,11 +20,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         buildings: [...state.buildings, action.payload],
-      };
-    case CLEAR_BUILDINGS:
-      return {
-        ...state,
-        buildings: [],
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES } from '../actions/types.js';
+import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES } from '../../actions/types.js';
 
 const initialState = {
   FENotes: [],

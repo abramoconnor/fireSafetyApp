@@ -1,4 +1,4 @@
-import { GET_FE_INSP, ADD_FE_INSP } from '../actions/types.js';
+import { GET_FE_INSP, ADD_FE_INSP } from '../../actions/types.js';
 
 const initialState = {
   FEInspecs: [],

@@ -1,4 +1,4 @@
-import { GET_ALARMs, DELETE_ALARMs, ADD_ALARMs, CLEAR_ALARMs } from '../actions/types.js';
+import { GET_ALARMs, DELETE_ALARMs, ADD_ALARMs, CLEAR_ALARMs } from '../../actions/types.js';
 
 const initialState = {
   ALARMs: [],

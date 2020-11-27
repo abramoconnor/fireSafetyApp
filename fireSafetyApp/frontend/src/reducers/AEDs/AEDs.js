@@ -1,4 +1,4 @@
-import { GET_AEDs, DELETE_AEDs, ADD_AEDs, CLEAR_AEDs } from '../actions/types.js';
+import { GET_AEDs, DELETE_AEDs, ADD_AEDs, CLEAR_AEDs } from '../../actions/types.js';
 
 const initialState = {
   AEDs: [],

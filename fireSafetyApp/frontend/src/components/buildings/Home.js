@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getBuildings, deleteBuilding } from '../../actions/buildings';
-import './buttonStyles.css';
-import './format.css';
+import '../../styles/buttonStyles.css';
+import '../../styles/format.css';
 import { Link, withRouter } from 'react-router-dom';
 import SearchField from "react-search-field"
 
@@ -22,7 +22,7 @@ export class Buildings extends Component {
 		{
 			return(
 			<li key={building.id}>
-				<Link to={{ pathname: '/Staging', state:{building:building}}}>
+				<Link to={{ pathname: '/Assets', state:{building:building}}}>
 					<div className =  "App">
 					<button
 						className={"btn btn--medium"} 
@@ -39,7 +39,7 @@ export class Buildings extends Component {
 		{
 			return(
 			<li key={building.id}>
-				<Link to={{ pathname: '/Staging', state:{building:building}}}>
+				<Link to={{ pathname: '/Assets', state:{building:building}}}>
 					<div className =  "App">
 					<button
 						className={"btn btn--medium"} 

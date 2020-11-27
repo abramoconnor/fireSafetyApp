@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteFE, getFEInspecsById } from '../../actions/FEs';
-import {getFENotesById, deleteFENote} from "../../actions/notes"
-import { Link, withRouter, Redirect, useHistory } from 'react-router-dom';
+import { deleteFE, getFEInspecsById } from '../../../actions/FEs';
+import {getFENotesById, deleteFENote} from "../../../actions/notes"
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import NoteInputToggler from "./addFENote";
 
@@ -44,10 +44,11 @@ export class FireExtinguisher extends Component {
   }
 
   parseMonthlyInspections = (i) => {
+    const nd = new Date(i.date_tested);
     if (i.inspection_type === "monthly") {
         return (
             <tr key={i.id}>
-                <td>{i.date_tested.split("T")[0]}</td>
+                <td>{nd.toLocaleDateString().split("T")[0]}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -55,10 +56,11 @@ export class FireExtinguisher extends Component {
   }
 
   parseAnnualInspections = (i) => {
+    const nd = new Date(i.date_tested);
     if (i.inspection_type === "annual") {
         return (
             <tr key={i.id}>
-                <td>{i.date_tested.split("T")[0]}</td>
+                <td>{nd.toLocaleDateString().split("T")[0]}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -66,10 +68,11 @@ export class FireExtinguisher extends Component {
   }
 
   parse6YearServices = (i) => {
+    const nd = new Date(i.date_tested);
     if (i.inspection_type === "6year") {
         return (
             <tr key={i.id}>
-                <td>{i.date_tested.split("T")[0]}</td>
+                <td>{nd.toLocaleDateString().split("T")[0]}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -77,10 +80,11 @@ export class FireExtinguisher extends Component {
   }
 
   parse12YearTests = (i) => {
+    const nd = new Date(i.date_tested);
     if (i.inspection_type === "12year") {
         return (
             <tr key={i.id}>
-                <td>{i.date_tested.split("T")[0]}</td>
+                <td>{nd.toLocaleDateString().split("T")[0]}</td>
                 <td>{i.tester}</td>
             </tr>
         )

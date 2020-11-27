@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {createFENote} from "../../actions/notes"
+import {createFENote} from "../../../actions/notes"
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

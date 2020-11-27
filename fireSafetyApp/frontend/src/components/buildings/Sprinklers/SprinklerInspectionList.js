@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSprinklerInspecs } from '../../actions/Sprinklers';
-import { displaySprinklerInspectionPDF } from "../../actions/pdfs";
+import { getSprinklerInspecs } from '../../../actions/Sprinklers';
+import { displaySprinklerInspectionPDF } from "../../../actions/pdfs";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 

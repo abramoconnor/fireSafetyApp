@@ -1,4 +1,4 @@
-import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs, CLEAR_SPRINKLERs } from '../actions/types.js';
+import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs, CLEAR_SPRINKLERs } from '../../actions/types.js';
 
 const initialState = {
   SPRINKLERs: [],

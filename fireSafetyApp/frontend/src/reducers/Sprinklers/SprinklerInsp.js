@@ -1,15 +1,15 @@
-import { GET_AED_INSP } from '../actions/types.js';
+import { GET_SPRINKLER_INSP } from '../../actions/types.js';
 
 const initialState = {
-  AEDInspecs: [],
+  SprinklerInspecs: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_AED_INSP:
+    case GET_SPRINKLER_INSP:
       return {
         ...state,
-        AEDInspecs: action.payload,
+        SprinklerInspecs: action.payload,
       };
     default:
       return state;

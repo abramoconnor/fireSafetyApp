@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
-import buildings from './buildings';
 import errors from './errors';
 import messages from './messages';
 import auth from './auth';
-import FEs from './FEs';
-import AEDs from './AEDs';
-import SPRINKLERs from './Sprinklers';
-import ALARMs from './Alarms';
-import FEInspecs from './FEInsp';
-import AlarmInspecs from "./AlarmInsp";
-import SprinklerInspecs from "./SprinklerInsp";
-import AEDInspecs from "./AEDInsp";
-import FENotes from "./FENotes"
+import buildings from './buildings';
+import FEs from './FireExtinguishers/FEs';
+import FEInspecs from './FireExtinguishers/FEInsp';
+import FENotes from "./FireExtinguishers/FENotes"
+import AEDs from './AEDs/AEDs';
+import AEDInspecs from "./AEDs/AEDInsp";
+import ALARMs from './Alarms/Alarms';
+import AlarmInspecs from "./Alarms/AlarmInsp";
+import SPRINKLERs from './Sprinklers/Sprinklers';
+import SprinklerInspecs from "./Sprinklers/SprinklerInsp";
 
 export default combineReducers({
   buildings,

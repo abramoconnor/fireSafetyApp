@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createFE } from '../../actions/FEs';
+import { createFE } from '../../../actions/FEs';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 

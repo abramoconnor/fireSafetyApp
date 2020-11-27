@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFEsByBuilding } from '../../actions/FEs';
+import { getFEsByBuilding } from '../../../actions/FEs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import SearchField from "react-search-field"
@@ -109,7 +109,7 @@ export class FireExtinguisherList extends Component {
           <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
             <button className={"btn2 btn--back"} type="button" onClick={() => {}}>Add New FE</button>   
           </Link>
-          <Link to={{ pathname: '/Staging', state:{building:building}}}>
+          <Link to={{ pathname: '/Assets', state:{building:building}}}>
 						<Button 
 						className={"btn btn--back"}
 						onClick={() => {

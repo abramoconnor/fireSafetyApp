@@ -1,4 +1,4 @@
-import { GET_ALARM_INSP } from '../actions/types.js';
+import { GET_ALARM_INSP } from '../../actions/types.js';
 
 const initialState = {
     AlarmInspecs: [],

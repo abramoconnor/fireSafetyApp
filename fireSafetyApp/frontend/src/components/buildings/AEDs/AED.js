@@ -1,20 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getALARMs, deleteALARMs } from '../../actions/Alarms';
+import { getAEDs, deleteAEDs } from '../../../actions/AEDs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
-export class ALARM extends Component {
+export class AED extends Component {
 
   static propTypes = {
-    ALARMs: PropTypes.array.isRequired,
-    getALARMs: PropTypes.func.isRequired,
-    deleteALARMs: PropTypes.func.isRequired,
+    AEDs: PropTypes.array.isRequired,
+    getAEDs: PropTypes.func.isRequired,
+    deleteAEDs: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.getALARMs();
+    this.props.getAEDs();
     this.setState();
   }
   
@@ -22,7 +22,7 @@ export class ALARM extends Component {
     const {building} = this.props.location.state;
     return (
       <Fragment>
-          <h2>Alarms for {building.name}</h2>   
+          <h2>AEDs for {building.name}</h2>   
           <table className="table table-striped">
             <thead>
               <tr>
@@ -33,14 +33,14 @@ export class ALARM extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.ALARMs.map((ALARM) => (
-                <tr key={ALARM.id}>
-                  <td>{ALARM.id}</td>
-                  <td>{ALARM.code}</td>
-                  <td>{ALARM.last_inspection.split("T")[0]}</td>
-                  <td>{ALARM.upcoming_inspection.split("T")[0]}</td>
+              {this.props.AEDs.map((AED) => (
+                <tr key={AED.id}>
+                  <td>{AED.id}</td>
+                  <td>{AED.code}</td>
+                  <td>{AED.last_inspection.split("T")[0]}</td>
+                  <td>{AED.upcoming_inspection.split("T")[0]}</td>
                   <td>
-                      <Link to={{ pathname: '/AlarmInspection', state:{building:building, alarm: ALARM}}}>
+                      <Link to={{ pathname: '/AEDInspection', state:{building:building, aed: AED}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections
@@ -52,7 +52,7 @@ export class ALARM extends Component {
               ))}
             </tbody>
           </table>
-          <Link to={{ pathname: '/Staging', state:{building:building}}}>
+          <Link to={{ pathname: '/Assets', state:{building:building}}}>
 						<Button 
 						className={"btn btn--back"}
 						onClick={() => {
@@ -66,7 +66,7 @@ export class ALARM extends Component {
   }
   
   const mapStateToProps = (state) => ({
-    ALARMs: state.ALARMs.ALARMs,
+    AEDs: state.AEDs.AEDs,
   });
   
-  export default withRouter(connect(mapStateToProps, { getALARMs, deleteALARMs })(ALARM));
+  export default withRouter(connect(mapStateToProps, { getAEDs, deleteAEDs })(AED));

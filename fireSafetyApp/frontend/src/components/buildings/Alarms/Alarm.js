@@ -1,20 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSPRINKLERs, deleteSPRINKLERs } from '../../actions/Sprinklers';
+import { getALARMs, deleteALARMs } from '../../../actions/Alarms';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
-export class SPRINKLER extends Component {
+export class ALARM extends Component {
 
   static propTypes = {
-    SPRINKLERs: PropTypes.array.isRequired,
-    getSPRINKLERs: PropTypes.func.isRequired,
-    deleteSPRINKLERs: PropTypes.func.isRequired,
+    ALARMs: PropTypes.array.isRequired,
+    getALARMs: PropTypes.func.isRequired,
+    deleteALARMs: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.getSPRINKLERs();
+    this.props.getALARMs();
     this.setState();
   }
   
@@ -22,7 +22,7 @@ export class SPRINKLER extends Component {
     const {building} = this.props.location.state;
     return (
       <Fragment>
-          <h2>Sprinklers for {building.name}</h2>   
+          <h2>Alarms for {building.name}</h2>   
           <table className="table table-striped">
             <thead>
               <tr>
@@ -33,14 +33,14 @@ export class SPRINKLER extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.SPRINKLERs.map((SPRINKLER) => (
-                <tr key={SPRINKLER.id}>
-                  <td>{SPRINKLER.id}</td>
-                  <td>{SPRINKLER.code}</td>
-                  <td>{SPRINKLER.last_inspection.split("T")[0]}</td>
-                  <td>{SPRINKLER.upcoming_inspection.split("T")[0]}</td>
+              {this.props.ALARMs.map((ALARM) => (
+                <tr key={ALARM.id}>
+                  <td>{ALARM.id}</td>
+                  <td>{ALARM.code}</td>
+                  <td>{ALARM.last_inspection.split("T")[0]}</td>
+                  <td>{ALARM.upcoming_inspection.split("T")[0]}</td>
                   <td>
-                      <Link to={{ pathname: '/SprinklerInspection', state:{building:building, sprinkler: SPRINKLER}}}>
+                      <Link to={{ pathname: '/AlarmInspection', state:{building:building, alarm: ALARM}}}>
                         <div className="App">
                           <button className={"btn btn--small"} type="button" onClick={() => {console.log("to inspection")}}>
                             List of Inspections
@@ -52,7 +52,7 @@ export class SPRINKLER extends Component {
               ))}
             </tbody>
           </table>
-          <Link to={{ pathname: '/Staging', state:{building:building}}}>
+          <Link to={{ pathname: '/Assets', state:{building:building}}}>
 						<Button 
 						className={"btn btn--back"}
 						onClick={() => {
@@ -66,7 +66,7 @@ export class SPRINKLER extends Component {
   }
   
   const mapStateToProps = (state) => ({
-    SPRINKLERs: state.SPRINKLERs.SPRINKLERs,
+    ALARMs: state.ALARMs.ALARMs,
   });
   
-  export default withRouter(connect(mapStateToProps, { getSPRINKLERs, deleteSPRINKLERs })(SPRINKLER));
+  export default withRouter(connect(mapStateToProps, { getALARMs, deleteALARMs })(ALARM));

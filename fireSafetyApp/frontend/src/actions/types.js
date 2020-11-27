@@ -1,4 +1,3 @@
-
 export const GET_ERRORS = 'GET_ERRORS';
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';
 export const USER_LOADING = 'USER_LOADING';
@@ -11,14 +10,13 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
 
+export const ADD_BUILDING = 'ADD_BUILDING';
 export const GET_BUILDINGS = 'GET_BUILDINGS';
 export const DELETE_BUILDING = 'DELETE_BUILDING';
-export const ADD_BUILDING = 'ADD_BUILDING';
-export const CLEAR_BUILDINGS = 'CLEAR_BUILDINGS';
 
+export const ADD_AEDs = 'ADD_AEDs';
 export const GET_AEDs = 'GET_AEDs';
 export const DELETE_AEDs = 'DELETE_AEDs';
-export const ADD_AEDs = 'ADD_AEDs';
 export const CLEAR_AEDs = 'CLEAR_AEDs';
 export const GET_AED_INSP = 'GET_AED_INSP';
 

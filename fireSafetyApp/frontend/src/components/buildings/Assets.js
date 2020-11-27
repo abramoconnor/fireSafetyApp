@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import { connect } from 'react-redux';
 import { getBuildings, deleteBuilding } from '../../actions/buildings';
 
-export class Staging extends Component {
+export class Assets extends Component {
 
 
 	componentDidMount() {
@@ -32,9 +32,7 @@ export class Staging extends Component {
 					<Link to={{ pathname: '/AED', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
-						onClick={() => {
-								console.log('click click click');
-							}}
+						onClick={() => {}}
 							> AED
 							</Button>
 					</Link>
@@ -43,9 +41,7 @@ export class Staging extends Component {
 					<Link to={{ pathname: '/Sprinkler', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
-						onClick={() => {
-								console.log('click click click');
-							}}
+						onClick={() => {}}
 							> Sprinkler
 							</Button>
 					</Link>
@@ -54,9 +50,7 @@ export class Staging extends Component {
 					<Link to={{ pathname: '/Alarm', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
-						onClick={() => {
-								console.log('click click click');
-							}}
+						onClick={() => {}}
 							> Alarms
 							</Button>
 					</Link>
@@ -79,6 +73,6 @@ export class Staging extends Component {
 
 const mapStateToProps = (state) => ({
 	buildings: state.buildings.buildings,
-  });
+});
   
-  export default connect(mapStateToProps, { getBuildings, deleteBuilding })(Staging);
+  export default connect(mapStateToProps, { getBuildings, deleteBuilding })(Assets);

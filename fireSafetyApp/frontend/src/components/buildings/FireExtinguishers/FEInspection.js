@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createFEInspection, updateFEInspectionDate } from '../../actions/FEs';
-import {createFENote} from "../../actions/notes"
+import { createFEInspection, updateFEInspectionDate } from '../../../actions/FEs';
+import {createFENote} from "../../../actions/notes"
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 

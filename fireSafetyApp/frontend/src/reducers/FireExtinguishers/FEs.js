@@ -1,4 +1,4 @@
-import { GET_FEs, DELETE_FEs, ADD_FEs, CLEAR_FEs, UPDATE_FE } from '../actions/types.js';
+import { GET_FEs, DELETE_FEs, ADD_FEs, CLEAR_FEs, UPDATE_FE } from '../../actions/types';
 
 const initialState = {
   FEs: [],
