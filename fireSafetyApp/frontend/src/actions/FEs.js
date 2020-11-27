@@ -49,14 +49,27 @@ export const deleteFE = (id) => (dispatch, getState) => {
 
 // ADD Fire Extinguisher
 export const createFE = (FE) => (dispatch, getState) => {
-  let d = new Date();
-  FE.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
-  d = new Date();
-  FE.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
-  d = new Date();
-  FE.upcoming_6year_service = new Date(d.setFullYear(d.getFullYear()+6));
-  d = new Date();
-  FE.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
+  // If no upcoming dates are given, they autopopulate dates
+  let d;
+  if (!FE.upcoming_monthly_inspection) {
+    d = new Date();
+    FE.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
+  }
+
+  if (!FE.upcoming_annual_inspection) {
+    d = new Date();
+    FE.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
+  
+  if (!FE.upcoming_6year_service) {
+    d = new Date();
+    FE.upcoming_6year_service = new Date(d.setFullYear(d.getFullYear()+6));
+  }
+  
+  if (!FE.upcoming_12year_test) {
+    d = new Date();
+    FE.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
+  }
   axios
     .post('/fire_extinguish/', FE, tokenConfig(getState))
     .then((res) => {

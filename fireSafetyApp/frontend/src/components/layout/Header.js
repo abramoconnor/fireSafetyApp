@@ -17,7 +17,7 @@ export class Header extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0 thickFont">
         <span className="navbar-brand">
-          <strong>{user ? `Welcome ${user.username}` : ''}</strong>
+          <p>{user ? `Hello ${user.first_name} ${user.last_name}!` : ''}</p>
         </span>
         <li className="nav-item">
           <button onClick={this.props.logout} className="nav-link logout btn-info btn-small">

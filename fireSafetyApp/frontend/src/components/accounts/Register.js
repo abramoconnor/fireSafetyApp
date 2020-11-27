@@ -8,7 +8,8 @@ import { createMessage } from '../../actions/messages';
 export class Register extends Component {
   state = {
     username: '',
-    email: '',
+    first_name: '',
+    last_name: '',
     password: '',
     password2: '',
   };
@@ -20,14 +21,17 @@ export class Register extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password, password2 } = this.state;
+    const { username, first_name, last_name, password, password2 } = this.state;
+    const email = username;
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: 'Passwords do not match' });
     } else {
       const newUser = {
         username,
-        password,
+        first_name,
+        last_name,
         email,
+        password
       };
       this.props.register(newUser);
     }
@@ -39,20 +43,30 @@ export class Register extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
     }
-    const { username, email, password, password2 } = this.state;
+    const { username, first_name, last_name, password, password2 } = this.state;
     return (
       <div className="col-md-6 m-auto">
         <div className="card card-body mt-5">
           <h2 className="text-center">Register</h2>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <label>Username</label>
+              <label>First Name</label>
               <input
                 type="text"
                 className="form-control"
-                name="username"
+                name="first_name"
                 onChange={this.onChange}
-                value={username}
+                value={first_name}
+              />
+            </div>
+            <div className="form-group">
+              <label>Last Name</label>
+              <input
+                type="text"
+                className="form-control"
+                name="last_name"
+                onChange={this.onChange}
+                value={last_name}
               />
             </div>
             <div className="form-group">
@@ -60,9 +74,9 @@ export class Register extends Component {
               <input
                 type="email"
                 className="form-control"
-                name="email"
+                name="username"
                 onChange={this.onChange}
-                value={email}
+                value={username}
               />
             </div>
             <div className="form-group">

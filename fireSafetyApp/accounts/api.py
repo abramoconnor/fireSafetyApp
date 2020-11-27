@@ -30,7 +30,7 @@ class LoginAPI(generics.GenericAPIView):
       "token": token
     })
 
-# Get User API
+# User API
 class UserAPI(generics.RetrieveAPIView):
   permission_classes = [
     permissions.IsAuthenticated,

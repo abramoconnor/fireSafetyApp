@@ -31,6 +31,7 @@ export const GET_FE_INSP = 'GET_FE_INSP';
 export const ADD_FE_INSP = 'ADD_FE_INSP';
 export const GET_FE_NOTES = 'GET_FE_NOTES';
 export const ADD_FE_NOTES = 'ADD_FE_NOTES';
+export const DELETE_FE_NOTES = 'DELETE_FE_NOTES';
 
 
 export const GET_SPRINKLERs = 'GET_SPRINKLERs';

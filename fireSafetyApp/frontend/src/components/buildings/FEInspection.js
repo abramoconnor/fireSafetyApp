@@ -13,6 +13,7 @@ export class FEInspection extends Component {
   }
 
   static propTypes = {
+    auth: PropTypes.object.isRequired,
     createFEInspection: PropTypes.func.isRequired,
     updateFEInspectionDate: PropTypes.func.isRequired,
     createFENote: PropTypes.func.isRequired
@@ -22,11 +23,12 @@ export class FEInspection extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    const { user } = this.props.auth;
     let fire_extinguisher = this.props.location.state.fe;
     let inspection = {
       inspection_type: this.state.type,
       date_tested: new Date(),
-      tester: "Chancellor O'Connor",
+      tester: `${user.first_name} ${user.last_name}`,
       fire_extinguisher: this.props.location.state.fe.id
     };
     this.props.createFEInspection(inspection);
@@ -83,5 +85,9 @@ export class FEInspection extends Component {
       );
     }
   }
+
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+  });
   
-export default connect(null, { createFEInspection, updateFEInspectionDate, createFENote })(FEInspection);
+export default connect(mapStateToProps, { createFEInspection, updateFEInspectionDate, createFENote })(FEInspection);

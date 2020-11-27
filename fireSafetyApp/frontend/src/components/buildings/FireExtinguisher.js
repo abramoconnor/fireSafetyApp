@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteFE, getFEInspecsById } from '../../actions/FEs';
-import {getFENotesById} from "../../actions/notes"
+import {getFENotesById, deleteFENote} from "../../actions/notes"
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
-import NoteInputToggler from "./addNote";
+import NoteInputToggler from "./addFENote";
 
 export class FireExtinguisher extends Component {
 
@@ -14,6 +14,7 @@ export class FireExtinguisher extends Component {
     FENotes: PropTypes.array.isRequired,
     getFENotesById: PropTypes.func.isRequired,
     getFEInspecsById: PropTypes.func.isRequired,
+    deleteFENote: PropTypes.func.isRequired,
     deleteFE: PropTypes.func.isRequired,
   };
 
@@ -24,6 +25,10 @@ export class FireExtinguisher extends Component {
   
   deleteFireExtinguisher = (id) => {
     this.props.deleteFE(id);
+  }
+  
+  deleteNote = (id) => {
+    this.props.deleteFENote(id);
   }
 
   parseMonthlyInspections = (i) => {
@@ -140,6 +145,7 @@ export class FireExtinguisher extends Component {
                 {this.props.FENotes.map((n) => 
                 <li key={n.id}>
                   {n.note}
+                  <button className={"btn btn--small"} onClick={() => {this.deleteNote(n.id)}}>Delete Note</button>
                 </li>)}
             </ul>
           </div>
@@ -156,4 +162,4 @@ export class FireExtinguisher extends Component {
     FENotes: state.FENotes.FENotes,
   });
 
-  export default withRouter(connect(mapStateToProps, { deleteFE, getFEInspecsById, getFENotesById })(FireExtinguisher));
+  export default withRouter(connect(mapStateToProps, { deleteFE, getFEInspecsById, getFENotesById, deleteFENote })(FireExtinguisher));

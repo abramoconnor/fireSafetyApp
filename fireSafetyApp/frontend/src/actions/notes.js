@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FE_NOTES, ADD_FE_NOTES } from './types';
+import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES } from './types';
 
 // CREATE FE Notes
 export const createFENote = (n) => (dispatch, getState) => {
@@ -33,3 +33,17 @@ export const getFENotesById = (fe_id) => (dispatch, getState) => {
       })
       .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
   };
+
+  // DELETE FE Notes
+export const deleteFENote = (id) => (dispatch, getState) => {
+  axios
+    .delete(`/fe_notes/${id}/`, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ deleteFENotes: 'Note Deleted' }));
+      dispatch({
+        type: DELETE_FE_NOTES,
+        payload: id,
+      });
+    })
+    .catch((err) => console.log(err));
+};

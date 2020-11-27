@@ -54,8 +54,7 @@ export class FireExtinguisherList extends Component {
   }
 	
 
-	setSearchKey = (key) =>
-	{
+	setSearchKey = (key) => {
 		this.setState({search:key})
 	}
 
@@ -64,6 +63,7 @@ export class FireExtinguisherList extends Component {
     console.log(this)
   }
 
+  // function calculates the inspection closest to the current date
   nextInspection = (fe) => {
     let next = fe.upcoming_monthly_inspection;
     let type = "(Monthly Inspection)";
@@ -77,8 +77,10 @@ export class FireExtinguisherList extends Component {
       next = fe.upcoming_12year_test;
       type = "(12 Year Test)";
     }
+    // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
+    const nd = new Date(next);
     return (
-      <td>{next.split("T")[0]} {type}</td>
+      <td>{nd.toLocaleDateString().split("T")[0]} {type}</td>
     )
   }
   
@@ -105,7 +107,7 @@ export class FireExtinguisherList extends Component {
           </table>
           <div className = "grid">
           <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
-            <button className={"btn2 btn--back"} type="button" onClick={() => {console.log("addnew")}}>Add New FE</button>   
+            <button className={"btn2 btn--back"} type="button" onClick={() => {}}>Add New FE</button>   
           </Link>
           <Link to={{ pathname: '/Staging', state:{building:building}}}>
 						<Button 
