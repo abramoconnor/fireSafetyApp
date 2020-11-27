@@ -10,8 +10,7 @@ import NoteInputToggler from "./addFENote";
 export class FireExtinguisher extends Component {
   state = {
     isDeleted: false,
-    extra: ""
-  }
+  };
 
   static propTypes = {
     FEInspecs: PropTypes.array.isRequired,
@@ -27,16 +26,9 @@ export class FireExtinguisher extends Component {
     this.props.getFENotesById(this.props.location.state.fe.id);
   }
 
-  // comment this function
-  componentDidUpdate() {
-    if (this.state.isDeleted === "true") {
-      this.setState({extra: "goBack"});
-    }
-  }
-  
   deleteFireExtinguisher = (id) => {
     this.props.deleteFE(id);
-    this.setState({isDeleted: "true"})
+    this.setState({isDeleted: true})
   }
   
   deleteNote = (id) => {
@@ -91,7 +83,9 @@ export class FireExtinguisher extends Component {
     }
   }
   render() {
-    if (this.state.isDeleted) {
+    const {isDeleted} = this.state;
+    console.log(isDeleted);
+    if (isDeleted) {
       return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
     }
     const {building, fe} = this.props.location.state;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { returnErrors } from './messages';
+import { returnErrors, createMessage } from './messages';
 
 import {
   USER_LOADED,
@@ -8,7 +8,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
   REGISTER_FAIL,
 } from './types';
 
@@ -76,6 +75,7 @@ export const register = ({ username, first_name, last_name, email, password  }) 
   axios
     .post('/api/auth/register', body, config)
     .then((res) => {
+      dispatch(createMessage({newUserRegistered: `${first_name} ${last_name} has been registered`}))
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,

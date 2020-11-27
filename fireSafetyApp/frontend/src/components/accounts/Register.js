@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
@@ -40,9 +39,6 @@ export class Register extends Component {
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
-    }
     const { username, first_name, last_name, password, password2 } = this.state;
     return (
       <div className="col-md-6 m-auto">
@@ -104,9 +100,6 @@ export class Register extends Component {
                 Register
               </button>
             </div>
-            <p>
-              Already have an account? <Link to="/login">Login</Link>
-            </p>
           </form>
         </div>
       </div>

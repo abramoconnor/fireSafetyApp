@@ -20,21 +20,18 @@ export class Header extends Component {
           <p>{user ? `Hello ${user.first_name} ${user.last_name}!` : ''}</p>
         </span>
         <li className="nav-item">
+          <Link to="/register" className="nav-link logout btn-info btn-small">
+            Register New User
+          </Link>
+        </li>
+        <li className="nav-item">
           <button onClick={this.props.logout} className="nav-link logout btn-info btn-small">
             Logout
           </button>
         </li>
       </ul>
     );
-
-    /*
-    Just putting the register button here we don't really need it 
-    <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Register
-          </Link>
-        </li>
-    */
+    
     const guestLinks = (
       <ul className="navbar-brand ml-auto mt-2 mt-lg-0">
         <li className="nav-item">
