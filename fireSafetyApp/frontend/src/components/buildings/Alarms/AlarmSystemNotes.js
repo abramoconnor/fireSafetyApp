@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {createFENote} from "../../../actions/notes"
+import {createASNote} from "../../../actions/notes"
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const MAX_NOTE_LENGTH = 240;
 
-export class FENotes extends Component {
+export class ASNotes extends Component {
     state = {
         inputHidden: true,
         note: '',
@@ -13,7 +13,7 @@ export class FENotes extends Component {
     };
 
     static propTypes = {
-        createFENote: PropTypes.func.isRequired,
+        createASNote: PropTypes.func.isRequired,
     };
 
     onChange = (e) => {
@@ -39,9 +39,9 @@ export class FENotes extends Component {
         else {
             let n = {
                 note: this.state.note,
-                fire_extinguisher: this.props.fe.id
+                alarm_system: this.props.as.id
             }
-            this.props.createFENote(n);
+            this.props.createASNote(n);
         }
         this.setState({ note: '', charsLeft: MAX_NOTE_LENGTH});
     }
@@ -63,4 +63,4 @@ export class FENotes extends Component {
        )
     }
   }
-export default connect(null, { createFENote })(FENotes);
+export default connect(null, { createASNote })(ASNotes);

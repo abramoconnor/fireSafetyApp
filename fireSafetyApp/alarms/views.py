@@ -2,15 +2,16 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .models import AlarmInspectionForm
+from .models import AlarmSystemInspection
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
-
-def alarm_inspection_render_pdf_view(request, *args, **kwargs):
-    pk = kwargs.get('pk')
-    alarm = get_object_or_404(AlarmInspectionForm, pk=pk)
+@csrf_exempt
+@api_view(['POST'])
+def alarmsys_report_pdf_view(request, *args, **kwargs):
 
     template_path = 'alarm.html'
-    context = {'alarm': alarm}
+    context = {}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

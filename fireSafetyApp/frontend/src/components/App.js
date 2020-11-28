@@ -21,10 +21,12 @@ import CreateFEForm  from "./buildings/FireExtinguishers/CreateFEForm";
 import FireExtinguisher from "./buildings/FireExtinguishers/FireExtinguisher";
 import FEInspection from "./buildings/FireExtinguishers/FEInspection";
 import FEReport  from "./buildings/FireExtinguishers/FEReport";
+import AlarmSystem from "./buildings/Alarms/AlarmSystem";
+import CreateASForm from "./buildings/Alarms/CreateASForm";
+import ASInspection from "./buildings/Alarms/AlarmSystemInspection";
+import ASReport from "./buildings/Alarms/AlarmSystemReport";
 import AED from './buildings/AEDs/AED';
 import AEDInspection_List from "./buildings/AEDs/AEDInspectionList";
-import Alarm from "./buildings/Alarms/Alarm";
-import AlarmInspection_List from "./buildings/Alarms/AlarmInspectionList";
 import Sprinkler from "./buildings/Sprinklers/Sprinkler";
 import SprinklerInspection_List from "./buildings/Sprinklers/SprinklerInspectionList";
 
@@ -61,10 +63,12 @@ class App extends Component {
 									<PrivateRoute exact path="/FireExtinguisher" component={FireExtinguisher} />
 									<PrivateRoute exact path="/FEInspection" component={FEInspection} />
 									<PrivateRoute exact path="/FEReport" component={FEReport} />
+									<PrivateRoute exact path="/AlarmSystem" component={AlarmSystem} />
+									<PrivateRoute exact path="/ASInspection" component={ASInspection} />
+									<PrivateRoute exact path="/ASReport" component={ASReport} />
+									<PrivateRoute exact path="/CreateASForm" component={CreateASForm} />
 									<PrivateRoute exact path="/AED" component={AED} />
 									<PrivateRoute exact path="/AEDInspection" component={AEDInspection_List} />
-									<PrivateRoute exact path="/Alarm" component={Alarm} />
-									<PrivateRoute exact path="/AlarmInspection" component={AlarmInspection_List} />
 									<PrivateRoute exact path="/Sprinkler" component={Sprinkler} />
 									<PrivateRoute exact path="/SprinklerInspection" component={SprinklerInspection_List} />
 								</Switch>

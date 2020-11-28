@@ -3,10 +3,9 @@ import { returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
 
-// GET Fire Extinguisher Inspection pdf
-export const displayFEInspectionPDF = (params) => (dispatch, getState) => {
+// GET Fire Extinguisher Report pdf
+export const displayFEReportPDF = (params) => (dispatch, getState) => {
   let config = tokenConfig(getState);
-  console.log(config);
   axios
     .post(`/fe_report_pdf`, params, config)
     .then((res) => {
@@ -17,10 +16,11 @@ export const displayFEInspectionPDF = (params) => (dispatch, getState) => {
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// GET Alarm Inspection pdf
-export const displayAlarmInspectionPDF = (id) => (dispatch, getState) => {
+// GET Alarm Report pdf
+export const displayASReportPDF = (params) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
   axios
-    .get(`/alarm_insp_pdf/${id}`, tokenConfig(getState))
+    .get(`/alarmsys_report_pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);

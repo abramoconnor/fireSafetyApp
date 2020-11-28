@@ -1,13 +1,18 @@
 from rest_framework import serializers
-from alarms.models import Alarms, AlarmInspectionForm
+from alarms.models import AlarmSystem, AlarmSystemInspection, AlarmSystemNotes
 
-class AlarmsSerializer(serializers.ModelSerializer):
+class AlarmSystemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Alarms
+        model = AlarmSystem
         fields = '__all__'
 
 
-class AlarmInspectionSerializer(serializers.ModelSerializer):
+class AlarmSystemInspectionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AlarmInspectionForm
+        model = AlarmSystemInspection
+        fields = '__all__'
+
+class AlarmSystemNotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AlarmSystemNotes
         fields = '__all__'

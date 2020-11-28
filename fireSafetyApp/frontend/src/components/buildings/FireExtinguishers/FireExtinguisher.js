@@ -5,7 +5,7 @@ import { deleteFE, getFEInspecsById } from '../../../actions/FEs';
 import {getFENotesById, deleteFENote} from "../../../actions/notes"
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
-import NoteInputToggler from "./addFENote";
+import FENotes from "./addFENote";
 
 export class FireExtinguisher extends Component {
   state = {
@@ -82,6 +82,27 @@ export class FireExtinguisher extends Component {
         )
     }
   }
+
+  nextInspection = (fe) => {
+    let next = fe.upcoming_monthly_inspection;
+    let type = "(Monthly Inspection)";
+    if (fe.upcoming_annual_inspection < next ) {
+      next = fe.upcoming_annual_inspection;
+      type = "(Annual Inspection)";
+    } else if (fe.upcoming_6year_service < next) {
+      next = fe.upcoming_6year_service;
+      type = "(6 Year Service)";
+    } else if (fe.upcoming_12year_test < next) {
+      next = fe.upcoming_12year_test;
+      type = "(12 Year Test)";
+    }
+    // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
+    const nd = new Date(next);
+    return (
+      <p>Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
+    )
+  }
+
   render() {
     const {isDeleted} = this.state;
     console.log(isDeleted);
@@ -94,6 +115,7 @@ export class FireExtinguisher extends Component {
           {/* ???Blane put captions on top of table */}
           <h2>Fire Extinguisher: {fe.exnum}</h2>
           <p>Located in: {building.name}</p>
+          {this.nextInspection(fe)}
 				    <Button className={"btn btn--small"} onClick={() => {
               if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
                 this.deleteFireExtinguisher(fe.id);
@@ -156,7 +178,7 @@ export class FireExtinguisher extends Component {
           </table>
           <div>
             <h5>Notes</h5>
-            <NoteInputToggler fe={fe}/>
+            <FENotes fe={fe}/>
             <ul>
                 {this.props.FENotes.map((n) => 
                 <li key={n.id}>

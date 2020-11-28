@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES } from './types';
+import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES } from './types';
 
 // CREATE FE Notes
 export const createFENote = (n) => (dispatch, getState) => {
@@ -46,4 +46,48 @@ export const deleteFENote = (id) => (dispatch, getState) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+// CREATE Alarm System Notes
+export const createASNote = (n) => (dispatch, getState) => {
+  axios
+    .post('/alarmsys_notes/', n, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addASNote: 'Note Added' }));
+      dispatch({
+        type: ADD_AS_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Alarm System Notes
+export const getASNotesById = (as_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.fire_extinguisher = as_id;
+  axios
+    .get(`/alarmsys_notes`, config)
+    .then((res) => {
+      dispatch({
+        type: GET_AS_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// DELETE Alarm System Notes
+export const deleteASNote = (id) => (dispatch, getState) => {
+axios
+  .delete(`/alarmsys_notes/${id}/`, tokenConfig(getState))
+  .then((res) => {
+    dispatch(createMessage({ deleteASNotes: 'Note Deleted' }));
+    dispatch({
+      type: DELETE_AS_NOTES,
+      payload: id,
+    });
+  })
+  .catch((err) => console.log(err));
 };

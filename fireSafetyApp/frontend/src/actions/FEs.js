@@ -102,7 +102,6 @@ export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
     requestBody.last_12year_test = i.date_tested;
     requestBody.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
   }
-  console.log(requestBody);
   axios
     .patch(`/fire_extinguish/${FE.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
@@ -133,7 +132,6 @@ export const getFEInspecsById = (fe_id) => (dispatch, getState) => {
 
 // CREATE FE Inspections
 export const createFEInspection = (i) => (dispatch, getState) => {
-  console.log(i);
   axios
     .post('/fe_inspection/', i, tokenConfig(getState))
     .then((res) => {

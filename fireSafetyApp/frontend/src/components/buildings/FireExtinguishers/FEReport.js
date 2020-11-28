@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { displayFEInspectionPDF } from '../../../actions/pdfs';
+import { displayFEReportPDF } from '../../../actions/pdfs';
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 
 export class FEReport extends Component {
 
   static propTypes = {
-    displayFEInspectionPDF: PropTypes.func.isRequired
+    displayFEReportPDF: PropTypes.func.isRequired
   };
 
   convertToLocalTime = (d) => {
@@ -19,7 +19,7 @@ export class FEReport extends Component {
   renderPDF = () => {
     const {building, fe} = this.props.location.state;
     let pdfParams = {building, fe};
-    this.props.displayFEInspectionPDF(pdfParams);
+    this.props.displayFEReportPDF(pdfParams);
   }
   
   render() {
@@ -46,4 +46,4 @@ export class FEReport extends Component {
       );
     }
 }
-export default withRouter(connect(null, { displayFEInspectionPDF })(FEReport));
+export default withRouter(connect(null, { displayFEReportPDF })(FEReport));

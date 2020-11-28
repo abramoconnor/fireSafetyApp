@@ -1,4 +1,4 @@
-import { GET_FEs, DELETE_FEs, ADD_FEs, CLEAR_FEs, UPDATE_FE } from '../../actions/types';
+import { GET_FEs, DELETE_FEs, ADD_FEs, UPDATE_FE } from '../../actions/types';
 
 const initialState = {
   FEs: [],
@@ -29,11 +29,6 @@ export default function (state = initialState, action) {
             return action.payload;
           } else return FE;
         })
-      }
-    case CLEAR_FEs:
-      return {
-        ...state,
-        FEs: [],
       };
     default:
       return state;

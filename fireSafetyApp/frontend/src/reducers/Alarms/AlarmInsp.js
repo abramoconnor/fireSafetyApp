@@ -1,16 +1,21 @@
-import { GET_ALARM_INSP } from '../../actions/types.js';
+import { GET_AS_INSP, ADD_AS_INSP } from '../../actions/types.js';
 
 const initialState = {
-    AlarmInspecs: [],
+    AlarmSysInspecs: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_ALARM_INSP:
+    case GET_AS_INSP:
       return {
         ...state,
-        AlarmInspecs: action.payload,
+        AlarmSysInspecs: action.payload,
       };
+      case ADD_AS_INSP:
+        return {
+          ...state,
+          AlarmSysInspecs: [...state.AlarmSysInspecs, action.payload],
+        };
     default:
       return state;
   }

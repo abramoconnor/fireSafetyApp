@@ -1,31 +1,35 @@
-import { GET_ALARMs, DELETE_ALARMs, ADD_ALARMs, CLEAR_ALARMs } from '../../actions/types.js';
+import { GET_ALARM_SYS, DELETE_ALARM_SYS, ADD_ALARM_SYS, UPDATE_ALARM_SYS } from '../../actions/types.js';
 
 const initialState = {
-  ALARMs: [],
+  AlarmSystems: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_ALARMs:
+    case GET_ALARM_SYS:
       return {
         ...state,
-        ALARMs: action.payload,
+        AlarmSystems: action.payload,
       };
-    case DELETE_ALARMs:
+    case DELETE_ALARM_SYS:
       return {
         ...state,
-        ALARMs: state.ALARMs.filter((ALARM) => ALARM.id !== action.payload),
+        AlarmSystems: state.AlarmSystems.filter((system) => system.id !== action.payload),
       };
-    case ADD_ALARMs:
+    case ADD_ALARM_SYS:
       return {
         ...state,
-        ALARMs: [...state.ALARMs, action.payload],
+        AlarmSystems: [...state.AlarmSystems, action.payload],
       };
-    case CLEAR_ALARMs:
-      return {
-        ...state,
-        ALARMs: [],
-      };
+      case UPDATE_ALARM_SYS:
+        return {
+          ...state,
+          AlarmSystems: state.AlarmSystems.map((system) => {
+            if (system.id === action.payload.id) {
+              return action.payload;
+            } else return system;
+          })
+        };
     default:
       return state;
   }

@@ -2,56 +2,130 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_ALARMs, DELETE_ALARMs, ADD_ALARMs, GET_ALARM_INSP } from './types';
+import { GET_ALARM_SYS, DELETE_ALARM_SYS, ADD_ALARM_SYS, GET_AS_INSP, ADD_AS_INSP, UPDATE_ALARM_SYS } from './types';
 
-// GET ALARMs
-export const getALARMs = () => (dispatch, getState) => {
+// GET Alarm System
+export const getAlarmSystem = () => (dispatch, getState) => {
   axios
-    .get('/alarms', tokenConfig(getState))
+    .get('/alarm_system', tokenConfig(getState))
     .then((res) => {
       dispatch({
-        type: GET_ALARMs,
+        type: GET_ALARM_SYS,
         payload: res.data,
       });
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// DELETE ALARMs
-export const deleteALARMs = (id) => (dispatch, getState) => {
+// GET Alarm System by building id
+export const getASByBuilding = (building_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.building = building_id;
   axios
-    .delete(`/alarms/${id}/`, tokenConfig(getState))
+    .get('/alarm_system', config)
     .then((res) => {
-      dispatch(createMessage({ deleteALARMs: 'ALARM Deleted' }));
       dispatch({
-        type: DELETE_ALARMs,
+        type: GET_ALARM_SYS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// DELETE Alarm System
+export const deleteAlarmSystem = (id) => (dispatch, getState) => {
+  axios
+    .delete(`/alarm_system/${id}/`, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ deleteAlarmSystem: 'Alarm System Deleted' }));
+      dispatch({
+        type: DELETE_ALARM_SYS,
         payload: id,
       });
     })
     .catch((err) => console.log(err));
 };
 
-// ADD ALARMs
-export const addALARMs = (ALARM) => (dispatch, getState) => {
+// ADD Alarm System
+export const createAlarmSystem = (AlarmSys) => (dispatch, getState) => {
+  let d;
+  if (!AlarmSys.upcoming_monthly_inspection) {
+    d = new Date();
+    AlarmSys.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
+  }
+  if (!AlarmSys.upcoming_semiannual_inspection) {
+    d = new Date();
+    AlarmSys.upcoming_semiannual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
+  if (!AlarmSys.upcoming_annual_inspection) {
+    d = new Date();
+    AlarmSys.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
   axios
-    .post('/alarms', ALARM, tokenConfig(getState))
+    .post('/alarm_system/', AlarmSys, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ addALARM: 'ALARM Added' }));
+      dispatch(createMessage({ addAlarmSys: 'Alarm System Added' }));
       dispatch({
-        type: ADD_ALARMs,
+        type: ADD_ALARM_SYS,
         payload: res.data,
       });
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// GET Alarm Inspections
-export const getAlarmInspecs = () => (dispatch, getState) => {
+// UPDATE Alarm System dates
+export const updateASInspectionDate = (AS, i) => (dispatch, getState) => {
+  let requestBody = {};
+  let d = new Date(i.date_tested);
+  if (i.inspection_type === "monthly") {
+    requestBody.last_monthly_inspection = i.date_tested;
+    requestBody.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
+  }
+  else if (i.inspection_type === "semiannual") {
+    requestBody.last_semiannual_inspection = i.date_tested;
+    requestBody.upcoming_semiannual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
+  else if (i.inspection_type === "annual") {
+    requestBody.last_annual_inspection = i.date_tested;
+    requestBody.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
   axios
-    .get('/alarm_inspection', tokenConfig(getState))
+    .patch(`/alarm_system/${AS.id}/`, requestBody, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ updateAS: 'Alarm System Updated' }));
+      dispatch({
+        type: UPDATE_ALARM_SYS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Alarm System Inspections
+export const getAlarmSysInspecsById = (as_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.alarm_system = as_id;
+  axios
+    .get('/alarmsys_insp', tokenConfig(getState))
     .then((res) => {
       dispatch({
-        type: GET_ALARM_INSP,
+        type: GET_AS_INSP,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// CREATE Alarm System Inspections
+export const createASInspection = (i) => (dispatch, getState) => {
+  axios
+    .post('/alarmsys_insp/', i, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addASInspection: 'Inspection Completed' }));
+      dispatch({
+        type: ADD_AS_INSP,
         payload: res.data,
       });
     })

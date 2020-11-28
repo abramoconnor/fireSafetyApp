@@ -1,12 +1,22 @@
 from django.db import models
+from django.utils import timezone
+from buildings.models import Building
 
-class Alarms(models.Model):
-    code = models.CharField(max_length=100, unique=True)
-    last_inspection = models.DateTimeField(auto_now_add=True)
-    upcoming_inspection = models.DateTimeField(auto_now_add=True)
+class AlarmSystem(models.Model):
+    last_monthly_inspection = models.DateTimeField(default=timezone.now)
+    upcoming_monthly_inspection = models.DateTimeField(default=timezone.now)
+    last_semiannual_inspection = models.DateTimeField(default=timezone.now)
+    upcoming_semiannual_inspection = models.DateTimeField(default=timezone.now)
+    last_annual_inspection = models.DateTimeField(default=timezone.now)
+    upcoming_annual_inspection = models.DateTimeField(default=timezone.now)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name="building", default=0)
 
-class AlarmInspectionForm(models.Model):
-    id = models.CharField(max_length=100, primary_key=True)
-    date_tested = models.DateTimeField(auto_now_add=True)
+class AlarmSystemInspection(models.Model):
+    inspection_type = models.CharField(max_length=100)
+    date_tested = models.DateTimeField(default=timezone.now)
     tester = models.CharField(max_length=100)
-    sound_test = models.CharField(max_length=100)
+    alarm_system = models.ForeignKey(AlarmSystem, on_delete=models.CASCADE, related_name="alarm_sys", default=0)
+
+class AlarmSystemNotes(models.Model):
+    note = models.CharField(max_length=240)
+    alarm_system = models.ForeignKey(AlarmSystem, on_delete=models.CASCADE, related_name="alarm_system", default=0)

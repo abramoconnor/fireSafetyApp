@@ -46,7 +46,6 @@ export class FireExtinguisherList extends Component {
             </button>
           </Link>
         </td>
-        {/* ???logic to get next upcoming */}
         {this.nextInspection(fe)}
       </tr>
 			)
@@ -107,7 +106,7 @@ export class FireExtinguisherList extends Component {
           </table>
           <div className = "grid">
           <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>
-            <button className={"btn2 btn--back"} type="button" onClick={() => {}}>Add New FE</button>   
+            <button className={"btn2 btn--back"} type="button" onClick={() => {}}>Add New Extinguisher</button>   
           </Link>
           <Link to={{ pathname: '/Assets', state:{building:building}}}>
 						<Button 

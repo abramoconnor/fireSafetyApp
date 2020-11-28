@@ -15,8 +15,6 @@ class FEViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(building=building)
         return queryset
     
-    
-
 class FEInspectionViewSet(viewsets.ModelViewSet):
     serializer_class = FEInspectionSerializer
     permission_classes = [

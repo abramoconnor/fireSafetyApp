@@ -6,10 +6,11 @@ import buildings from './buildings';
 import FEs from './FireExtinguishers/FEs';
 import FEInspecs from './FireExtinguishers/FEInsp';
 import FENotes from "./FireExtinguishers/FENotes"
+import ALARMs from './Alarms/Alarms';
+import AlarmInspecs from './Alarms/AlarmInsp';
+import AlarmNotes from "./Alarms/AlarmNotes"
 import AEDs from './AEDs/AEDs';
 import AEDInspecs from "./AEDs/AEDInsp";
-import ALARMs from './Alarms/Alarms';
-import AlarmInspecs from "./Alarms/AlarmInsp";
 import SPRINKLERs from './Sprinklers/Sprinklers';
 import SprinklerInspecs from "./Sprinklers/SprinklerInsp";
 
@@ -18,12 +19,13 @@ export default combineReducers({
   FEs,
   FEInspecs,
   FENotes,
+  ALARMs,
+  AlarmInspecs,
+  AlarmNotes,
   AEDs,
   AEDInspecs,
   SPRINKLERs,
   SprinklerInspecs,
-  ALARMs,
-  AlarmInspecs,
   errors,
   messages,
   auth,
