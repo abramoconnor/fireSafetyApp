@@ -60,6 +60,7 @@ export class Buildings extends Component {
 	
 	componentDidMount() {
 		this.props.getBuildings();
+		this.props.history.push()
 	}
 	
 	render() {
