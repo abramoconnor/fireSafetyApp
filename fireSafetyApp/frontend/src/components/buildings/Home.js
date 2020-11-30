@@ -5,7 +5,9 @@ import { getBuildings, deleteBuilding } from '../../actions/buildings';
 import '../../styles/buttonStyles.css';
 import '../../styles/format.css';
 import { Link, withRouter } from 'react-router-dom';
-import SearchField from "react-search-field"
+import SearchField from "react-search-field";
+import { FaSearch } from "react-icons/fa";
+
 
 export class Buildings extends Component {
 	static propTypes = {
@@ -66,7 +68,16 @@ export class Buildings extends Component {
 	render() {
 		return (
 			<Fragment>	
-					<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+				
+				<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+					
+					<div>
+						<div class="search-box">
+   						<input type="text" name="" class="search-txt" placeholder="Search..."/>	 
+					  	<button class="search-btn"><FaSearch/></button>
+						</div>
+					</div>
+
 					<h1 className={"buildingNames style"}> Buildings</h1>
 				
 				<div className = "grid">
@@ -82,16 +93,6 @@ export class Buildings extends Component {
 	}
   }
 
-  /* failed searchbar code
-
-  	<div class='search-bar'>
-						<input type='text' className='search-bar__input' placeholder="Search...">
-						</input>
-						<button className='search-bar__submit'>Go</button>
-	</div>
-
-  */
-  
   const mapStateToProps = (state) => ({
 	buildings: state.buildings.buildings,
   });
