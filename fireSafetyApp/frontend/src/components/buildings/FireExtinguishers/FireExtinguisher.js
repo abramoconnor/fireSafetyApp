@@ -128,8 +128,8 @@ export class FireExtinguisher extends Component {
           <Link to={{ pathname: '/FEReport', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
+          <div>Monthly Inspections</div>
           <table className="table table-striped">
-            <caption>Monthly Inspections</caption>
             <thead>
               <tr>
                 <th>Inspection Date</th>
@@ -140,8 +140,8 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parseMonthlyInspections(i))}
             </tbody>
           </table>
+          <div>Annual Inspections</div>
           <table className="table table-striped">
-            <caption>Annual Inspections</caption>
             <thead>
               <tr>
                 <th>Inspection Date</th>
@@ -152,8 +152,8 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parseAnnualInspections(i))}
             </tbody>
           </table>
+          <div>6-Year Services</div>
           <table className="table table-striped">
-            <caption>6-Year Services</caption>
             <thead>
               <tr>
                 <th>Service Date</th>
@@ -164,8 +164,8 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parse6YearServices(i))}
             </tbody>
           </table>
+          <div>12-Year Tests</div>
           <table className="table table-striped">
-            <caption>12-Year Tests</caption>
             <thead>
               <tr>
                 <th>Test Date</th>
