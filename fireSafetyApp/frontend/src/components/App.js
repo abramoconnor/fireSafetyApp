@@ -21,6 +21,7 @@ import CreateFEForm  from "./buildings/FireExtinguishers/CreateFEForm";
 import FireExtinguisher from "./buildings/FireExtinguishers/FireExtinguisher";
 import FEInspection from "./buildings/FireExtinguishers/FEInspection";
 import FEReport  from "./buildings/FireExtinguishers/FEReport";
+import FETransfer  from "./buildings/FireExtinguishers/FETransfer";
 import AlarmSystem from "./buildings/Alarms/AlarmSystem";
 import CreateASForm from "./buildings/Alarms/CreateASForm";
 import ASInspection from "./buildings/Alarms/AlarmSystemInspection";
@@ -66,6 +67,7 @@ class App extends Component {
 									<PrivateRoute exact path="/FireExtinguisher" component={FireExtinguisher} />
 									<PrivateRoute exact path="/FEInspection" component={FEInspection} />
 									<PrivateRoute exact path="/FEReport" component={FEReport} />
+									<PrivateRoute exact path="/FETransfer" component={FETransfer} />
 									<PrivateRoute exact path="/AlarmSystem" component={AlarmSystem} />
 									<PrivateRoute exact path="/ASInspection" component={ASInspection} />
 									<PrivateRoute exact path="/ASReport" component={ASReport} />

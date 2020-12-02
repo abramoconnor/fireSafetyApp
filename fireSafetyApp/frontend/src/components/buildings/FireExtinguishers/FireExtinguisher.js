@@ -126,8 +126,9 @@ export class FireExtinguisher extends Component {
           <Link to={{ pathname: '/FEReport', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
-          
-          
+          <Link to={{ pathname: '/FETransfer', state: {building: building, fe: fe}}}>
+            <Button className={"btn btn--small"} onClick={() => {}}>Transfer Asset</Button>
+          </Link>
           <p className={"black"}>Monthly Inspections</p>
           <div className={"tableScroll"}>
             <table className="table table-striped">

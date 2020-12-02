@@ -22,6 +22,7 @@ export class Alerts extends Component {
       if (message.addFEInspection) alert.success(message.addFEInspection);
       if (message.deleteFE) alert.success(message.deleteFE);
       if (message.addFE) alert.success(message.addFE);
+      if (message.feTransfer) alert.success(message.feTransfer);
       if (message.newUserRegistered) alert.success(message.newUserRegistered);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
     }

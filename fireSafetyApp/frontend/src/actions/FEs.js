@@ -114,6 +114,20 @@ export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
+// UPDATE Fire Extinguisher dates
+export const updateFELocation = (fe, requestBody, b) => (dispatch, getState) => {
+  axios
+    .patch(`/fire_extinguish/${fe.id}/`, requestBody, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ feTransfer: `Fire Extinguisher ${fe.exnum} transferred to ${b[0].name}` }));
+      dispatch({
+        type: UPDATE_FE,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
 // GET FE Inspections
 export const getFEInspecsById = (fe_id) => (dispatch, getState) => {
   let config = tokenConfig(getState);
