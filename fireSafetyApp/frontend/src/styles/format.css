@@ -5,6 +5,22 @@
 	--clr-primary: #ff5c5c;
 }
 
+.black {
+	color: black;
+}
+.red {
+	color: red;
+}
+
+.center {
+	text-align: center;
+}
+.right {
+	text-align: right;
+}
+.flexin {
+	flex-basis: 66.66%;
+}
 .style {
 	text-align: middle;
 }

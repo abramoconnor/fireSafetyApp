@@ -99,7 +99,7 @@ export class FireExtinguisher extends Component {
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);
     return (
-      <p>Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
+      <p className="center red">Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
     )
   }
 
@@ -113,22 +113,19 @@ export class FireExtinguisher extends Component {
     return (
       <Fragment>
           {/* ???Blane put captions on top of table */}
-          <h2>Fire Extinguisher: {fe.exnum}</h2>
-          <p>Located in: {building.name}</p>
+          <h2 className="center">Fire Extinguisher: {fe.exnum}</h2>
+          <p className="center">Location: {building.name}</p>
           {this.nextInspection(fe)}
-				    <Button className={"btn btn--small"} onClick={() => {
-              if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
-                this.deleteFireExtinguisher(fe.id);
-              }}}>
-              Delete
-            </Button>
+				    
           <Link to={{ pathname: '/FEInspection', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
           <Link to={{ pathname: '/FEReport', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
-          <div>Monthly Inspections</div>
+          
+          
+          <div className={"black"}>Monthly Inspections</div>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -140,19 +137,19 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parseMonthlyInspections(i))}
             </tbody>
           </table>
-          <div>Annual Inspections</div>
+          <div className={"black"}>Annual Inspections</div>
           <table className="table table-striped">
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th>Performed By</th>
+                <th className="align">Performed By</th>
               </tr>
             </thead>
             <tbody>
                 {this.props.FEInspecs.map(i => this.parseAnnualInspections(i))}
             </tbody>
           </table>
-          <div>6-Year Services</div>
+          <div className={"black"}>6-Year Services</div>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -164,7 +161,7 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parse6YearServices(i))}
             </tbody>
           </table>
-          <div>12-Year Tests</div>
+          <div className={"black"}>12-Year Tests</div>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -176,6 +173,14 @@ export class FireExtinguisher extends Component {
                 {this.props.FEInspecs.map(i => this.parse12YearTests(i))}
             </tbody>
           </table>
+          <div className={"right"}>
+          <Button className={"btn btn--small"} onClick={() => {
+              if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
+                this.deleteFireExtinguisher(fe.id);
+              }}}>
+              Delete Asset
+            </Button>
+          </div>
           <div>
             <h5>Notes</h5>
             <FENotes fe={fe}/>

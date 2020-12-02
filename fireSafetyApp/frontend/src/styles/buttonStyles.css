@@ -167,7 +167,10 @@ Then consecutive button styles were put together depending on need, etc.
 
 .adjustright {
 	position: relative;
-	left: 100px;
+	left: 500px;
+}
+.right {
+	text-align: right;
 }
 
 .adjustleft {
