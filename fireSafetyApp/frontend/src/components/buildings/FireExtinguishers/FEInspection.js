@@ -6,10 +6,13 @@ import {createFENote} from "../../../actions/notes"
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
+const MAX_NOTE_LENGTH = 240;
+
 export class FEInspection extends Component {
   state = {
     type: 'monthly',
     note: '',
+    charsLeft: MAX_NOTE_LENGTH
   }
 
   static propTypes = {
@@ -20,6 +23,15 @@ export class FEInspection extends Component {
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+
+  onChangeNote = (e) => {
+    if (e.target.value.length > MAX_NOTE_LENGTH) {
+        this.setState({charsLeft: "TOO MANY CHARACTERS"});
+    } else {
+        this.setState({charsLeft: MAX_NOTE_LENGTH - e.target.value.length})
+    }
+    this.setState({ [e.target.name]: e.target.value })
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -36,11 +48,13 @@ export class FEInspection extends Component {
     if (this.state.note) {
       let n = {
         note: this.state.note,
+        author: `${user.first_name} ${user.last_name}`,
+        date_written: new Date(),
         fire_extinguisher: this.props.location.state.fe.id
       }
       this.props.createFENote(n);
     }
-    this.setState({ type: '', note: ''});
+    this.setState({ type: '', note: '', charsLeft: MAX_NOTE_LENGTH});
   }
     
   render() {
@@ -48,7 +62,6 @@ export class FEInspection extends Component {
     const {type, note} = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
-        {/* ???Blane format this thing LOL */}
         <h2>Fire Extinguisher Inspection Form</h2>
         <h5>Extinguisher: {fe.exnum}</h5>
         <h5>Building: {building.name}</h5>
@@ -63,15 +76,16 @@ export class FEInspection extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label>Notes</label>
+            <label>Notes (Optional)</label>
             <input
               className="form-control"
               type="text"
               name="note"
-              onChange={this.onChange}
+              onChange={this.onChangeNote}
               value={note}
             />
           </div>
+          <p>Characters Left: {this.state.charsLeft}</p>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
               Submit

@@ -103,6 +103,11 @@ export class FireExtinguisher extends Component {
     )
   }
 
+  convertToLocalTime = (d) => {
+    const nd = new Date(d);
+    return nd.toLocaleDateString().split("T")[0]
+  }
+
   render() {
     const {isDeleted} = this.state;
     if (isDeleted) {
@@ -111,7 +116,6 @@ export class FireExtinguisher extends Component {
     const {building, fe} = this.props.location.state;
     return (
       <Fragment>
-          {/* ???Blane put captions on top of table */}
           <h2 className="center">Fire Extinguisher: {fe.exnum}</h2>
           <p className="center">Location: {building.name}</p>
           {this.nextInspection(fe)}
@@ -124,54 +128,95 @@ export class FireExtinguisher extends Component {
           </Link>
           
           
-          <div className={"black"}>Monthly Inspections</div>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Inspection Date</th>
-                <th>Performed By</th>
-              </tr>
-            </thead>
-            <tbody>
-                {this.props.FEInspecs.map(i => this.parseMonthlyInspections(i))}
-            </tbody>
-          </table>
-          <div className={"black"}>Annual Inspections</div>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Inspection Date</th>
-                <th className="align">Performed By</th>
-              </tr>
-            </thead>
-            <tbody>
-                {this.props.FEInspecs.map(i => this.parseAnnualInspections(i))}
-            </tbody>
-          </table>
-          <div className={"black"}>6-Year Services</div>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Service Date</th>
-                <th>Performed By</th>
-              </tr>
-            </thead>
-            <tbody>
-                {this.props.FEInspecs.map(i => this.parse6YearServices(i))}
-            </tbody>
-          </table>
-          <div className={"black"}>12-Year Tests</div>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Test Date</th>
-                <th>Performed By</th>
-              </tr>
-            </thead>
-            <tbody>
-                {this.props.FEInspecs.map(i => this.parse12YearTests(i))}
-            </tbody>
-          </table>
+          <p className={"black"}>Monthly Inspections</p>
+          <div className={"tableScroll"}>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Inspection Date</th>
+                  <th>Performed By</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {this.props.FEInspecs.map(i => this.parseMonthlyInspections(i))}
+              </tbody>
+            </table>
+          </div>
+          <p className={"black"}>Annual Inspections</p>
+          <div className={"tableScroll"}>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Inspection Date</th>
+                  <th className="align">Performed By</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {this.props.FEInspecs.map(i => this.parseAnnualInspections(i))}
+              </tbody>
+            </table>
+          </div>
+          <p className={"black"}>6-Year Services</p>
+          <div className={"tableScroll"}>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Service Date</th>
+                  <th>Performed By</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {this.props.FEInspecs.map(i => this.parse6YearServices(i))}
+              </tbody>
+            </table>
+          </div>
+          <p className={"black"}>12-Year Tests</p>
+          <div className={"tableScroll"}>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Test Date</th>
+                  <th>Performed By</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {this.props.FEInspecs.map(i => this.parse12YearTests(i))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h5>Notes</h5>
+            <FENotes fe={fe}/>
+            <div className={"noteScroll"}>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Note</th>
+                    <th>Written By</th>
+                    <th>Date Written</th>
+                    <th/>
+                  </tr>
+                </thead>
+                <tbody>
+                    {this.props.FENotes.map(n => 
+                      <tr key={n.id}>
+                        <td className={"note"}>{n.note}</td>
+                        <td>{n.author}</td>
+                        <td>{this.convertToLocalTime(n.date_written)}</td>
+                        <td>
+                        <button className={"btn btn--small"} onClick={() => {
+                            if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
+                              this.deleteNote(n.id);
+                            }}}>
+                          Delete Note
+                        </button>
+                        </td>
+                      </tr>  
+                    )}
+                </tbody>
+              </table>
+            </div>
+          </div>
           <div className={"right"}>
           <Button className={"btn btn--small"} onClick={() => {
               if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
@@ -179,22 +224,6 @@ export class FireExtinguisher extends Component {
               }}}>
               Delete Asset
             </Button>
-          </div>
-          <div>
-            <h5>Notes</h5>
-            <FENotes fe={fe}/>
-            <ul>
-                {this.props.FENotes.map((n) => 
-                <li key={n.id}>
-                  {n.note}
-                  <button className={"btn btn--small"} onClick={() => {
-                    if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
-                      this.deleteNote(n.id);
-                    }}}>
-                      Delete Note
-                  </button>
-                </li>)}
-            </ul>
           </div>
           <Link to={{ pathname: '/FireExtinguisherList', state: {building: building}}}>
 				<Button className={"btn btn--back"} onClick={() => console.log(building)}>Back</Button>

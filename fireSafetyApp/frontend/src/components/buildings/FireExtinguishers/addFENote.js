@@ -14,6 +14,7 @@ export class FENotes extends Component {
 
     static propTypes = {
         createFENote: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired,
     };
 
     onChange = (e) => {
@@ -37,8 +38,11 @@ export class FENotes extends Component {
             
         }
         else {
+            const { user } = this.props.auth;
             let n = {
                 note: this.state.note,
+                author: `${user.first_name} ${user.last_name}`,
+                date_written: new Date(),
                 fire_extinguisher: this.props.fe.id
             }
             this.props.createFENote(n);
@@ -63,4 +67,7 @@ export class FENotes extends Component {
        )
     }
   }
-export default connect(null, { createFENote })(FENotes);
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+  });
+export default connect(mapStateToProps, { createFENote })(FENotes);

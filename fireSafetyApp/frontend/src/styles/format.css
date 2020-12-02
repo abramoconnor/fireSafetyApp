@@ -109,3 +109,18 @@ as
 li {
 	list-style-type: none;
 }
+
+.tableScroll {
+	overflow:scroll;
+    height:300px;
+}
+
+.noteScroll {
+	overflow:scroll;
+    height:200px;
+}
+
+.note {
+	width:500px;
+	word-wrap: break-word;
+}

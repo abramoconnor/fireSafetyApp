@@ -26,7 +26,6 @@ export class SSReport extends Component {
     const {building, ss} = this.props.location.state;
     return (
       <Fragment>
-          {/* ???Blane put captions on top of table */}
           <h2>Report for Sprinkler System: {ss.id}</h2>
           <p>Located in: {building.name}</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>

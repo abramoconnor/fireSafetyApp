@@ -52,7 +52,6 @@ export class FEInspection extends Component {
     const {type, note, air_pressure, water_pressure} = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
-        {/* ???Blane format this thing LOL */}
         <h2>Sprinkler System Inspection Form</h2>
         <h5>System: {ss.id}</h5>
         <h5>Type: {ss.system_type}</h5>

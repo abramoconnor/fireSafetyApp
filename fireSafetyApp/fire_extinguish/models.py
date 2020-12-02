@@ -22,4 +22,6 @@ class FEInspection(models.Model):
 
 class FENotes(models.Model):
     note = models.CharField(max_length=240)
+    author = models.CharField(max_length=100)
+    date_written = models.DateTimeField(default=timezone.now)
     fire_extinguisher = models.ForeignKey(FireExtinguisher, on_delete=models.CASCADE, related_name="fire_extinguisher", default=0)

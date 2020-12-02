@@ -26,7 +26,6 @@ export class FEReport extends Component {
     const {building, fe} = this.props.location.state;
     return (
       <Fragment>
-          {/* ???Blane put captions on top of table */}
           <h2>Report for Fire Extinguisher: {fe.exnum}</h2>
           <p>Located in: {building.name}</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>

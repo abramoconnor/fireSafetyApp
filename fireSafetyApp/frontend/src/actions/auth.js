@@ -71,13 +71,12 @@ export const register = ({ username, first_name, last_name, email, password  }) 
 
   // Request Body
   const body = JSON.stringify({ username, first_name, last_name, email, password });
-
   axios
     .post('/api/auth/register', body, config)
     .then((res) => {
-      dispatch(createMessage({newUserRegistered: `${first_name} ${last_name} has been registered`}))
+      dispatch(createMessage({newUserRegistered: `${first_name} ${last_name} has been registered. Try logging in.`}))
       dispatch({
-        type: REGISTER_SUCCESS,
+        type: '',
         payload: res.data,
       });
     })

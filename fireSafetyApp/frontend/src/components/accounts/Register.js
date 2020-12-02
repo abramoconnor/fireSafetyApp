@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
 import { createMessage } from '../../actions/messages';
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 export class Register extends Component {
   state = {
@@ -101,6 +103,11 @@ export class Register extends Component {
               </button>
             </div>
           </form>
+          <div>
+             <Link to={{ pathname: "/Home", state:{}}}>		
+               <Button className={"btn btn-primary"}>Back</Button>   
+		         </Link>
+          </div> 
         </div>
       </div>
     );

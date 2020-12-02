@@ -133,7 +133,6 @@ export class SprinklerSystem extends Component {
     const {building, ss} = this.props.location.state;
     return (
       <Fragment>
-          {/* ???Blane put captions on top of table */}
           <h2>Sprinkler System: {ss.id}</h2>
           <p>Type: {ss.system_type}</p>
           <p>Located in: {building.name}</p>

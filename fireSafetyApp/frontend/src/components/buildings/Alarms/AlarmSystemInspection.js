@@ -48,7 +48,6 @@ export class ASInspection extends Component {
     const {type, note} = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
-        {/* ???Blane format this thing LOL */}
         <h2>Alarm System Inspection Form</h2>
         <h5>Building: {building.name}</h5>
         <form onSubmit={this.onSubmit}>
