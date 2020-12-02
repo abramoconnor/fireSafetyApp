@@ -28,11 +28,15 @@ export const GET_FE_NOTES = 'GET_FE_NOTES';
 export const ADD_FE_NOTES = 'ADD_FE_NOTES';
 export const DELETE_FE_NOTES = 'DELETE_FE_NOTES';
 
-
-export const GET_SPRINKLERs = 'GET_SPRINKLERs';
-export const DELETE_SPRINKLERs = 'DELETE_SPRINKLERs';
-export const ADD_SPRINKLERs = 'ADD_SPRINKLERs';
-export const GET_SPRINKLER_INSP = 'GET_SPRINKLER_INSP';
+export const GET_SP_SYS = 'GET_SP_SYS';
+export const DELETE_SP_SYS = 'DELETE_SP_SYS';
+export const ADD_SP_SYS = 'ADD_SP_SYS';
+export const UPDATE_SP_SYS = 'UPDATE_SP_SYS';
+export const GET_SP_INSP = 'GET_SP_INSP';
+export const ADD_SP_INSP = 'ADD_SP_INSP';
+export const GET_SP_NOTES = 'GET_SP_NOTES';
+export const ADD_SP_NOTES = 'ADD_SP_NOTES';
+export const DELETE_SP_NOTES = 'DELETE_SP_NOTES';
 
 export const GET_ALARM_SYS = 'GET_ALARM_SYS';
 export const DELETE_ALARM_SYS = 'DELETE_ALARM_SYS';

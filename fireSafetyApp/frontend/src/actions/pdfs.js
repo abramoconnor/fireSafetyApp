@@ -30,9 +30,10 @@ export const displayASReportPDF = (params) => (dispatch, getState) => {
 };
 
 // GET Sprinkler Inspection pdf
-export const displaySprinklerInspectionPDF = (id) => (dispatch, getState) => {
+export const displaySSReportPDF = (params) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
   axios
-    .get(`/sprinkler_insp_pdf/${id}`, tokenConfig(getState))
+    .get(`/sprinkler_insp_pdf`, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);

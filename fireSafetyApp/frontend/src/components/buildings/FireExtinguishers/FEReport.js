@@ -29,8 +29,8 @@ export class FEReport extends Component {
           {/* ???Blane put captions on top of table */}
           <h2>Report for Fire Extinguisher: {fe.exnum}</h2>
           <p>Located in: {building.name}</p>
-          <p>*Report will appear in a new window. If it does not appear be sure your ad-blocker is turned off.*</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>
+          <p>*Button will cause report to appear in a new window when . If it does not appear be sure your ad-blocker is turned off.*</p>
           <p>Last Monthly Inspection: {this.convertToLocalTime(fe.last_monthly_inspection)}</p>
           <p>Upcoming Monthly Inspection: {this.convertToLocalTime(fe.upcoming_monthly_inspection)}</p>
           <p>Last Annual Inspection: {this.convertToLocalTime(fe.last_annual_inspection)}</p>

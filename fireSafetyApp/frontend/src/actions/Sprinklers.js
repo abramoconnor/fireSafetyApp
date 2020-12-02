@@ -2,56 +2,146 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs, GET_SPRINKLER_INSP } from './types';
+import { GET_SP_SYS, DELETE_SP_SYS, ADD_SP_SYS, UPDATE_SP_SYS, GET_SP_INSP, ADD_SP_INSP } from './types';
 
-// GET SPRINKLERs
-export const getSPRINKLERs = () => (dispatch, getState) => {
+// GET Sprinkler Systems
+export const getSprinklerSystems = () => (dispatch, getState) => {
   axios
-    .get('/sprinklers', tokenConfig(getState))
+    .get('/sprinkler_system', tokenConfig(getState))
     .then((res) => {
       dispatch({
-        type: GET_SPRINKLERs,
+        type: GET_SP_SYS,
         payload: res.data,
       });
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// DELETE SPRINKLERs
-export const deleteSPRINKLERs = (id) => (dispatch, getState) => {
+// GET Sprinkler System by building id
+export const getSpSysByBuilding = (building_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.building = building_id;
   axios
-    .delete(`/sprinklers/${id}/`, tokenConfig(getState))
+    .get('/sprinkler_system', config)
     .then((res) => {
-      dispatch(createMessage({ deleteSPRINKLERs: 'SPRINKLER Deleted' }));
       dispatch({
-        type: DELETE_SPRINKLERs,
+        type: GET_SP_SYS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// DELETE Sprinkler System
+export const deleteSprinklerSystem = (id) => (dispatch, getState) => {
+  axios
+    .delete(`/sprinkler_system/${id}/`, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ deleteSprinklerSystem: 'Sprinkler System Deleted' }));
+      dispatch({
+        type: DELETE_SP_SYS,
         payload: id,
       });
     })
     .catch((err) => console.log(err));
 };
 
-// ADD SPRINKLERs
-export const addSPRINKLERs = (sprinkler) => (dispatch, getState) => {
+// CREATE Sprinkler System
+export const createSprinklerSystem = (SprinklerSys) => (dispatch, getState) => {
+  let d;
+  if (!SprinklerSys.upcoming_weekly_inspection) {
+    d = new Date();
+    SprinklerSys.upcoming_weekly_inspection = new Date(d.setDate(d.getDate()+7));
+  }
+  if (!SprinklerSys.upcoming_monthly_inspection) {
+    d = new Date();
+    SprinklerSys.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
+  }
+  if (!SprinklerSys.upcoming_quarterly_inspection) {
+    d = new Date();
+    SprinklerSys.upcoming_quarterly_inspection = new Date(d.setMonth(d.getMonth()+3));
+  }
+  if (!SprinklerSys.upcoming_semiannual_inspection) {
+    d = new Date();
+    SprinklerSys.upcoming_semiannual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
+  if (!SprinklerSys.upcoming_annual_inspection) {
+    d = new Date();
+    SprinklerSys.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
   axios
-    .post('/sprinklers', sprinkler, tokenConfig(getState))
+    .post('/sprinkler_system/', SprinklerSys, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ addSPRINKLER: 'SPRINKLER Added' }));
+      dispatch(createMessage({ addSprinklerSystem: 'Sprinkler System Added' }));
       dispatch({
-        type: ADD_SPRINKLERs,
+        type: ADD_SP_SYS,
         payload: res.data,
       });
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-// GET Sprinkler Inspections
-export const getSprinklerInspecs = () => (dispatch, getState) => {
+// UPDATE Sprinkler System dates
+export const updateSSInspectionDate = (ss, i) => (dispatch, getState) => {
+  let requestBody = {};
+  let d = new Date(i.date_tested);
+  if (i.inspection_type === "weekly") {
+    requestBody.last_weekly_inspection = i.date_tested;
+    requestBody.upcoming_weekly_inspection = new Date(d.setDate(d.getDate()+7));
+  }
+  if (i.inspection_type === "monthly") {
+    requestBody.last_monthly_inspection = i.date_tested;
+    requestBody.upcoming_monthly_inspection = new Date(d.setMonth(d.getMonth()+1));
+  }
+  if (i.inspection_type === "quarterly") {
+    requestBody.last_quarterly_inspection = i.date_tested;
+    requestBody.upcoming_quarterly_inspection = new Date(d.setMonth(d.getMonth()+3));
+  }
+  else if (i.inspection_type === "semiannual") {
+    requestBody.last_semiannual_inspection = i.date_tested;
+    requestBody.upcoming_semiannual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
+  else if (i.inspection_type === "annual") {
+    requestBody.last_annual_inspection = i.date_tested;
+    requestBody.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
+  }
   axios
-    .get('/sprinkler_inspection', tokenConfig(getState))
+    .patch(`/sprinkler_system/${ss.id}/`, requestBody, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ updateSS: 'Sprinkler System Updated' }));
+      dispatch({
+        type: UPDATE_SP_SYS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Sprinkler System Inspections
+export const getSprinklerSysInspecs = (ss_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.sprinkler_system = ss_id;
+  axios
+    .get('/sprinklersys_insp', config)
     .then((res) => {
       dispatch({
-        type: GET_SPRINKLER_INSP,
+        type: GET_SP_INSP,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// CREATE Sprinkler System Inspections
+export const createSSInspection = (i) => (dispatch, getState) => {
+  axios
+    .post('/sprinklersys_insp/', i, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addSSInspection: 'Inspection Completed' }));
+      dispatch({
+        type: ADD_SP_INSP,
         payload: res.data,
       });
     })

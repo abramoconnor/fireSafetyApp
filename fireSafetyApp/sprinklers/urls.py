@@ -1,14 +1,15 @@
 from rest_framework import routers
-from .api import SprinklerViewSet, SprinklerInspectionViewSet
+from .api import SprinklerSystemViewSet, SprinklerSystemInspectionViewSet, SprinklerSystemNotesViewSet
 from django.urls import path
-from .views import sprinkler_inspection_render_pdf_view
+from .views import sprinklersys_report_pdf_view
 
 router = routers.DefaultRouter()
-router.register('sprinklers', SprinklerViewSet, 'sprinklers')
-router.register('sprinkler_inspection', SprinklerInspectionViewSet, 'sprinkler_inspection')
+router.register('sprinkler_system', SprinklerSystemViewSet, 'sprinkler_system')
+router.register('sprinklersys_insp', SprinklerSystemInspectionViewSet, 'sprinklersys_insp')
+router.register('sprinklersys_notes', SprinklerSystemNotesViewSet, 'sprinklersys_notes')
 
 urlpatterns = [
-    path('sprinkler_insp_pdf/<pk>', sprinkler_inspection_render_pdf_view, name='sprinkler_insp_pdf'),
+    path('sprinkler_report_pdf', sprinklersys_report_pdf_view, name='sprinkler_report_pdf'),
 ]
 
 urlpatterns += router.urls

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES } from './types';
+import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES, GET_SP_NOTES, ADD_SP_NOTES, DELETE_SP_NOTES } from './types';
 
 // CREATE FE Notes
 export const createFENote = (n) => (dispatch, getState) => {
@@ -86,6 +86,50 @@ axios
     dispatch(createMessage({ deleteASNotes: 'Note Deleted' }));
     dispatch({
       type: DELETE_AS_NOTES,
+      payload: id,
+    });
+  })
+  .catch((err) => console.log(err));
+};
+
+// CREATE Sprinkler System Notes
+export const createSSNote = (n) => (dispatch, getState) => {
+  axios
+    .post('/sprinklersys_notes/', n, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addSSNote: 'Note Added' }));
+      dispatch({
+        type: ADD_SP_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Sprinkler System Notes
+export const getSSNotesById = (ss_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.sprinkler_system = ss_id;
+  axios
+    .get(`/sprinklersys_notes`, config)
+    .then((res) => {
+      dispatch({
+        type: GET_SP_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// DELETE Sprinkler System Notes
+export const deleteSSNote = (id) => (dispatch, getState) => {
+axios
+  .delete(`/sprinklersys_notes/${id}/`, tokenConfig(getState))
+  .then((res) => {
+    dispatch(createMessage({ deleteSSNotes: 'Note Deleted' }));
+    dispatch({
+      type: DELETE_SP_NOTES,
       payload: id,
     });
   })

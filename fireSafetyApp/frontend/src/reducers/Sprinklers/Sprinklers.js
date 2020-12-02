@@ -1,31 +1,35 @@
-import { GET_SPRINKLERs, DELETE_SPRINKLERs, ADD_SPRINKLERs, CLEAR_SPRINKLERs } from '../../actions/types.js';
+import { GET_SP_SYS, ADD_SP_SYS, DELETE_SP_SYS, UPDATE_SP_SYS } from '../../actions/types.js';
 
 const initialState = {
-  SPRINKLERs: [],
+  SprinklerSystems: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_SPRINKLERs:
+    case GET_SP_SYS:
       return {
         ...state,
-        SPRINKLERs: action.payload,
+        SprinklerSystems: action.payload,
       };
-    case DELETE_SPRINKLERs:
+    case DELETE_SP_SYS:
       return {
         ...state,
-        SPRINKLERs: state.SPRINKLERs.filter((SPRINKLER) => SPRINKLER.id !== action.payload),
+        SprinklerSystems: state.SprinklerSystems.filter((s) => s.id !== action.payload),
       };
-    case ADD_SPRINKLERs:
+    case ADD_SP_SYS:
       return {
         ...state,
-        SPRINKLERs: [...state.SPRINKLERs, action.payload],
+        SprinklerSystems: [...state.SprinklerSystems, action.payload],
       };
-    case CLEAR_SPRINKLERs:
-      return {
-        ...state,
-        SPRINKLERs: [],
-      };
+    case UPDATE_SP_SYS:
+    return {
+      ...state,
+      SprinklerSystems: state.SprinklerSystems.map((s) => {
+        if (s.id === action.payload.id) {
+          return action.payload;
+        } else return s;
+      })
+    };
     default:
       return state;
   }

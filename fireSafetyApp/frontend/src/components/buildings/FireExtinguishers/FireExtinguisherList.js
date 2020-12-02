@@ -13,7 +13,9 @@ export class FireExtinguisherList extends Component {
     getFEsByBuilding: PropTypes.func.isRequired,
   };
 
-  state = {search:null};
+  state = {
+    search: null
+  };
 
   filter = (fe ,building) => {
 		if (this.state.search == null)
@@ -28,7 +30,6 @@ export class FireExtinguisherList extends Component {
             </button>
           </Link>
         </td>
-        {/* ???logic to get next upcoming */}
         {this.nextInspection(fe)}
       </tr>
 			)
@@ -59,7 +60,6 @@ export class FireExtinguisherList extends Component {
 
   componentDidMount() {
     this.props.getFEsByBuilding(this.props.location.state.building.id);
-    console.log(this)
   }
 
   // function calculates the inspection closest to the current date

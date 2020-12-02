@@ -108,7 +108,7 @@ export const getAlarmSysInspecsById = (as_id) => (dispatch, getState) => {
   config.params = {};
   config.params.alarm_system = as_id;
   axios
-    .get('/alarmsys_insp', tokenConfig(getState))
+    .get('/alarmsys_insp', config)
     .then((res) => {
       dispatch({
         type: GET_AS_INSP,

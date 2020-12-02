@@ -29,8 +29,8 @@ export class ASReport extends Component {
           {/* ???Blane put captions on top of table */}
           <h2>Report for Alarm System</h2>
           <p>Located in: {building.name}</p>
-          <p>*Report will appear in a new window. If it does not appear be sure your ad-blocker is turned off.*</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>
+          <p>*Button will cause report to appear in a new window when . If it does not appear be sure your ad-blocker is turned off.*</p>
           <p>Last Monthly Inspection: {this.convertToLocalTime(as.last_monthly_inspection)}</p>
           <p>Upcoming Monthly Inspection: {this.convertToLocalTime(as.upcoming_monthly_inspection)}</p>
           <p>Last Semi-Annual Inspection: {this.convertToLocalTime(as.last_semiannual_inspection)}</p>

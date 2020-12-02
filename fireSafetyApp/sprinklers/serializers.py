@@ -1,12 +1,18 @@
 from rest_framework import serializers
-from sprinklers.models import Sprinklers, SprinklerInspectionForm
+from sprinklers.models import SprinklerSystem, SprinklerSystemInspection, SprinklerSystemNotes
 
-class SprinklersSerializer(serializers.ModelSerializer):
+class SprinklerSystemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Sprinklers
+        model = SprinklerSystem
         fields = '__all__'
 
-class SprinklerInspectionSerializer(serializers.ModelSerializer):
+
+class SprinklerSystemInspectionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SprinklerInspectionForm
+        model = SprinklerSystemInspection
+        fields = '__all__'
+
+class SprinklerSystemNotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SprinklerSystemNotes
         fields = '__all__'

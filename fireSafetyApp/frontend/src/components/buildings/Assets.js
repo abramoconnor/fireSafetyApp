@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 export class Assets extends Component {
 	state = {
 		isDeleted: false,
-		createButtonClass: '',
-		deleteButtonClass: '',
-		fireAlarmSysButtonClass: ''
+		createButtonClass: 'btn btn--small',
+		deleteButtonClass: 'hide',
+		fireAlarmSysButtonClass: 'hide'
 	};
 
 	static propTypes = {
@@ -63,7 +63,11 @@ export class Assets extends Component {
 						Create Fire Alarm System
 					</Button>
 				</Link>
-				<Button className={deleteButtonClass} onClick={()=>{this.deleteAlarmSys(this.props.AlarmSystems[0].id)}}>
+				
+				<Button className={deleteButtonClass} onClick={()=>{
+					if(window.confirm('Are you sure you want to DELETE this building? If you do, all assets, inspections and notes related to it will be gone.')) {
+						this.deleteAlarmSys(this.props.AlarmSystems[0].id);
+					}}}>
 					Delete Current Fire Alarm System
 				</Button>
 				<div className = "grid">
@@ -87,11 +91,11 @@ export class Assets extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/Sprinkler', state:{building:building}}}>
+					<Link to={{ pathname: '/SprinklerSystemList', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
 						onClick={() => {}}
-							> Sprinkler
+							> Sprinkler Systems
 							</Button>
 					</Link>
 				</li>

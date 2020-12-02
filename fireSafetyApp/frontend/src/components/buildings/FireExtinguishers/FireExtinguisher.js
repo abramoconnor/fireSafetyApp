@@ -105,7 +105,6 @@ export class FireExtinguisher extends Component {
 
   render() {
     const {isDeleted} = this.state;
-    console.log(isDeleted);
     if (isDeleted) {
       return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
     }

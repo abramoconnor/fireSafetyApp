@@ -2,15 +2,16 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .models import SprinklerInspectionForm
+from .models import SprinklerSystemInspection
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
-
-def sprinkler_inspection_render_pdf_view(request, *args, **kwargs):
-    pk = kwargs.get('pk')
-    sprinkler = get_object_or_404(SprinklerInspectionForm, pk=pk)
+@csrf_exempt
+@api_view(['POST'])
+def sprinklersys_report_pdf_view(request, *args, **kwargs):
 
     template_path = 'sprinkler.html'
-    context = {'sprinkler': sprinkler}
+    context = {}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:
