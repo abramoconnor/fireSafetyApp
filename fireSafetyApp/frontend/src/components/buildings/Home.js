@@ -67,13 +67,9 @@ export class Buildings extends Component {
 	render() {
 		return (
 			<Fragment>	
-				
-				<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
-					
-					<div>
-						<div class="search-box">
-   						<input type="text" name="" class="search-txt" placeholder="Search..."/>	 
-					  	<button class="search-btn"><FaSearch/></button>
+					<div className="wrapper right">
+						<div className= "container">
+							<input type="text" className="input" placeholder="Search..."></input>											
 						</div>
 					</div>
 
@@ -87,6 +83,8 @@ export class Buildings extends Component {
             		<button className={"btn2 btn--mediumSmall"} type="button" onClick={() => {console.log("addnew building")}}>Add New Building</button>   
           		</Link>
 				</div>
+
+				<SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
 			</Fragment>
 	  );
 	}
@@ -97,3 +95,13 @@ export class Buildings extends Component {
   });
   
   export default withRouter(connect(mapStateToProps, { getBuildings, deleteBuilding })(Buildings));
+
+  /*
+  bad search bar
+  <div>
+						<div class="search-box">
+   						<input type="text" name="" class="search-txt" placeholder="Search..."/>	 
+					  	<button className="search-btn"><FaSearch/></button>
+						</div>
+					</div>
+*/

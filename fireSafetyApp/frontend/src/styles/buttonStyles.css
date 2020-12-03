@@ -11,6 +11,7 @@ Then consecutive button styles were put together depending on need, etc.
 	--success: #75fa83;
 	--white: #fdfdfd;
 	--dark: #181717;
+	--clr-primary: #ee6352;
 }
 
 .btn {
@@ -188,55 +189,22 @@ Then consecutive button styles were put together depending on need, etc.
 	display: none;
 }
 
-.search-box {
-	position: absolute;
-	top: 16%;
-	left: 65%;
-	transform: translate(-50%, -50%);
-	background: #2f3640;
+/* css for the search bar starts here*/
+
+.wrapper {
+	position: relative;
+}
+
+.container {
+	position: relative;
+	padding: 10px 30px;
+}
+
+.input {
+	border: 2px solid #000000;
 	height: 40px;
-	border-radius: 40px;
-}
-
-.search-box:hover > .search-txt {
-	width: 240px;
-	padding: 0 6px;
-}
-
-.search-box:hover > .search-btn {
-	background: white;
-	color: black;
-}
-
-.search-btn {
-	color: #e84118;
-	float: right;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	background: #2f3640;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: 0.4s;
-	color: white;
-	cursor: pointer;
-}
-
-.search-btn > i {
-	font-size: 30px;
-}
-
-.search-txt {
-	border: none;
-	background: none;
+	width: 300px;
+	border-radius: 50px;
+	padding: 0px 10px;
 	outline: none;
-	float: left;
-	padding: 0;
-	color: white;
-	font-size: 16px;
-	transition: 0.4s;
-	line-height: 40px;
-	width: 0px;
-	font-weight: bold;
 }

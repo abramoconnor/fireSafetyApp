@@ -1,10 +1,6 @@
 /* 
 	Styles sheet for general alignment of buttons and forms 
 */
-:root {
-	--clr-primary: #ff5c5c;
-}
-
 .black {
 	color: black;
 }
@@ -69,29 +65,6 @@ as
 	margin-top: 50px;
 }
 
-.search-bar {
-	size: 60px;
-	border: 2px solid var(--clr-primary);
-	display: flex;
-	border-radius: 50px;
-}
-.search-bar__input {
-	flex-grow: 1;
-	font-size: 1.5rem;
-	padding: 0 0.5em;
-	border: 0;
-	background: transparent;
-}
-.search-bar__submit {
-	cursor: pointer;
-	border: 0;
-	background: transparent;
-	border-radius: 50%;
-	background: white;
-	width: 60px;
-	height: 60px;
-}
-
 .App-header {
 	background-color: #ffffff;
 	min-height: 100vh;
@@ -111,16 +84,16 @@ li {
 }
 
 .tableScroll {
-	overflow:scroll;
-    height:300px;
+	overflow: scroll;
+	height: 300px;
 }
 
 .noteScroll {
-	overflow:scroll;
-    height:200px;
+	overflow: scroll;
+	height: 200px;
 }
 
 .note {
-	width:500px;
+	width: 500px;
 	word-wrap: break-word;
 }
