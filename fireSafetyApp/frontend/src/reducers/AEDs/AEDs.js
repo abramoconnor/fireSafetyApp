@@ -1,4 +1,4 @@
-import { GET_AEDs, DELETE_AEDs, ADD_AEDs, CLEAR_AEDs } from '../../actions/types.js';
+import { GET_AEDs, DELETE_AEDs, ADD_AEDs, UPDATE_AED, } from '../../actions/types.js';
 
 const initialState = {
   AEDs: [],
@@ -14,17 +14,21 @@ export default function (state = initialState, action) {
     case DELETE_AEDs:
       return {
         ...state,
-        AEDs: state.AEDs.filter((AED) => AED.id !== action.payload),
+        AEDs: state.AEDs.filter((a) => a.id !== action.payload),
       };
     case ADD_AEDs:
       return {
         ...state,
         AEDs: [...state.AEDs, action.payload],
       };
-    case CLEAR_AEDs:
+    case UPDATE_AED:
       return {
         ...state,
-        AEDs: [],
+        AEDs: state.AEDs.map((a) => {
+          if (a.id === action.payload.id) {
+            return action.payload;
+          } else return a;
+        })
       };
     default:
       return state;

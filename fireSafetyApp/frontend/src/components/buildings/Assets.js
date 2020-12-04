@@ -82,11 +82,11 @@ export class Assets extends Component {
 					</Link>
 				</li>
                 <li>
-					<Link to={{ pathname: '/AED', state:{building:building}}}>
+					<Link to={{ pathname: '/AEDList', state:{building:building}}}>
 						<Button 
 						className={"btn btn--mediumSmall"}
 						onClick={() => {}}
-							> AED
+							> AED's
 							</Button>
 					</Link>
 				</li>

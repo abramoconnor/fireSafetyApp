@@ -31,8 +31,11 @@ import CreateSSForm  from "./buildings/Sprinklers/CreateSSForm";
 import SprinklerSystem from "./buildings/Sprinklers/SprinklerSystem";
 import SSInspection from "./buildings/Sprinklers/SSInspection";
 import SSReport  from "./buildings/Sprinklers/SSReport";
-import AED from './buildings/AEDs/AED';
-import AEDInspection_List from "./buildings/AEDs/AEDInspectionList";
+import AEDList from './buildings/AEDs/AEDList';
+import CreateAEDForm  from "./buildings/AEDs/CreateAEDForm";
+import AED from "./buildings/AEDs/AED";
+import AEDInspection from "./buildings/AEDs/AEDInspection";
+import AEDReport  from "./buildings/AEDs/AEDReport";
 
 
 // Alert Options
@@ -58,7 +61,7 @@ class App extends Component {
 								<Switch>
 									<Route exact path="/login" component={Login} />
 									<PrivateRoute exact path="/" component={Dashboard} />
-									<PrivateRoute exact path="/register" component={Register} />
+									<Route exact path="/register" component={Register} />
 									<PrivateRoute exact path="/Home" component={Home} />
 									<PrivateRoute exact path="/CreateBuildingForm" component={CreateBuildingForm} />
 									<PrivateRoute exact path="/Assets" component={Assets} />
@@ -77,8 +80,11 @@ class App extends Component {
 									<PrivateRoute exact path="/SprinklerSystem" component={SprinklerSystem} />
 									<PrivateRoute exact path="/SSInspection" component={SSInspection} />
 									<PrivateRoute exact path="/SSReport" component={SSReport} />
+									<PrivateRoute exact path="/AEDList" component={AEDList} />
+									<PrivateRoute exact path="/CreateAEDForm" component={CreateAEDForm} />
 									<PrivateRoute exact path="/AED" component={AED} />
-									<PrivateRoute exact path="/AEDInspection" component={AEDInspection_List} />
+									<PrivateRoute exact path="/AEDInspection" component={AEDInspection} />
+									<PrivateRoute exact path="/AEDReport" component={AEDReport} />
 								</Switch>
 							</div>
 						</Fragment>

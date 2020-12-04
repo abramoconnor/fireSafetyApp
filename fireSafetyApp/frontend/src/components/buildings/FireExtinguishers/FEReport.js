@@ -30,8 +30,7 @@ export class FEReport extends Component {
     if (includeNotes) {
       pdfParams.notes = notes;
     }
-    console.log(pdfParams);
-    // this.props.displayFEReportPDF(pdfParams);
+    this.props.displayFEReportPDF(pdfParams);
     this.setState({includeNotes: false});
   }
   

@@ -164,7 +164,7 @@ export class SprinklerSystem extends Component {
     const headerClass = ss.system_type === "Wet" ? 'hide' : '';
     return (
       <Fragment>
-          <h2>Sprinkler System: {ss.id}</h2>
+          <h2>Sprinkler System Covers: {ss.coverage}</h2>
           <p>Type: {ss.system_type}</p>
           <p>Located in: {building.name}</p>
           {this.nextInspection(ss)}

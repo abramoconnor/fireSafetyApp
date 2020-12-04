@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES, GET_SP_NOTES, ADD_SP_NOTES, DELETE_SP_NOTES } from './types';
+import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES, GET_SP_NOTES, ADD_SP_NOTES, DELETE_SP_NOTES, GET_AED_NOTES, ADD_AED_NOTES, DELETE_AED_NOTES } from './types';
 
 // CREATE FE Notes
 export const createFENote = (n) => (dispatch, getState) => {
@@ -130,6 +130,49 @@ axios
     dispatch(createMessage({ deleteSSNotes: 'Note Deleted' }));
     dispatch({
       type: DELETE_SP_NOTES,
+      payload: id,
+    });
+  })
+  .catch((err) => console.log(err));
+};
+
+export const createAEDNote = (n) => (dispatch, getState) => {
+  axios
+    .post('/aed_notes/', n, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addAEDNote: 'Note Added' }));
+      dispatch({
+        type: ADD_AED_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET AED Notes
+export const getAEDNotesById = (aed_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.aed = aed_id;
+  axios
+    .get(`/aed_notes`, config)
+    .then((res) => {
+      dispatch({
+        type: GET_AED_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// DELETE AED Notes
+export const deleteAEDNote = (id) => (dispatch, getState) => {
+axios
+  .delete(`/aed_notes/${id}/`, tokenConfig(getState))
+  .then((res) => {
+    dispatch(createMessage({ deleteAEDNotes: 'Note Deleted' }));
+    dispatch({
+      type: DELETE_AED_NOTES,
       payload: id,
     });
   })

@@ -54,7 +54,7 @@ export class FEInspection extends Component {
       }
       this.props.createFENote(n);
     }
-    this.setState({ type: '', note: '', charsLeft: MAX_NOTE_LENGTH});
+    this.setState({ type: 'monthly', note: '', charsLeft: MAX_NOTE_LENGTH});
   }
     
   render() {

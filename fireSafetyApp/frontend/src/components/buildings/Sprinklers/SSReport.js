@@ -104,8 +104,9 @@ export class SSReport extends Component {
     
     return (
       <Fragment>
-          <h2>Report for Sprinkler System: {ss.id}</h2>
+          <h2>Report for Sprinkler System</h2>
           <p>Located in: {building.name}</p>
+          <p>Covers: {ss.coverage}</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>
           <p>*Button will cause report to appear in a new window when . If it does not appear be sure your ad-blocker is turned off.*</p>
           <p className={paragraphClass}>Last Weekly Inspection: {this.convertToLocalTime(ss.last_weekly_inspection)}</p>

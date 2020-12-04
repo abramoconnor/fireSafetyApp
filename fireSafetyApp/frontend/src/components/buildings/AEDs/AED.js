@@ -5,15 +5,16 @@ import { deleteAED, getAEDInspecsById } from '../../../actions/AEDs';
 import {getAEDNotesById, deleteAEDNote} from "../../../actions/notes"
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
+import AEDNote from "./AEDNote";
 
-export class FireExtinguisher extends Component {
+export class AED extends Component {
   state = {
     isDeleted: false,
   };
 
   static propTypes = {
     AEDInspecs: PropTypes.array.isRequired,
-    // AEDNotes: PropTypes.array.isRequired,
+    AEDNotes: PropTypes.array.isRequired,
     getAEDNotesById: PropTypes.func.isRequired,
     getAEDInspecsById: PropTypes.func.isRequired,
     deleteAEDNote: PropTypes.func.isRequired,
@@ -21,80 +22,48 @@ export class FireExtinguisher extends Component {
   };
 
   componentDidMount() {
-    this.props.getAEDInspecsById(this.props.location.state.AED.id);
-    this.props.getAEDNotesById(this.props.location.state.AED.id);
+    this.props.getAEDInspecsById(this.props.location.state.aed.id);
+    this.props.getAEDNotesById(this.props.location.state.aed.id);
   }
 
-  deleteFireExtinguisher = (id) => {
+  deleteAED = (id) => {
     this.props.deleteAED(id);
     this.setState({isDeleted: true})
   }
   
-  // deleteNote = (id) => {
-  //   this.props.deleteAEDNote(id);
-  // }
-
-  parseMonthlyInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "monthly") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
-            </tr>
-        )
-    }
+  deleteNote = (id) => {
+    this.props.deleteAEDNote(id);
   }
 
-  parseAnnualInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "annual") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
+  parseMonthlyInspections = () => {
+    if (!this.props.AEDInspecs) return;
+    else {
+      const sortedMonthly = this.props.AEDInspecs.filter(i => i.inspection_type === "monthly");
+      sortedMonthly.sort((a, b) => {
+        if (a.date_tested < b.date_tested) {
+          return 1;
+        } else if (a.date_tested > b.date_tested) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedMonthly.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.tester}</td>
             </tr>
-        )
-    }
-  }
-
-  parse6YearServices = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "6year") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
-            </tr>
-        )
-    }
-  }
-
-  parse12YearTests = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "12year") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
-            </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
   nextInspection = (AED) => {
     let next = AED.upcoming_monthly_inspection;
     let type = "(Monthly Inspection)";
-    if (AED.upcoming_annual_inspection < next ) {
-      next = AED.upcoming_annual_inspection;
-      type = "(Annual Inspection)";
-    } else if (AED.upcoming_6year_service < next) {
-      next = AED.upcoming_6year_service;
-      type = "(6 Year Service)";
-    } else if (AED.upcoming_12year_test < next) {
-      next = AED.upcoming_12year_test;
-      type = "(12 Year Test)";
-    }
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);
     return (
@@ -110,23 +79,20 @@ export class FireExtinguisher extends Component {
   render() {
     const {isDeleted} = this.state;
     if (isDeleted) {
-      return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
+      return <Redirect to={{ pathname: '/AEDList', state: this.props.location.state}}/>
     }
-    const {building, AED} = this.props.location.state;
+    const {building, aed} = this.props.location.state;
     return (
       <Fragment>
-          <h2 className="center">Fire Extinguisher: {AED.exnum}</h2>
-          <p className="center">Location: {building.name}</p>
-          {this.nextInspection(AED)}
+          <h2 className="center">AED Location: {aed.location}</h2>
+          <p className="center">Building: {building.name}</p>
+          {this.nextInspection(aed)}
 				    
-          <Link to={{ pathname: '/AEDInspection', state: {building: building, AED: AED}}}>
+          <Link to={{ pathname: '/AEDInspection', state: {building: building, aed: aed}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
-          <Link to={{ pathname: '/AEDReport', state: {building: building, AED: AED}}}>
+          <Link to={{ pathname: '/AEDReport', state: {building: building, aed: aed, notes: this.props.AEDNotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
-          </Link>
-          <Link to={{ pathname: '/AEDTransfer', state: {building: building, AED: AED}}}>
-            <Button className={"btn btn--small"} onClick={() => {}}>TransAEDr Asset</Button>
           </Link>
           <p className={"black"}>Monthly Inspections</p>
           <div className={"tableScroll"}>
@@ -137,56 +103,12 @@ export class FireExtinguisher extends Component {
                   <th>Performed By</th>
                 </tr>
               </thead>
-              <tbody>
-                  {this.props.AEDInspecs.map(i => this.parseMonthlyInspections(i))}
-              </tbody>
-            </table>
-          </div>
-          <p className={"black"}>Annual Inspections</p>
-          <div className={"tableScroll"}>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Inspection Date</th>
-                  <th className="align">Performed By</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {this.props.AEDInspecs.map(i => this.parseAnnualInspections(i))}
-              </tbody>
-            </table>
-          </div>
-          <p className={"black"}>6-Year Services</p>
-          <div className={"tableScroll"}>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Service Date</th>
-                  <th>Performed By</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {this.props.AEDInspecs.map(i => this.parse6YearServices(i))}
-              </tbody>
-            </table>
-          </div>
-          <p className={"black"}>12-Year Tests</p>
-          <div className={"tableScroll"}>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Test Date</th>
-                  <th>Performed By</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {this.props.AEDInspecs.map(i => this.parse12YearTests(i))}
-              </tbody>
+              {this.parseMonthlyInspections()}
             </table>
           </div>
           <div>
             <h5>Notes</h5>
-            {/* <AEDNotes AED={AED}/>
+            <AEDNote aed={aed}/>
             <div className={"noteScroll"}>
               <table className="table table-striped">
                 <thead>
@@ -217,16 +139,16 @@ export class FireExtinguisher extends Component {
               </table>
             </div>
           </div>
-          <div className={"right"}> */}
+          <div className={"right"}>
           <Button className={"btn btn--small"} onClick={() => {
               if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
-                this.deleteFireExtinguisher(AED.id);
+                this.deleteAED(aed.id);
               }}}>
               Delete Asset
             </Button>
           </div>
-          <Link to={{ pathname: '/FireExtinguisherList', state: {building: building}}}>
-				<Button className={"btn btn--back"} onClick={() => console.log(building)}>Back</Button>
+          <Link to={{ pathname: '/AEDList', state: {building: building}}}>
+				<Button className={"btn btn--back"}>Back</Button>
 		  </Link>
       </Fragment>
       );
@@ -238,4 +160,4 @@ export class FireExtinguisher extends Component {
     AEDNotes: state.AEDNotes.AEDNotes,
   });
 
-  export default withRouter(connect(mapStateToProps, { deleteAED, getAEDInspecsById, getAEDNotesById, deleteAEDNote })(FireExtinguisher));
+  export default withRouter(connect(mapStateToProps, { deleteAED, getAEDInspecsById, getAEDNotesById, deleteAEDNote })(AED));

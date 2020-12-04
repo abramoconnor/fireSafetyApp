@@ -4,6 +4,7 @@ from buildings.models import Building
 
 class SprinklerSystem(models.Model):
     system_type = models.CharField(max_length=100)
+    coverage = models.CharField(max_length=100)
     last_weekly_inspection = models.DateTimeField(default=timezone.now)
     upcoming_weekly_inspection = models.DateTimeField(default=timezone.now)
     last_monthly_inspection = models.DateTimeField(default=timezone.now)

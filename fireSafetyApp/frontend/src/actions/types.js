@@ -16,7 +16,12 @@ export const DELETE_BUILDING = 'DELETE_BUILDING';
 export const ADD_AEDs = 'ADD_AEDs';
 export const GET_AEDs = 'GET_AEDs';
 export const DELETE_AEDs = 'DELETE_AEDs';
+export const UPDATE_AED = 'UPDATE_AED';
 export const GET_AED_INSP = 'GET_AED_INSP';
+export const ADD_AED_INSP = 'ADD_AED_INSP';
+export const GET_AED_NOTES = 'GET_AED_NOTES';
+export const ADD_AED_NOTES = 'ADD_AED_NOTES';
+export const DELETE_AED_NOTES = 'DELETE_AED_NOTES';
 
 export const GET_FEs = 'GET_FEs';
 export const DELETE_FEs = 'DELETE_FEs';

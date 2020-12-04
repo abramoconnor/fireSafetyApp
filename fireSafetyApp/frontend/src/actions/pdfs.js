@@ -43,9 +43,10 @@ export const displaySSReportPDF = (params) => (dispatch, getState) => {
 };
 
 // GET AED Inspection pdf
-export const displayAEDInspectionPDF = (id) => (dispatch, getState) => {
+export const displayAEDReportPDF = (params) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
   axios
-    .get(`/aed_insp_pdf/${id}`, tokenConfig(getState))
+    .get(`/aed_report_pdf`, tokenConfig(getState))
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);

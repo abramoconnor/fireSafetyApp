@@ -14,6 +14,7 @@ import SprinklerInspecs from './Sprinklers/SprinklerInsp';
 import SprinklerNotes from "./Sprinklers/SprinklerNotes"
 import AEDs from './AEDs/AEDs';
 import AEDInspecs from "./AEDs/AEDInsp";
+import AEDNotes from "./AEDs/AEDNotes";
 
 export default combineReducers({
   buildings,
@@ -25,6 +26,7 @@ export default combineReducers({
   AlarmNotes,
   AEDs,
   AEDInspecs,
+  AEDNotes,
   SPRINKLERs,
   SprinklerInspecs,
   SprinklerNotes,

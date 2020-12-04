@@ -34,7 +34,6 @@ export class FireExtinguisherList extends Component {
   sortRows = (building) => {
     let sortedExtinguishers = [...this.props.FEs];
     const {sortConfig} = this.state;
-    // remove this condition?
     if (sortConfig.field) {
       sortedExtinguishers.sort((a, b) => {
         if (a[sortConfig.field] < b[sortConfig.field]) {
@@ -120,7 +119,7 @@ export class FireExtinguisherList extends Component {
   
   render() {
     const {building} = this.props.location.state;
-    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)'
+    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
         <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>

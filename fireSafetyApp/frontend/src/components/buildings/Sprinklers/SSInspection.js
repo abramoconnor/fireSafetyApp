@@ -7,7 +7,7 @@ import {createMessage} from "../../../actions/messages"
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
-export class FEInspection extends Component {
+export class SSInspection extends Component {
   state = {
     type: 'monthly',
     note: '',
@@ -59,7 +59,7 @@ export class FEInspection extends Component {
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>Sprinkler System Inspection Form</h2>
-        <h5>System: {ss.id}</h5>
+        <h5>System Covers: {ss.coverage}</h5>
         <h5>Type: {ss.system_type}</h5>
         <h5>Building: {building.name}</h5>
         <form onSubmit={this.onSubmit}>
@@ -121,4 +121,4 @@ export class FEInspection extends Component {
     auth: state.auth,
   });
   
-export default connect(mapStateToProps, { createSSInspection, updateSSInspectionDate, createSSNote, createMessage })(FEInspection);
+export default connect(mapStateToProps, { createSSInspection, updateSSInspectionDate, createSSNote, createMessage })(SSInspection);

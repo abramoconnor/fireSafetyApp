@@ -1,12 +1,21 @@
 from django.db import models
+from django.utils import timezone
+from buildings.models import Building
 
-class AED(models.Model):
-    code = models.CharField(max_length=100, unique=True)
-    last_inspection = models.DateTimeField(auto_now_add=True)
-    upcoming_inspection = models.DateTimeField(auto_now_add=True)
+class aed(models.Model):
+    location = models.CharField(max_length=100)
+    last_monthly_inspection = models.DateTimeField(default=timezone.now)
+    upcoming_monthly_inspection = models.DateTimeField(default=timezone.now)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name="buildingss", default=0)
 
-class AEDInspectionForm(models.Model):
-    id = models.CharField(max_length=100, primary_key=True)
-    date_tested = models.DateTimeField(auto_now_add=True)
+class AEDInspection(models.Model):
+    inspection_type = models.CharField(max_length=100)
+    date_tested = models.DateTimeField(default=timezone.now)
     tester = models.CharField(max_length=100)
-    voltage_test = models.CharField(max_length=100)
+    aed = models.ForeignKey(aed, on_delete=models.CASCADE, related_name="aed", default=0)
+
+class AEDNotes(models.Model):
+    note = models.CharField(max_length=240)
+    author = models.CharField(max_length=100)
+    date_written = models.DateTimeField(default=timezone.now)
+    aed = models.ForeignKey(aed, on_delete=models.CASCADE, related_name="AED", default=0)

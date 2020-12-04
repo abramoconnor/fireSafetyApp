@@ -35,8 +35,6 @@ export class FireExtinguisher extends Component {
     this.props.deleteFENote(id);
   }
 
-  
-
   parseMonthlyInspections = () => {
     if (!this.props.FEInspecs) return;
     else {
@@ -154,9 +152,6 @@ export class FireExtinguisher extends Component {
                   <th>Performed By</th>
                 </tr>
               </thead>
-              {/* <tbody>
-                  {this.props.FEInspecs.map(i => this.parseMonthlyInspections(i))}
-              </tbody> */}
               {this.parseMonthlyInspections()}
             </table>
           </div>

@@ -2,15 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from .models import AEDInspectionForm
+from .models import AEDInspection
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
-
-def aed_inspection_render_pdf_view(request, *args, **kwargs):
-    pk = kwargs.get('pk')
-    aed = get_object_or_404(AEDInspectionForm, pk=pk)
-
+@csrf_exempt
+@api_view(['POST'])
+def aed_generate_report_pdf_view(request, *args, **kwargs):
     template_path = 'aed.html'
-    context = {'aed': aed}
+    context = {}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

@@ -25,7 +25,7 @@ export class SprinklerSystemList extends Component {
                 <td>
                 <Link to={{ pathname: '/SprinklerSystem', state:{building:building, ss: ss}}}>
                     <button>
-                    {ss.id}
+                    {ss.coverage}
                     </button>
                 </Link>
                 </td>
@@ -40,7 +40,7 @@ export class SprinklerSystemList extends Component {
                     <td>
                         <Link to={{ pathname: '/SprinklerSystem', state:{building:building, ss: ss}}}>
                             <button>
-                                {ss.id}
+                                {ss.coverage}
                             </button>
                         </Link>
                     </td>
@@ -112,7 +112,7 @@ export class SprinklerSystemList extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>System Id</th>
+                <th>Coverage Area</th>
                 <th>System Type</th>
                 <th>Next Upcoming Inspection</th>
               </tr>

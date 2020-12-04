@@ -9,6 +9,7 @@ import {Button} from "react-bootstrap";
 export class CreateSSForm extends Component {
   state = {
     system_type: 'Wet',
+    coverage: '',
     last_weekly_inspection: '',
     upcoming_weekly_inspection: '',
     last_monthly_inspection: '',
@@ -30,8 +31,9 @@ export class CreateSSForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const building = this.props.location.state.building.id;
-    const { 
+    let { 
       system_type,
+      coverage,
       last_weekly_inspection,
       upcoming_weekly_inspection,
       last_monthly_inspection,
@@ -43,7 +45,10 @@ export class CreateSSForm extends Component {
       last_annual_inspection,
       upcoming_annual_inspection,
     } = this.state;
-    let ss = { system_type, building };
+    if (!coverage) {
+      coverage = 'Whole Building';
+    }
+    let ss = { system_type, coverage, building };
     if (last_weekly_inspection) {
       ss.last_weekly_inspection = last_weekly_inspection
     }
@@ -77,6 +82,7 @@ export class CreateSSForm extends Component {
     this.props.createSprinklerSystem(ss);
     this.setState({
       system_type: 'Wet',
+      coverage: '',
       last_weekly_inspection: '',
       upcoming_weekly_inspection: '',
       last_monthly_inspection: '',
@@ -93,6 +99,7 @@ export class CreateSSForm extends Component {
   render() {
     const { 
         system_type,
+        coverage,
         last_weekly_inspection,
         upcoming_weekly_inspection,
         last_monthly_inspection,
@@ -116,6 +123,16 @@ export class CreateSSForm extends Component {
               <option value="Dry">Dry</option>
               <option value="Pre-Action">Pre-Action</option>
             </select>
+          </div>
+          <div className="form-group">
+            <label>Coverage Area (Default is 'Whole Building')</label>
+            <input
+              className="form-control"
+              type="text"
+              name="coverage"
+              onChange={this.onChange}
+              value={coverage}
+            />
           </div>
           <div className="form-group">
             <label>*Last Weekly Inspection (If blank, auto-populates to today)</label>
