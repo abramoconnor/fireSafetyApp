@@ -88,11 +88,11 @@ export const updateAEDInspectionDate = (AED, i) => (dispatch, getState) => {
 };
 
 // UPDATE AED dates
-export const updateAEDLocation = (AED, requestBody, b) => (dispatch, getState) => {
+export const updateAEDLocation = (AED, requestBody) => (dispatch, getState) => {
   axios
     .patch(`/aed/${AED.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ AEDLocation: `AED relocated to ${b[0].name}` }));
+      dispatch(createMessage({ AEDLocation: `AED relocated to ${requestBody.location}}` }));
       dispatch({
         type: UPDATE_AED,
         payload: res.data,

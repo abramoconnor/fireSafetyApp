@@ -94,6 +94,9 @@ export class AED extends Component {
           <Link to={{ pathname: '/AEDReport', state: {building: building, aed: aed, notes: this.props.AEDNotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
+          <Link to={{ pathname: '/AEDLocation', state: {building: building, aed: aed}}}>
+            <Button className={"btn btn--small"} onClick={() => {}}>Change Location</Button>
+          </Link>
           <p className={"black"}>Monthly Inspections</p>
           <div className={"tableScroll"}>
             <table className="table table-striped">

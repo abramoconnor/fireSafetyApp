@@ -36,6 +36,7 @@ import CreateAEDForm  from "./buildings/AEDs/CreateAEDForm";
 import AED from "./buildings/AEDs/AED";
 import AEDInspection from "./buildings/AEDs/AEDInspection";
 import AEDReport  from "./buildings/AEDs/AEDReport";
+import AEDLocation  from "./buildings/AEDs/AEDLocation";
 
 
 // Alert Options
@@ -85,6 +86,7 @@ class App extends Component {
 									<PrivateRoute exact path="/AED" component={AED} />
 									<PrivateRoute exact path="/AEDInspection" component={AEDInspection} />
 									<PrivateRoute exact path="/AEDReport" component={AEDReport} />
+									<PrivateRoute exact path="/AEDLocation" component={AEDLocation} />
 								</Switch>
 							</div>
 						</Fragment>
