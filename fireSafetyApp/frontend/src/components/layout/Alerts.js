@@ -25,6 +25,7 @@ export class Alerts extends Component {
       if (message.feTransfer) alert.success(message.feTransfer);
       if (message.newUserRegistered) alert.success(message.newUserRegistered);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
+      if (message.weekly) alert.error(message.weekly);
     }
   }
 

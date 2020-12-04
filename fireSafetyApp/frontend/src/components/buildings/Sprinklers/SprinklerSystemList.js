@@ -33,9 +33,7 @@ export class SprinklerSystemList extends Component {
                 {this.nextInspection(ss)}
             </tr>
 			)
-		}
-		
-		else if(ss.exnum.toLowerCase().includes(this.state.search.toLowerCase())) {
+		} else if(ss.system_type.toLowerCase().includes(this.state.search.toLowerCase())) {
 			return(
                 <tr key={ss.id}>
                 {/* ???Blane make this button blue text and underline, no box */}
@@ -46,6 +44,7 @@ export class SprinklerSystemList extends Component {
                             </button>
                         </Link>
                     </td>
+                    <td>{ss.system_type}</td>
                     {this.nextInspection(ss)}
                 </tr>
 			)
@@ -65,25 +64,35 @@ export class SprinklerSystemList extends Component {
   nextInspection = (ss) => {
     let next;
     let type;
-    if (ss.upcoming_weekly_inspection) {
+    if (ss.system_type === 'Wet') {
+      next = ss.upcoming_monthly_inspection;
+      type = "(Monthly Inspection)";
+      if (ss.upcoming_quarterly_inspection < next ) {
+        next = ss.upcoming_quarterly_inspection;
+        type = "(Quarterly Inspection)";
+      } else if (ss.upcoming_semiannual_inspection < next) {
+        next = ss.upcoming_semiannual_inspection;
+        type = "(Semi-Annual Inspection)";
+      } else if (ss.upcoming_annual_inspection < next) {
+        next = ss.upcoming_annual_inspection;
+        type = "(Annual Inspection)";
+      }
+    } else {
         next = ss.upcoming_weekly_inspection;
         type = "(Weekly Inspection)";
-    } else {
-        next = ss.upcoming_monthly_inspection;
-        type = "(Monthly Inspection)";
-    }
-    if (ss.upcoming_monthly_inspection < next ) {
-        next = ss.upcoming_monthly_inspection;
-        type = "(Monthly Inspection)";
-    } else if (ss.upcoming_quarterly_inspection < next ) {
-      next = ss.upcoming_quarterly_inspection;
-      type = "(Quarterly Inspection)";
-    } else if (ss.upcoming_semiannual_inspection < next) {
-      next = ss.upcoming_semiannual_inspection;
-      type = "(Semi-Annual Inspection)";
-    } else if (ss.upcoming_annual_inspection < next) {
-      next = ss.upcoming_annual_inspection;
-      type = "(Annual Inspection)";
+        if (ss.upcoming_monthly_inspection < next ) {
+          next = ss.upcoming_monthly_inspection;
+          type = "(Monthly Inspection)";
+      } else if (ss.upcoming_quarterly_inspection < next ) {
+        next = ss.upcoming_quarterly_inspection;
+        type = "(Quarterly Inspection)";
+      } else if (ss.upcoming_semiannual_inspection < next) {
+        next = ss.upcoming_semiannual_inspection;
+        type = "(Semi-Annual Inspection)";
+      } else if (ss.upcoming_annual_inspection < next) {
+        next = ss.upcoming_annual_inspection;
+        type = "(Annual Inspection)";
+      }
     }
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);

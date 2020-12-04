@@ -10,6 +10,7 @@ import SSNotes from "./SSNotes";
 export class SprinklerSystem extends Component {
   state = {
     isDeleted: false,
+    isWet: false
   };
 
   static propTypes = {
@@ -41,6 +42,8 @@ export class SprinklerSystem extends Component {
         return (
             <tr key={i.id}>
                 <td>{nd.toLocaleDateString().split("T")[0]}</td>
+                <td>{i.air_pressure}</td>
+                <td>{i.water_pressure}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -48,11 +51,15 @@ export class SprinklerSystem extends Component {
   }
 
   parseMonthlyInspections = (i) => {
+    const {ss} = this.props.location.state;
+    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
     const nd = new Date(i.date_tested);
     if (i.inspection_type === "monthly") {
         return (
             <tr key={i.id}>
                 <td>{nd.toLocaleDateString().split("T")[0]}</td>
+                <td className={rowClass}>{i.air_pressure}</td>
+                <td>{i.water_pressure}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -60,11 +67,15 @@ export class SprinklerSystem extends Component {
   }
 
   parseQuarterlyInspections = (i) => {
+    const {ss} = this.props.location.state;
+    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
     const nd = new Date(i.date_tested);
     if (i.inspection_type === "quarterly") {
         return (
             <tr key={i.id}>
                 <td>{nd.toLocaleDateString().split("T")[0]}</td>
+                <td className={rowClass}>{i.air_pressure}</td>
+                <td>{i.water_pressure}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -72,11 +83,15 @@ export class SprinklerSystem extends Component {
   }
 
   parseSemiAnnualInspections = (i) => {
+    const {ss} = this.props.location.state;
+    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
     const nd = new Date(i.date_tested);
     if (i.inspection_type === "semiannual") {
         return (
             <tr key={i.id}>
                 <td>{nd.toLocaleDateString().split("T")[0]}</td>
+                <td className={rowClass}>{i.air_pressure}</td>
+                <td>{i.water_pressure}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -84,11 +99,15 @@ export class SprinklerSystem extends Component {
   }
 
   parseAnnualInspections = (i) => {
+    const {ss} = this.props.location.state;
+    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
     const nd = new Date(i.date_tested);
     if (i.inspection_type === "annual") {
         return (
             <tr key={i.id}>
                 <td>{nd.toLocaleDateString().split("T")[0]}</td>
+                <td className={rowClass}>{i.air_pressure}</td>
+                <td>{i.water_pressure}</td>
                 <td>{i.tester}</td>
             </tr>
         )
@@ -98,25 +117,35 @@ export class SprinklerSystem extends Component {
   nextInspection = (ss) => {
     let next;
     let type;
-    if (ss.upcoming_weekly_inspection) {
+    if (ss.system_type === 'Wet') {
+      next = ss.upcoming_monthly_inspection;
+      type = "(Monthly Inspection)";
+      if (ss.upcoming_quarterly_inspection < next ) {
+        next = ss.upcoming_quarterly_inspection;
+        type = "(Quarterly Inspection)";
+      } else if (ss.upcoming_semiannual_inspection < next) {
+        next = ss.upcoming_semiannual_inspection;
+        type = "(Semi-Annual Inspection)";
+      } else if (ss.upcoming_annual_inspection < next) {
+        next = ss.upcoming_annual_inspection;
+        type = "(Annual Inspection)";
+      }
+    } else {
         next = ss.upcoming_weekly_inspection;
         type = "(Weekly Inspection)";
-    } else {
-        next = ss.upcoming_monthly_inspection;
-        type = "(Monthly Inspection)";
-    }
-    if (ss.upcoming_monthly_inspection < next ) {
-        next = ss.upcoming_monthly_inspection;
-        type = "(Monthly Inspection)";
-    } else if (ss.upcoming_quarterly_inspection < next ) {
-      next = ss.upcoming_quarterly_inspection;
-      type = "(Quarterly Inspection)";
-    } else if (ss.upcoming_semiannual_inspection < next) {
-      next = ss.upcoming_semiannual_inspection;
-      type = "(Semi-Annual Inspection)";
-    } else if (ss.upcoming_annual_inspection < next) {
-      next = ss.upcoming_annual_inspection;
-      type = "(Annual Inspection)";
+        if (ss.upcoming_monthly_inspection < next ) {
+          next = ss.upcoming_monthly_inspection;
+          type = "(Monthly Inspection)";
+      } else if (ss.upcoming_quarterly_inspection < next ) {
+        next = ss.upcoming_quarterly_inspection;
+        type = "(Quarterly Inspection)";
+      } else if (ss.upcoming_semiannual_inspection < next) {
+        next = ss.upcoming_semiannual_inspection;
+        type = "(Semi-Annual Inspection)";
+      } else if (ss.upcoming_annual_inspection < next) {
+        next = ss.upcoming_annual_inspection;
+        type = "(Annual Inspection)";
+      }
     }
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);
@@ -131,6 +160,8 @@ export class SprinklerSystem extends Component {
       return <Redirect to={{ pathname: '/SprinklerSystemList', state: this.props.location.state}}/>
     }
     const {building, ss} = this.props.location.state;
+    const tableClass = ss.system_type === "Wet" ? 'hide' : 'table table-striped';
+    const headerClass = ss.system_type === "Wet" ? 'hide' : '';
     return (
       <Fragment>
           <h2>Sprinkler System: {ss.id}</h2>
@@ -146,14 +177,16 @@ export class SprinklerSystem extends Component {
           <Link to={{ pathname: '/SSInspection', state: {building: building, ss: ss}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
-          <Link to={{ pathname: '/SSReport', state: {building: building, ss: ss}}}>
+          <Link to={{ pathname: '/SSReport', state: {building: building, ss: ss, inspections: this.props.SSInspecs}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
-          <table className="table table-striped">
+          <table className={tableClass}>
             <caption>Weekly Inspections (Only for Dry and Pre-action)</caption>
             <thead>
               <tr>
                 <th>Inspection Date</th>
+                <th className={headerClass}>Air Pressure</th>
+                <th>Water Pressure</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -166,6 +199,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
+                <th className={headerClass}>Air Pressure</th>
+                <th>Water Pressure</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -178,6 +213,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
+                <th className={headerClass}>Air Pressure</th>
+                <th>Water Pressure</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -190,6 +227,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
+                <th className={headerClass}>Air Pressure</th>
+                <th>Water Pressure</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -202,6 +241,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
+                <th className={headerClass}>Air Pressure</th>
+                <th>Water Pressure</th>
                 <th>Performed By</th>
               </tr>
             </thead>

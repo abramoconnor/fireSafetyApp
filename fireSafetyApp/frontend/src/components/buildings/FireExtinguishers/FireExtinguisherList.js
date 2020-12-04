@@ -7,15 +7,51 @@ import {Button} from "react-bootstrap";
 import SearchField from "react-search-field"
 
 export class FireExtinguisherList extends Component {
+  state = {
+    search: null,
+    sortConfig: {
+      field: 'exnum',
+      direction: 'ascending'
+    },
+  };
 
   static propTypes = {
     FEs: PropTypes.array.isRequired,
     getFEsByBuilding: PropTypes.func.isRequired,
   };
 
-  state = {
-    search: null
-  };
+  // if user clicked field a second time, they want to change the direction of sort
+  // default is ascending
+  requestSort = (field) => {
+    const {sortConfig} = this.state;
+    if (sortConfig.field === field && sortConfig.direction === 'ascending') {
+      this.setState({sortConfig: {field: field, direction: 'descending'}});
+    } else {
+      this.setState({sortConfig: {field: field, direction: 'ascending'}});
+    }
+  }
+
+  sortRows = (building) => {
+    let sortedExtinguishers = [...this.props.FEs];
+    const {sortConfig} = this.state;
+    // remove this condition?
+    if (sortConfig.field) {
+      sortedExtinguishers.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      })
+    }
+    return (
+      <tbody>
+        {sortedExtinguishers.map(fe => this.filter(fe, building))}
+      </tbody>
+    )
+  }
 
   filter = (fe ,building) => {
 		if (this.state.search == null)
@@ -52,16 +88,7 @@ export class FireExtinguisherList extends Component {
 			)
     }
   }
-	
-
-	setSearchKey = (key) => {
-		this.setState({search:key})
-	}
-
-  componentDidMount() {
-    this.props.getFEsByBuilding(this.props.location.state.building.id);
-  }
-
+  
   // function calculates the inspection closest to the current date
   nextInspection = (fe) => {
     let next = fe.upcoming_monthly_inspection;
@@ -82,9 +109,18 @@ export class FireExtinguisherList extends Component {
       <td>{nd.toLocaleDateString().split("T")[0]} {type}</td>
     )
   }
+
+	setSearchKey = (key) => {
+		this.setState({search:key});
+  }
+
+  componentDidMount() {
+    this.props.getFEsByBuilding(this.props.location.state.building.id);
+  }
   
   render() {
     const {building} = this.props.location.state;
+    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)'
     return (
       <Fragment>
         <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
@@ -94,15 +130,16 @@ export class FireExtinguisherList extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>Extinguisher Number</th>
-                <th>Next Upcoming Inspection</th>
+                <th>
+                  <button type="button" onClick={() => this.requestSort('exnum')}>Extinguisher Number {sortButtonLabel}</button>
+                </th>
+                <th>
+                  {/* <button type="button" onClick={() => this.setSortedField('next')}>Next Upcoming Inspection</button> */}
+                  Next Upcoming Inspection
+                </th>
               </tr>
             </thead>
-            <tbody>
-              {this.props.FEs.map((FE) => (
-               this.filter(FE, building)
-              ))}
-            </tbody>
+            {this.sortRows(building)}
           </table>
           <div className = "grid">
           <Link to={{ pathname: '/CreateFEForm', state:{building:building}}}>

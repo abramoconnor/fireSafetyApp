@@ -35,15 +35,31 @@ export class FireExtinguisher extends Component {
     this.props.deleteFENote(id);
   }
 
-  parseMonthlyInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "monthly") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
+  
+
+  parseMonthlyInspections = () => {
+    if (!this.props.FEInspecs) return;
+    else {
+      const sortedMonthly = this.props.FEInspecs.filter(i => i.inspection_type === "monthly");
+      sortedMonthly.sort((a, b) => {
+        if (a.date_tested < b.date_tested) {
+          return 1;
+        } else if (a.date_tested > b.date_tested) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedMonthly.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
@@ -123,7 +139,7 @@ export class FireExtinguisher extends Component {
           <Link to={{ pathname: '/FEInspection', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
-          <Link to={{ pathname: '/FEReport', state: {building: building, fe: fe}}}>
+          <Link to={{ pathname: '/FEReport', state: {building: building, fe: fe, notes: this.props.FENotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
           <Link to={{ pathname: '/FETransfer', state: {building: building, fe: fe}}}>
@@ -138,9 +154,10 @@ export class FireExtinguisher extends Component {
                   <th>Performed By</th>
                 </tr>
               </thead>
-              <tbody>
+              {/* <tbody>
                   {this.props.FEInspecs.map(i => this.parseMonthlyInspections(i))}
-              </tbody>
+              </tbody> */}
+              {this.parseMonthlyInspections()}
             </table>
           </div>
           <p className={"black"}>Annual Inspections</p>
