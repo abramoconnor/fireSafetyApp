@@ -52,3 +52,13 @@ export const ADD_AS_INSP = 'ADD_AS_INSP';
 export const GET_AS_NOTES = 'GET_AS_NOTES';
 export const ADD_AS_NOTES = 'ADD_AS_NOTES';
 export const DELETE_AS_NOTES = 'DELETE_AS_NOTES';
+
+export const GET_PUMP = 'GET_PUMP';
+export const DELETE_PUMP = 'DELETE_PUMP';
+export const ADD_PUMP = 'ADD_PUMP';
+export const UPDATE_PUMP = 'UPDATE_PUMP';
+export const GET_PUMP_INSP = 'GET_PUMP_INSP';
+export const ADD_PUMP_INSP = 'ADD_PUMP_INSP';
+export const GET_PUMP_NOTES = 'GET_PUMP_NOTES';
+export const ADD_PUMP_NOTES = 'ADD_PUMP_NOTES';
+export const DELETE_PUMP_NOTES = 'DELETE_PUMP_NOTES';

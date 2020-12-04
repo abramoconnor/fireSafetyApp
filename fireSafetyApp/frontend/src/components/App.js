@@ -37,6 +37,10 @@ import AED from "./buildings/AEDs/AED";
 import AEDInspection from "./buildings/AEDs/AEDInspection";
 import AEDReport  from "./buildings/AEDs/AEDReport";
 import AEDLocation  from "./buildings/AEDs/AEDLocation";
+import FirePump from "./buildings/Pumps/FirePump";
+import CreatePumpForm from "./buildings/Pumps/CreatePumpForm";
+import PumpInspection from "./buildings/Pumps/PumpInspection";
+import PumpReport from "./buildings/Pumps/PumpReport";
 
 
 // Alert Options
@@ -87,6 +91,10 @@ class App extends Component {
 									<PrivateRoute exact path="/AEDInspection" component={AEDInspection} />
 									<PrivateRoute exact path="/AEDReport" component={AEDReport} />
 									<PrivateRoute exact path="/AEDLocation" component={AEDLocation} />
+									<PrivateRoute exact path="/FirePump" component={FirePump} />
+									<PrivateRoute exact path="/PumpInspection" component={PumpInspection} />
+									<PrivateRoute exact path="/PumpReport" component={PumpReport} />
+									<PrivateRoute exact path="/CreatePumpForm" component={CreatePumpForm} />
 								</Switch>
 							</div>
 						</Fragment>

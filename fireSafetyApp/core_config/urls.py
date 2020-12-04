@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('AEDs.urls')),
     path('', include('sprinklers.urls')),
     path('', include('alarms.urls')),
+    path('', include('pumps.urls')),
     path('', include('accounts.urls')),
     # re_path(r'.*', include('frontend.urls')) # catch all to go back to home page 
 ]

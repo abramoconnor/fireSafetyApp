@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'frontend',
     'knox',
     'accounts',
+    'pumps',
     'django_extensions',
 ]
 

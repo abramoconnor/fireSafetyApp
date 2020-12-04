@@ -54,3 +54,16 @@ export const displayAEDReportPDF = (params) => (dispatch, getState) => {
     })
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
+
+// GET Pump Report pdf
+export const displayPumpReportPDF = (params) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  axios
+    .get(`/pump_report_pdf`, params, config)
+    .then((res) => {
+        const file = new Blob([res.data], {type: 'application/pdf'});
+        const pdf = URL.createObjectURL(file);
+        window.open(pdf);
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAlarmSysInspecsById, deleteAlarmSystem } from '../../../actions/Alarms';
+import { getAlarmSysInspecsById } from '../../../actions/Alarms';
 import {getASNotesById, deleteASNote} from "../../../actions/notes"
 import { Link, withRouter } from 'react-router-dom';
 import {Button} from "react-bootstrap";
@@ -14,7 +14,6 @@ export class AlarmSystem extends Component {
     getASNotesById: PropTypes.func.isRequired,
     getAlarmSysInspecsById: PropTypes.func.isRequired,
     deleteASNote: PropTypes.func.isRequired,
-    deleteAlarmSystem: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -161,4 +160,4 @@ export class AlarmSystem extends Component {
     ASNotes: state.AlarmNotes.ASNotes
   });
   
-  export default withRouter(connect(mapStateToProps, { getAlarmSysInspecsById, deleteAlarmSystem, getASNotesById, deleteASNote })(AlarmSystem));
+  export default withRouter(connect(mapStateToProps, { getAlarmSysInspecsById, getASNotesById, deleteASNote })(AlarmSystem));

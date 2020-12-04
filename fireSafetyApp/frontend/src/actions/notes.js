@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth';
 
-import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES, GET_SP_NOTES, ADD_SP_NOTES, DELETE_SP_NOTES, GET_AED_NOTES, ADD_AED_NOTES, DELETE_AED_NOTES } from './types';
+import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES, DELETE_AS_NOTES, GET_SP_NOTES, ADD_SP_NOTES, DELETE_SP_NOTES, GET_AED_NOTES, ADD_AED_NOTES, DELETE_AED_NOTES, GET_PUMP_NOTES, ADD_PUMP_NOTES, DELETE_PUMP_NOTES } from './types';
 
 // CREATE FE Notes
 export const createFENote = (n) => (dispatch, getState) => {
@@ -173,6 +173,50 @@ axios
     dispatch(createMessage({ deleteAEDNotes: 'Note Deleted' }));
     dispatch({
       type: DELETE_AED_NOTES,
+      payload: id,
+    });
+  })
+  .catch((err) => console.log(err));
+};
+
+// CREATE Pump Notes
+export const createPumpNote = (n) => (dispatch, getState) => {
+  axios
+    .post('/pump_notes/', n, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ addPumpNote: 'Note Added' }));
+      dispatch({
+        type: ADD_PUMP_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// GET Pump Notes
+export const getPumpNotesById = (p_id) => (dispatch, getState) => {
+  let config = tokenConfig(getState);
+  config.params = {};
+  config.params.fire_pump = p_id;
+  axios
+    .get(`/pump_notes`, config)
+    .then((res) => {
+      dispatch({
+        type: GET_PUMP_NOTES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
+// DELETE Alarm System Notes
+export const deletePumpNote = (id) => (dispatch, getState) => {
+axios
+  .delete(`/pump_notes/${id}/`, tokenConfig(getState))
+  .then((res) => {
+    dispatch(createMessage({ deletePumpNotes: 'Note Deleted' }));
+    dispatch({
+      type: DELETE_PUMP_NOTES,
       payload: id,
     });
   })

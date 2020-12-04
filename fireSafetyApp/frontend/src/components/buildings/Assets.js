@@ -4,27 +4,38 @@ import {Button} from "react-bootstrap";
 import { connect } from 'react-redux';
 import { getBuildings, deleteBuilding } from '../../actions/buildings';
 import { getASByBuilding, deleteAlarmSystem } from '../../actions/Alarms';
+import { getPumpByBuilding, deletePump } from '../../actions/Pumps';
 import PropTypes from 'prop-types';
 
 export class Assets extends Component {
 	state = {
 		isDeleted: false,
-		createButtonClass: 'btn btn--small',
-		deleteButtonClass: 'hide',
-		fireAlarmSysButtonClass: 'hide'
+		createAlarmClass: 'btn btn--small',
+		deleteAlarmClass: 'hide',
+		createPumpClass: 'btn btn--small',
+		deletePumpClass: 'hide',
+		fireAlarmSysButtonClass: 'hide',
+		pumpButtonClass: 'hide'
 	};
 
 	static propTypes = {
 		AlarmSystems: PropTypes.array.isRequired,
+		Pumps: PropTypes.array.isRequired,
 		deleteBuilding: PropTypes.func.isRequired,
 		getASByBuilding: PropTypes.func.isRequired,
-		deleteAlarmSystem: PropTypes.func.isRequired
+		deleteAlarmSystem: PropTypes.func.isRequired,
+		getPumpByBuilding: PropTypes.func.isRequired,
+		deletePump: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
 		this.props.getASByBuilding(this.props.location.state.building.id);
+		this.props.getPumpByBuilding(this.props.location.state.building.id);
 		if (!this.props.AlarmSystems[0]) {
-			this.setState({createButtonClass: 'btn btn--small', deleteButtonClass: 'hide', fireAlarmSysButtonClass: 'hide'});
+			this.setState({createAlarmClass: 'btn btn--small', deleteAlarmClass: 'hide', fireAlarmSysButtonClass: 'hide'});
+		}
+		if (!this.props.Pumps[0]) {
+			this.setState({createPumpClass: 'btn btn--small', deletePumpClass: 'hide', pumpButtonClass: 'hide' });
 		}
 	}
 
@@ -35,19 +46,37 @@ export class Assets extends Component {
 
 	deleteAlarmSys = (id) => {
 		this.props.deleteAlarmSystem(id);
-		this.setState({createButtonClass: 'btn btn--small', deleteButtonClass: 'hide', fireAlarmSysButtonClass: 'hide'})
+		this.setState({createAlarmClass: 'btn btn--small', deleteAlarmClass: 'hide', fireAlarmSysButtonClass: 'hide'})
+	};
+
+	deletePump = (id) => {
+		this.props.deletePump(id);
+		this.setState({createPumpClass: 'btn btn--small', deletePumpClass: 'hide', pumpButtonClass: 'hide'});
 	};
 
     render() {
-		let {isDeleted, createButtonClass, deleteButtonClass, fireAlarmSysButtonClass} = this.state;
+		let {
+			 isDeleted,
+			 createAlarmClass,
+			 deleteAlarmClass,
+			 fireAlarmSysButtonClass,
+			 createPumpClass,
+			 deletePumpClass,
+			 pumpButtonClass
+			} = this.state;
 		const {building} = this.props.history.location.state;
 		if(isDeleted) {
 			return <Redirect to={{ pathname: '/Home', state:{building:building}}}/>
 		}
 		if (this.props.AlarmSystems[0]) {
-			createButtonClass = 'hide';
-			deleteButtonClass = 'btn btn--small';
+			createAlarmClass = 'hide';
+			deleteAlarmClass = 'btn btn--small';
 			fireAlarmSysButtonClass = 'btn btn--mediumSmall';
+		}
+		if (this.props.Pumps[0]) {
+			createPumpClass = 'hide';
+			deletePumpClass = 'btn btn--small';
+			pumpButtonClass = 'btn btn--mediumSmall';
 		}
         return (
             <Fragment>
@@ -59,16 +88,29 @@ export class Assets extends Component {
 					Delete Building
 				</Button>
 				<Link to={{ pathname: '/CreateASForm', state: {building: building}}}>
-					<Button className={createButtonClass} onClick={()=>{}}>
+					<Button className={createAlarmClass} onClick={()=>{}}>
 						Create Fire Alarm System
 					</Button>
 				</Link>
 				
-				<Button className={deleteButtonClass} onClick={()=>{
-					if(window.confirm('Are you sure you want to DELETE this building? If you do, all assets, inspections and notes related to it will be gone.')) {
+				<Button className={deleteAlarmClass} onClick={()=>{
+					if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
 						this.deleteAlarmSys(this.props.AlarmSystems[0].id);
 					}}}>
 					Delete Current Fire Alarm System
+				</Button>
+
+				<Link to={{ pathname: '/CreatePumpForm', state: {building: building}}}>
+					<Button className={createPumpClass} onClick={()=>{}}>
+						Create Fire Pump
+					</Button>
+				</Link>
+
+				<Button className={deletePumpClass} onClick={()=>{
+					if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
+						this.deletePump(this.props.Pumps[0].id);
+					}}}>
+					Delete Current Fire Pump
 				</Button>
 				<div className = "grid">
 				<li>
@@ -107,7 +149,16 @@ export class Assets extends Component {
 							> Fire Alarm System
 							</Button>
 					</Link>
-				</li>  
+				</li> 
+				<li>
+					<Link to={{ pathname: '/FirePump', state:{building:building, pump: this.props.Pumps[0]}}}>
+						<Button 
+						className={pumpButtonClass}
+						onClick={() => {}}
+							> Fire Pump
+							</Button>
+					</Link>
+				</li>   
 			</div>
 			<div className = "grid">
 			<Link to={{ pathname: '/Home', state:{building:building}}}>
@@ -126,7 +177,8 @@ export class Assets extends Component {
 
 const mapStateToProps = (state) => ({
 	buildings: state.buildings.buildings,
-	AlarmSystems: state.ALARMs.AlarmSystems
+	AlarmSystems: state.ALARMs.AlarmSystems,
+	Pumps: state.Pumps.Pumps
 });
   
-  export default connect(mapStateToProps, { getBuildings, deleteBuilding, getASByBuilding, deleteAlarmSystem })(Assets);
+  export default connect(mapStateToProps, { getBuildings, deleteBuilding, getASByBuilding, deleteAlarmSystem, getPumpByBuilding, deletePump })(Assets);
