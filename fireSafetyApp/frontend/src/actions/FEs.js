@@ -105,7 +105,7 @@ export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
   axios
     .patch(`/fire_extinguish/${FE.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updateFE: 'Fire Extinguisher Updated' }));
+      dispatch(createMessage({ updateFE: 'Inspection Date Updated' }));
       dispatch({
         type: UPDATE_FE,
         payload: res.data,

@@ -71,7 +71,7 @@ export class PumpInspection extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label>Suction Pressure</label>
+            <label>Suction Pressure (PSI)</label>
             <input
               className="form-control"
               type="text"
@@ -81,7 +81,7 @@ export class PumpInspection extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Discharge Pressure</label>
+            <label>Discharge Pressure (PSI)</label>
             <input
               className="form-control"
               type="text"
@@ -91,7 +91,7 @@ export class PumpInspection extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Run Time</label>
+            <label>Run Time (min)</label>
             <input
               className="form-control"
               type="text"

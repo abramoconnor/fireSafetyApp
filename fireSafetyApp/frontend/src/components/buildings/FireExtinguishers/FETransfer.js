@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link, Redirect} from "react-router-dom";
 import {Button} from "react-bootstrap";
-import { createMessage } from "../../../actions/messages";
 import {updateFELocation} from "../../../actions/FEs";
 
 export class FETransfer extends Component {
@@ -81,4 +80,4 @@ export class FETransfer extends Component {
     buildings: state.buildings.buildings
   });
   
-export default connect(mapStateToProps, {createMessage, updateFELocation})(FETransfer);
+export default connect(mapStateToProps, {updateFELocation})(FETransfer);

@@ -93,7 +93,7 @@ export const updateASInspectionDate = (AS, i) => (dispatch, getState) => {
   axios
     .patch(`/alarm_system/${AS.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updateAS: 'Alarm System Updated' }));
+      dispatch(createMessage({ updateAS: 'Inspection Date Updated' }));
       dispatch({
         type: UPDATE_ALARM_SYS,
         payload: res.data,

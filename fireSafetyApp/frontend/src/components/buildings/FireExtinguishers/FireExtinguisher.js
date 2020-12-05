@@ -10,6 +10,10 @@ import FENotes from "./addFENote";
 export class FireExtinguisher extends Component {
   state = {
     isDeleted: false,
+    sortConfig: {
+      field: 'date_tested',
+      direction: 'ascending'
+    },
   };
 
   static propTypes = {
@@ -35,15 +39,27 @@ export class FireExtinguisher extends Component {
     this.props.deleteFENote(id);
   }
 
+  // if user clicked field a second time, they want to change the direction of sort
+  // default is ascending
+  requestSort = (field) => {
+    const {sortConfig} = this.state;
+    if (sortConfig.field === field && sortConfig.direction === 'ascending') {
+      this.setState({sortConfig: {field: field, direction: 'descending'}});
+    } else {
+      this.setState({sortConfig: {field: field, direction: 'ascending'}});
+    }
+  }
+
   parseMonthlyInspections = () => {
     if (!this.props.FEInspecs) return;
     else {
+      const {sortConfig} = this.state;
       const sortedMonthly = this.props.FEInspecs.filter(i => i.inspection_type === "monthly");
       sortedMonthly.sort((a, b) => {
-        if (a.date_tested < b.date_tested) {
-          return 1;
-        } else if (a.date_tested > b.date_tested) {
-          return -1;
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
         } else {
           return 0;
         }
@@ -128,6 +144,7 @@ export class FireExtinguisher extends Component {
       return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
     }
     const {building, fe} = this.props.location.state;
+    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
           <h2 className="center">Fire Extinguisher: {fe.exnum}</h2>
@@ -148,7 +165,7 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Inspection Date</th>
+                  <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
                   <th>Performed By</th>
                 </tr>
               </thead>
@@ -160,7 +177,7 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Inspection Date</th>
+                  <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
                   <th className="align">Performed By</th>
                 </tr>
               </thead>
@@ -174,7 +191,7 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Service Date</th>
+                  <button type="button" onClick={() => this.requestSort('date_tested')}>Service Date {sortButtonLabel}</button>
                   <th>Performed By</th>
                 </tr>
               </thead>
@@ -188,7 +205,7 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Test Date</th>
+                  <button type="button" onClick={() => this.requestSort('date_tested')}>Test Date {sortButtonLabel}</button>
                   <th>Performed By</th>
                 </tr>
               </thead>
@@ -239,7 +256,7 @@ export class FireExtinguisher extends Component {
             </Button>
           </div>
           <Link to={{ pathname: '/FireExtinguisherList', state: {building: building}}}>
-				<Button className={"btn btn--back"} onClick={() => console.log(building)}>Back</Button>
+				<Button className={"btn btn--back"}>Back</Button>
 		  </Link>
       </Fragment>
       );

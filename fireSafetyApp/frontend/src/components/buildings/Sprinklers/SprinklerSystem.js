@@ -185,8 +185,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th className={headerClass}>Air Pressure</th>
-                <th>Water Pressure</th>
+                <th className={headerClass}>Air Pressure (PSI)</th>
+                <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -199,8 +199,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th className={headerClass}>Air Pressure</th>
-                <th>Water Pressure</th>
+                <th className={headerClass}>Air Pressure (PSI)</th>
+                <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -213,8 +213,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th className={headerClass}>Air Pressure</th>
-                <th>Water Pressure</th>
+                <th className={headerClass}>Air Pressure (PSI)</th>
+                <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -227,8 +227,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th className={headerClass}>Air Pressure</th>
-                <th>Water Pressure</th>
+                <th className={headerClass}>Air Pressure (PSI)</th>
+                <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -241,8 +241,8 @@ export class SprinklerSystem extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th className={headerClass}>Air Pressure</th>
-                <th>Water Pressure</th>
+                <th className={headerClass}>Air Pressure (PSI)</th>
+                <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>

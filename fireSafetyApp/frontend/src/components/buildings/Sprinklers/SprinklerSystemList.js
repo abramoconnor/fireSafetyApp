@@ -33,7 +33,7 @@ export class SprinklerSystemList extends Component {
                 {this.nextInspection(ss)}
             </tr>
 			)
-		} else if(ss.system_type.toLowerCase().includes(this.state.search.toLowerCase())) {
+		} else if(ss.coverage.toLowerCase().includes(this.state.search.toLowerCase())) {
 			return(
                 <tr key={ss.id}>
                 {/* ???Blane make this button blue text and underline, no box */}

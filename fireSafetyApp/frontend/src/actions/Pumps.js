@@ -85,7 +85,7 @@ export const updatePumpInspectionDate = (p, i) => (dispatch, getState) => {
   axios
     .patch(`/fire_pump/${p.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updatePump: 'Fire Pump Updated' }));
+      dispatch(createMessage({ updatePump: 'Inspection Date Updated' }));
       dispatch({
         type: UPDATE_PUMP,
         payload: res.data,

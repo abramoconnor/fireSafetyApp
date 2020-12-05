@@ -78,7 +78,7 @@ export const updateAEDInspectionDate = (AED, i) => (dispatch, getState) => {
   axios
     .patch(`/aed/${AED.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updateAED: 'AED Updated' }));
+      dispatch(createMessage({ updateAED: 'AED Inspection Date Updated' }));
       dispatch({
         type: UPDATE_AED,
         payload: res.data,

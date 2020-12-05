@@ -114,8 +114,8 @@ export class AEDList extends Component {
     return (
       <Fragment>
         <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
-          <h2>AEDs for {building.name}</h2>
-          <p>Number of AEDs in {building.name}: {this.props.AEDs.length}</p>
+          <h2>AED's for {building.name}</h2>
+          <p>Number of AED's in {building.name}: {this.props.AEDs.length}</p>
           {/* ???button on same line */}
           <table className="table table-striped">
             <thead>

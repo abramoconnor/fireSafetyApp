@@ -74,7 +74,7 @@ export class SSInspection extends Component {
             </select>
           </div>
           <div className={inputClass}>
-            <label>Air Pressure</label>
+            <label>Air Pressure (PSI)</label>
             <input
               className="form-control"
               type="text"
@@ -84,7 +84,7 @@ export class SSInspection extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Water Pressure</label>
+            <label>Water Pressure (PSI)</label>
             <input
               className="form-control"
               type="text"

@@ -18,14 +18,14 @@ export const getBuildings = () => (dispatch, getState) => {
 };
 
 // DELETE BUILDING
-export const deleteBuilding = (id) => (dispatch, getState) => {
+export const deleteBuilding = (b) => (dispatch, getState) => {
   axios
-    .delete(`/buildings/${id}/`, tokenConfig(getState))
+    .delete(`/buildings/${b.id}/`, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ deleteBuilding: 'Building Deleted' }));
+      dispatch(createMessage({ deleteBuilding: `${b.name} Deleted` }));
       dispatch({
         type: DELETE_BUILDING,
-        payload: id,
+        payload: b.id,
       });
     })
     .catch((err) => console.log(err));

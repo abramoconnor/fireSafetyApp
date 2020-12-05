@@ -86,9 +86,9 @@ export class FirePump extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th>Suction Pressure</th>
-                <th>Discharge Pressure</th>
-                <th>Run Time</th>
+                <th>Suction Pressure (PSI)</th>
+                <th>Discharge Pressure (PSI)</th>
+                <th>Run Time (min)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
@@ -101,9 +101,9 @@ export class FirePump extends Component {
             <thead>
               <tr>
                 <th>Inspection Date</th>
-                <th>Suction Pressure</th>
-                <th>Discharge Pressure</th>
-                <th>Run Time</th>
+                <th>Suction Pressure (PSI)</th>
+                <th>Discharge Pressure (PSI)</th>
+                <th>Run Time (min)</th>
                 <th>Performed By</th>
               </tr>
             </thead>

@@ -80,7 +80,7 @@ export class Buildings extends Component {
 				</div>
 				<div className = "grid">
 				<Link to={{ pathname: '/CreateBuildingForm', state:{}}}>
-            		<button className={"btn2 btn--mediumSmall"} type="button" onClick={() => {console.log("addnew building")}}>Add New Building</button>   
+            		<button className={"btn2 btn--mediumSmall"} type="button">Add New Building</button>   
           		</Link>
 				</div>
 

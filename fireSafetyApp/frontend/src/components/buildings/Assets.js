@@ -39,8 +39,8 @@ export class Assets extends Component {
 		}
 	}
 
-	deleteBuilding = (id) => {
-		this.props.deleteBuilding(id);
+	deleteBuilding = (b) => {
+		this.props.deleteBuilding(b);
 		this.setState({isDeleted: true });
 	}
 
@@ -83,7 +83,7 @@ export class Assets extends Component {
                 <h1 className={"buildingNames"}>{building.name}'s Assets</h1>
 				<Button className={"btn btn--small"} onClick={() => {
 					if(window.confirm('Are you sure you want to DELETE this building? If you do, all assets, inspections and notes related to it will be gone.')) {
-						this.deleteBuilding(building.id);
+						this.deleteBuilding(building);
 					}}}>
 					Delete Building
 				</Button>

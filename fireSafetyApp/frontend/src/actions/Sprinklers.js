@@ -109,7 +109,7 @@ export const updateSSInspectionDate = (ss, i) => (dispatch, getState) => {
   axios
     .patch(`/sprinkler_system/${ss.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updateSS: 'Sprinkler System Updated' }));
+      dispatch(createMessage({ updateSS: 'Inspection Date Updated' }));
       dispatch({
         type: UPDATE_SP_SYS,
         payload: res.data,

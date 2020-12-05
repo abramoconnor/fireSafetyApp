@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link, Redirect} from "react-router-dom";
 import {Button} from "react-bootstrap";
-import { createMessage } from "../../../actions/messages";
 import {updateAEDLocation} from "../../../actions/AEDs";
 
 export class AEDLocation extends Component {
@@ -69,4 +68,4 @@ export class AEDLocation extends Component {
     buildings: state.buildings.buildings
   });
   
-export default connect(mapStateToProps, {createMessage, updateAEDLocation})(AEDLocation);
+export default connect(mapStateToProps, {updateAEDLocation})(AEDLocation);
