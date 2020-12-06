@@ -38,12 +38,13 @@ export class FEReport extends Component {
     const {building, fe, notes} = this.props.location.state;
     const {includeNotes} = this.state;
     const buttonClass = includeNotes ? 'green' : 'red'
+    const buttonYorN = includeNotes ? 'Yes' : 'No'
     return (
       <Fragment>
           <h2>Report for Fire Extinguisher: {fe.exnum}</h2>
           <p>Located in: {building.name}</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>
-          <button className={buttonClass} onClick={() => this.setIncludeNotes(includeNotes)}>Include Notes?</button>
+          <button className={buttonClass} onClick={() => this.setIncludeNotes(includeNotes)}>Include Notes?: {buttonYorN}</button>
           <p>*Button will cause report to appear in a new window when . If it does not appear be sure your ad-blocker is turned off.*</p>
           <p>Last Monthly Inspection: {this.convertToLocalTime(fe.last_monthly_inspection)}</p>
           <p>Upcoming Monthly Inspection: {this.convertToLocalTime(fe.upcoming_monthly_inspection)}</p>
