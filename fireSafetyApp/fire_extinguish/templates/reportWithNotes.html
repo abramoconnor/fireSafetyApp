@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fire Extinguisher Report</title>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: separate;
+              padding-top: 4px;
+              font-size: large;
+            }
+            th, td {
+              padding-left: 3px;
+            }
+            </style>
+    </head>
+    <body>
+        <div>
+            <h1 style="font-size:450%; padding-bottom: 0px; margin-bottom: 0px; border-bottom: 0px;">Fire Extinguisher Report</h1>
+            <!-- <p style="position: absolute; top: 0px; right: 0px;">  {% now "F jS Y" %}</p> -->
+        </div>
+        <p style="font-size:160%; padding-left:30px; text-decoration: underline;">Extinguisher Number - {{fe.exnum}}</p>
+        <p style="font-size:160%; padding-left:30px;">Location - {{building.name}}</p>
+        <hr>
+        <br>
+        <h2 style="font-size:300%; margin-top: 8px;">Inspections Performed: </h2>
+        <table style="padding: 2px;">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Latest</th>
+                    <th>Upcoming</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monthly</td>
+                    <td>{{fe.last_monthly_inspection}}</td>
+                    <td>{{fe.upcoming_monthly_inspection}}</td>
+                </tr>
+                <tr>
+                    <td>Annual</td>
+                    <td>{{fe.last_annual_inspection}}</td>
+                    <td>{{fe.upcoming_annual_inspection}}</td>
+                </tr>
+                <tr>
+                    <td>6 Year Service</td>
+                    <td>{{fe.last_6year_service}}</td>
+                    <td>{{fe.upcoming_6year_service}}</td>
+                </tr>
+                <tr>
+                    <td>12 Year Test</td>
+                    <td>{{fe.last_12year_test}}</td>
+                    <td>{{fe.upcoming_12year_test}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <br>
+        <h2 style="font-size:300%; margin-top: 8px;">Notes: </h2>
+        <ol>
+            {% for note in notes %}
+                <li style="font-size:160%; padding-left:30px;">{{ note.note }}</li>
+            {% endfor %}
+        </ol>
+    </body>
+</html>

@@ -11,9 +11,14 @@ from rest_framework.decorators import api_view
 def fe_generate_report_pdf_view(request, *args, **kwargs):
     building = request.data['building']
     fe = request.data['fe']
-
-    template_path = 'report.html'
-    context = {'building': building, 'fe': fe}
+    notes = request.data['notes']
+   
+    if not notes:
+       template_path = 'report.html'
+       context = {'building': building, 'fe': fe}
+    else:
+       template_path = 'reportWithNotes.html'
+       context = {'building': building, 'fe': fe, 'notes': notes}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

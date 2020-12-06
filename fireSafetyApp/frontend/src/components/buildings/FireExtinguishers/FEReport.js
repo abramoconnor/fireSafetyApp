@@ -29,7 +29,7 @@ export class FEReport extends Component {
     let pdfParams = {building, fe};
     if (includeNotes) {
       pdfParams.notes = notes;
-    }
+    } else pdfParams.notes = '';
     this.props.displayFEReportPDF(pdfParams);
     this.setState({includeNotes: false});
   }

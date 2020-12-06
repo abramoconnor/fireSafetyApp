@@ -165,7 +165,9 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                  <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                  </th>
                   <th>Performed By</th>
                 </tr>
               </thead>
@@ -177,7 +179,9 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                  <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                  </th>
                   <th className="align">Performed By</th>
                 </tr>
               </thead>
@@ -191,7 +195,9 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <button type="button" onClick={() => this.requestSort('date_tested')}>Service Date {sortButtonLabel}</button>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested')}>Service Date {sortButtonLabel}</button>
+                  </th>
                   <th>Performed By</th>
                 </tr>
               </thead>
@@ -205,7 +211,9 @@ export class FireExtinguisher extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <button type="button" onClick={() => this.requestSort('date_tested')}>Test Date {sortButtonLabel}</button>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested')}>Test Date {sortButtonLabel}</button>
+                  </th>
                   <th>Performed By</th>
                 </tr>
               </thead>
