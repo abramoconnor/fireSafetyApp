@@ -8,6 +8,14 @@ import {Button} from "react-bootstrap";
 import PumpNotes from "./PumpNotes";
 
 export class FirePump extends Component {
+  state = {
+    sortConfig: {
+      field: 'date_tested',
+      mdirection: 'ascending',
+      ydirection: 'ascending',
+    },
+  };
+
   static propTypes = {
     PumpInspecs: PropTypes.array.isRequired,
     PumpNotes: PropTypes.array.isRequired,
@@ -25,33 +33,83 @@ export class FirePump extends Component {
     this.props.deletePumpNote(id);
   }
 
-  parseMonthlyInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "monthly") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.suction_pressure}</td>
-                <td>{i.discharge_pressure}</td>
-                <td>{i.run_time}</td>
-                <td>{i.tester}</td>
-            </tr>
-        )
+  // if user clicked field a second time, they want to change the direction of sort
+  // default is ascending
+  requestSort = (field, type) => {
+    const {sortConfig} = this.state;
+    if (type === "monthly") {
+      if (sortConfig.field === field && sortConfig.mdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, mdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, mdirection: 'ascending'}});
+      }
+    }
+    else if (type === "annual") {
+      if (sortConfig.field === field && sortConfig.ydirection === 'ascending') {
+        this.setState({sortConfig: {field: field, ydirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, ydirection: 'ascending'}});
+      }
     }
   }
 
-  parseAnnualInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "annual") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.suction_pressure}</td>
-                <td>{i.discharge_pressure}</td>
-                <td>{i.run_time}</td>
-                <td>{i.tester}</td>
+  parseMonthlyInspections = () => {
+    if (!this.props.PumpInspecs) return;
+    else {
+      const {sortConfig} = this.state;
+      const sortedMonthly = this.props.PumpInspecs.filter(i => i.inspection_type === "monthly");
+      sortedMonthly.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.mdirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.mdirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedMonthly.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.suction_pressure}</td>
+              <td>{m.discharge_pressure}</td>
+              <td>{m.run_time}</td>
+              <td>{m.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
+    }
+  }
+
+  parseAnnualInspections = () => {
+    if (!this.props.PumpInspecs) return;
+    else {
+      const {sortConfig} = this.state;
+      const sortedAnnual = this.props.PumpInspecs.filter(i => i.inspection_type === "annual");
+      sortedAnnual.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.ydirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.ydirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedAnnual.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.suction_pressure}</td>
+              <td>{m.discharge_pressure}</td>
+              <td>{m.run_time}</td>
+              <td>{m.tester}</td>
+            </tr>
+        )}
+        </tbody>
+      );
     }
   }
 
@@ -71,6 +129,8 @@ export class FirePump extends Component {
   
   render() {
     const {building, pump} = this.props.location.state;
+    const mButtonLabel = this.state.sortConfig.mdirection === 'ascending' ? '(asc)' : '(desc)';
+    const yButtonLabel = this.state.sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
           <h2>Fire Pump for {building.name}</h2>
@@ -85,31 +145,31 @@ export class FirePump extends Component {
             <caption>Monthly Inspections</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
+                </th>
                 <th>Suction Pressure (PSI)</th>
                 <th>Discharge Pressure (PSI)</th>
                 <th>Run Time (min)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.PumpInspecs.map(i => this.parseMonthlyInspections(i))}
-            </tbody>
+            {this.parseMonthlyInspections()}
           </table>
           <table className="table table-striped">
             <caption>Annual Inspections</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
+                </th>
                 <th>Suction Pressure (PSI)</th>
                 <th>Discharge Pressure (PSI)</th>
                 <th>Run Time (min)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.PumpInspecs.map(i => this.parseAnnualInspections(i))}
-            </tbody>
+            {this.parseAnnualInspections()}
           </table>
           <div>
             <h5>Notes</h5>

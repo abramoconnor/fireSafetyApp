@@ -10,6 +10,10 @@ import AEDNote from "./AEDNote";
 export class AED extends Component {
   state = {
     isDeleted: false,
+    sortConfig: {
+      field: 'date_tested',
+      direction: 'ascending'
+    },
   };
 
   static propTypes = {
@@ -35,19 +39,32 @@ export class AED extends Component {
     this.props.deleteAEDNote(id);
   }
 
+  // if user clicked field a second time, they want to change the direction of sort
+  // default is ascending
+  requestSort = (field) => {
+    const {sortConfig} = this.state;
+    if (sortConfig.field === field && sortConfig.direction === 'ascending') {
+      this.setState({sortConfig: {field: field, direction: 'descending'}});
+    } else {
+      this.setState({sortConfig: {field: field, direction: 'ascending'}});
+    }
+  }
+
   parseMonthlyInspections = () => {
     if (!this.props.AEDInspecs) return;
     else {
+      const {sortConfig} = this.state;
       const sortedMonthly = this.props.AEDInspecs.filter(i => i.inspection_type === "monthly");
       sortedMonthly.sort((a, b) => {
-        if (a.date_tested < b.date_tested) {
-          return 1;
-        } else if (a.date_tested > b.date_tested) {
-          return -1;
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
         } else {
           return 0;
         }
       });
+      console.log(sortedMonthly)
       return (
         <tbody>
           {sortedMonthly.map(m => 
@@ -82,6 +99,7 @@ export class AED extends Component {
       return <Redirect to={{ pathname: '/AEDList', state: this.props.location.state}}/>
     }
     const {building, aed} = this.props.location.state;
+    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
           <h2 className="center">AED Location: {aed.location}</h2>
@@ -102,7 +120,9 @@ export class AED extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                  </th>
                   <th>Performed By</th>
                 </tr>
               </thead>

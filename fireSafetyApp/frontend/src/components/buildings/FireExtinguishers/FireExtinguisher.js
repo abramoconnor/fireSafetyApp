@@ -12,7 +12,10 @@ export class FireExtinguisher extends Component {
     isDeleted: false,
     sortConfig: {
       field: 'date_tested',
-      direction: 'ascending'
+      mdirection: 'ascending',
+      ydirection: 'ascending',
+      sixdirection: 'ascending',
+      twelvedirection: 'ascending'
     },
   };
 
@@ -41,12 +44,35 @@ export class FireExtinguisher extends Component {
 
   // if user clicked field a second time, they want to change the direction of sort
   // default is ascending
-  requestSort = (field) => {
+  requestSort = (field, type) => {
     const {sortConfig} = this.state;
-    if (sortConfig.field === field && sortConfig.direction === 'ascending') {
-      this.setState({sortConfig: {field: field, direction: 'descending'}});
-    } else {
-      this.setState({sortConfig: {field: field, direction: 'ascending'}});
+    if (type === "monthly") {
+      if (sortConfig.field === field && sortConfig.mdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, mdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, mdirection: 'ascending'}});
+      }
+    }
+    else if (type === "annual") {
+      if (sortConfig.field === field && sortConfig.ydirection === 'ascending') {
+        this.setState({sortConfig: {field: field, ydirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, ydirection: 'ascending'}});
+      }
+    }
+    else if (type === "6Year") {
+      if (sortConfig.field === field && sortConfig.sixdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, sixdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, sixdirection: 'ascending'}});
+      }
+    }
+    else if (type === "12Year") {
+      if (sortConfig.field === field && sortConfig.twelvedirection === 'ascending') {
+        this.setState({sortConfig: {field: field, twelvedirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, twelvedirection: 'ascending'}});
+      }
     }
   }
 
@@ -57,9 +83,9 @@ export class FireExtinguisher extends Component {
       const sortedMonthly = this.props.FEInspecs.filter(i => i.inspection_type === "monthly");
       sortedMonthly.sort((a, b) => {
         if (a[sortConfig.field] < b[sortConfig.field]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+          return sortConfig.mdirection === 'ascending' ? -1 : 1;
         } else if (a[sortConfig.field] > b[sortConfig.field]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+          return sortConfig.mdirection === 'ascending' ? 1 : -1;
         } else {
           return 0;
         }
@@ -77,39 +103,84 @@ export class FireExtinguisher extends Component {
     }
   }
 
-  parseAnnualInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "annual") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
+  parseAnnualInspections = () => {
+    if (!this.props.FEInspecs) return;
+    else {
+      const {sortConfig} = this.state;
+      const sortedAnnual = this.props.FEInspecs.filter(i => i.inspection_type === "annual");
+      sortedAnnual.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.ydirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.ydirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedAnnual.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
-  parse6YearServices = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "6year") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
+  parse6YearServices = () => {
+    if (!this.props.FEInspecs) return;
+    else {
+      const {sortConfig} = this.state;
+      const sorted6Year = this.props.FEInspecs.filter(i => i.inspection_type === "6Year");
+      sorted6Year.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.sixdirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.sixdirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sorted6Year.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
-  parse12YearTests = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "12year") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.tester}</td>
+  parse12YearTests = () => {
+    if (!this.props.FEInspecs) return;
+    else {
+      const {sortConfig} = this.state;
+      const sorted12Year = this.props.FEInspecs.filter(i => i.inspection_type === "12Year");
+      sorted12Year.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.twelvedirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.twelvedirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sorted12Year.map(m => 
+            <tr key={m.id}>
+              <td>{new Date(m.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{m.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
@@ -144,7 +215,10 @@ export class FireExtinguisher extends Component {
       return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
     }
     const {building, fe} = this.props.location.state;
-    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
+    const mButtonLabel = this.state.sortConfig.mdirection === 'ascending' ? '(asc)' : '(desc)';
+    const yButtonLabel = this.state.sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
+    const sixButtonLabel = this.state.sortConfig.sixdirection === 'ascending' ? '(asc)' : '(desc)';
+    const twelveButtonLabel = this.state.sortConfig.twelvedirection === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
           <h2 className="center">Fire Extinguisher: {fe.exnum}</h2>
@@ -166,7 +240,7 @@ export class FireExtinguisher extends Component {
               <thead>
                 <tr>
                   <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
@@ -180,14 +254,12 @@ export class FireExtinguisher extends Component {
               <thead>
                 <tr>
                   <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
                   </th>
                   <th className="align">Performed By</th>
                 </tr>
               </thead>
-              <tbody>
-                  {this.props.FEInspecs.map(i => this.parseAnnualInspections(i))}
-              </tbody>
+              {this.parseAnnualInspections()}
             </table>
           </div>
           <p className={"black"}>6-Year Services</p>
@@ -196,14 +268,12 @@ export class FireExtinguisher extends Component {
               <thead>
                 <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested')}>Service Date {sortButtonLabel}</button>
+                    <button type="button" onClick={() => this.requestSort('date_tested', '6Year')}>Service Date {sixButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
               </thead>
-              <tbody>
-                  {this.props.FEInspecs.map(i => this.parse6YearServices(i))}
-              </tbody>
+              {this.parse6YearServices()}
             </table>
           </div>
           <p className={"black"}>12-Year Tests</p>
@@ -212,14 +282,12 @@ export class FireExtinguisher extends Component {
               <thead>
                 <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested')}>Test Date {sortButtonLabel}</button>
+                    <button type="button" onClick={() => this.requestSort('date_tested', '12Year')}>Test Date {twelveButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
               </thead>
-              <tbody>
-                  {this.props.FEInspecs.map(i => this.parse12YearTests(i))}
-              </tbody>
+              {this.parse12YearTests()}
             </table>
           </div>
           <div>

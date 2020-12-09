@@ -10,7 +10,15 @@ import SSNotes from "./SSNotes";
 export class SprinklerSystem extends Component {
   state = {
     isDeleted: false,
-    isWet: false
+    isWet: false,
+    sortConfig: {
+      field: 'date_tested',
+      wdirection: 'ascending',
+      mdirection: 'ascending',
+      qdirection: 'ascending',
+      sdirection: 'ascending',
+      ydirection: 'ascending',
+    },
   };
 
   static propTypes = {
@@ -36,81 +44,197 @@ export class SprinklerSystem extends Component {
     this.props.deleteSSNote(id);
   }
 
-  parseWeeklyInspections = (i) => {
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "weekly") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td>{i.air_pressure}</td>
-                <td>{i.water_pressure}</td>
-                <td>{i.tester}</td>
-            </tr>
-        )
+  // if user clicked field a second time, they want to change the direction of sort
+  // default is ascending
+  requestSort = (field, type) => {
+    const {sortConfig} = this.state;
+    if (type === "weekly") {
+      if (sortConfig.field === field && sortConfig.wdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, wdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, wdirection: 'ascending'}});
+      }
+    }
+    else if (type === "monthly") {
+      if (sortConfig.field === field && sortConfig.mdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, mdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, mdirection: 'ascending'}});
+      }
+    }
+    else if (type === "quarterly") {
+      if (sortConfig.field === field && sortConfig.qdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, qdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, qdirection: 'ascending'}});
+      }
+    }
+    else if (type === "semiannual") {
+      if (sortConfig.field === field && sortConfig.sdirection === 'ascending') {
+        this.setState({sortConfig: {field: field, sdirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, sdirection: 'ascending'}});
+      }
+    }
+    else if (type === "annual") {
+      if (sortConfig.field === field && sortConfig.ydirection === 'ascending') {
+        this.setState({sortConfig: {field: field, ydirection: 'descending'}});
+      } else {
+        this.setState({sortConfig: {field: field, ydirection: 'ascending'}});
+      }
     }
   }
 
-  parseMonthlyInspections = (i) => {
-    const {ss} = this.props.location.state;
-    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "monthly") {
-        return (
-            <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td className={rowClass}>{i.air_pressure}</td>
-                <td>{i.water_pressure}</td>
-                <td>{i.tester}</td>
+  parseWeeklyInspections = () => {
+    if (!this.props.SSInspecs) return;
+    else {
+      const {sortConfig} = this.state;
+      const sortedWeekly = this.props.SSInspecs.filter(i => i.inspection_type === "weekly");
+      sortedWeekly.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.wdirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.wdirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedWeekly.map(w => 
+            <tr key={w.id}>
+              <td>{new Date(w.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td>{w.air_pressure}</td>
+              <td>{w.water_pressure}</td>
+              <td>{w.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
-  parseQuarterlyInspections = (i) => {
-    const {ss} = this.props.location.state;
-    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "quarterly") {
-        return (
+  parseMonthlyInspections = () => {
+    if (!this.props.SSInspecs) return;
+    else {
+      const {ss} = this.props.location.state;
+      const rowClass = ss.system_type === "Wet" ? 'hide' : '';
+      const {sortConfig} = this.state;
+      const sortedMonthly = this.props.SSInspecs.filter(i => i.inspection_type === "monthly");
+      sortedMonthly.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.mdirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.mdirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedMonthly.map(i => 
             <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td className={rowClass}>{i.air_pressure}</td>
-                <td>{i.water_pressure}</td>
-                <td>{i.tester}</td>
+              <td>{new Date(i.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td className={rowClass}>{i.air_pressure}</td>
+              <td>{i.water_pressure}</td>
+              <td>{i.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
-  parseSemiAnnualInspections = (i) => {
-    const {ss} = this.props.location.state;
-    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "semiannual") {
-        return (
+  parseQuarterlyInspections = () => {
+    if (!this.props.SSInspecs) return;
+    else {
+      const {ss} = this.props.location.state;
+      const rowClass = ss.system_type === "Wet" ? 'hide' : '';
+      const {sortConfig} = this.state;
+      const sortedQuarterly = this.props.SSInspecs.filter(i => i.inspection_type === "quarterly");
+      sortedQuarterly.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.qdirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.qdirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedQuarterly.map(i => 
             <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td className={rowClass}>{i.air_pressure}</td>
-                <td>{i.water_pressure}</td>
-                <td>{i.tester}</td>
+              <td>{new Date(i.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td className={rowClass}>{i.air_pressure}</td>
+              <td>{i.water_pressure}</td>
+              <td>{i.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
     }
   }
 
-  parseAnnualInspections = (i) => {
-    const {ss} = this.props.location.state;
-    const rowClass = ss.system_type === "Wet" ? 'hide' : '';
-    const nd = new Date(i.date_tested);
-    if (i.inspection_type === "annual") {
-        return (
+  parseSemiAnnualInspections = () => {
+    if (!this.props.SSInspecs) return;
+    else {
+      const {ss} = this.props.location.state;
+      const rowClass = ss.system_type === "Wet" ? 'hide' : '';
+      const {sortConfig} = this.state;
+      const sortedSemi = this.props.SSInspecs.filter(i => i.inspection_type === "semiannual");
+      sortedSemi.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.sdirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.sdirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedSemi.map(i => 
             <tr key={i.id}>
-                <td>{nd.toLocaleDateString().split("T")[0]}</td>
-                <td className={rowClass}>{i.air_pressure}</td>
-                <td>{i.water_pressure}</td>
-                <td>{i.tester}</td>
+              <td>{new Date(i.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td className={rowClass}>{i.air_pressure}</td>
+              <td>{i.water_pressure}</td>
+              <td>{i.tester}</td>
             </tr>
-        )
+        )}
+        </tbody>
+      );
+    }
+  }
+
+  parseAnnualInspections = () => {
+    if (!this.props.SSInspecs) return;
+    else {
+      const {ss} = this.props.location.state;
+      const rowClass = ss.system_type === "Wet" ? 'hide' : '';
+      const {sortConfig} = this.state;
+      const sortedAnnual = this.props.SSInspecs.filter(i => i.inspection_type === "annual");
+      sortedAnnual.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.ydirection === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.ydirection === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+      return (
+        <tbody>
+          {sortedAnnual.map(i => 
+            <tr key={i.id}>
+              <td>{new Date(i.date_tested).toLocaleDateString().split("T")[0]}</td>
+              <td className={rowClass}>{i.air_pressure}</td>
+              <td>{i.water_pressure}</td>
+              <td>{i.tester}</td>
+            </tr>
+        )}
+        </tbody>
+      );
     }
   }
 
@@ -155,13 +279,18 @@ export class SprinklerSystem extends Component {
   }
 
   render() {
-    const {isDeleted} = this.state;
+    const {isDeleted, sortConfig} = this.state;
     if (isDeleted) {
       return <Redirect to={{ pathname: '/SprinklerSystemList', state: this.props.location.state}}/>
     }
     const {building, ss} = this.props.location.state;
     const tableClass = ss.system_type === "Wet" ? 'hide' : 'table table-striped';
     const headerClass = ss.system_type === "Wet" ? 'hide' : '';
+    const wButtonLabel = sortConfig.wdirection === 'ascending' ? '(asc)' : '(desc)';
+    const mButtonLabel = sortConfig.mdirection === 'ascending' ? '(asc)' : '(desc)';
+    const qButtonLabel = sortConfig.qdirection === 'ascending' ? '(asc)' : '(desc)';
+    const sButtonLabel = sortConfig.sdirection === 'ascending' ? '(asc)' : '(desc)';
+    const yButtonLabel = sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
           <h2>Sprinkler System Covers: {ss.coverage}</h2>
@@ -184,71 +313,71 @@ export class SprinklerSystem extends Component {
             <caption>Weekly Inspections (Only for Dry and Pre-action)</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'weekly')}>Inspection Date {wButtonLabel}</button>
+                </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.SSInspecs.map(i => this.parseWeeklyInspections(i))}
-            </tbody>
+            {this.parseWeeklyInspections()}
           </table>
           <table className="table table-striped">
             <caption>Monthly Inspections</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
+                </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.SSInspecs.map(i => this.parseMonthlyInspections(i))}
-            </tbody>
+            {this.parseMonthlyInspections()}
           </table>
           <table className="table table-striped">
             <caption>Quarterly Inspections</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'quarterly')}>Inspection Date {qButtonLabel}</button>
+                </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.SSInspecs.map(i => this.parseQuarterlyInspections(i))}
-            </tbody>
+            {this.parseQuarterlyInspections()}
           </table>
           <table className="table table-striped">
             <caption>Semi-Annual Inspections</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'semiannual')}>Inspection Date {sButtonLabel}</button>
+                </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.SSInspecs.map(i => this.parseSemiAnnualInspections(i))}
-            </tbody>
+            {this.parseSemiAnnualInspections()}
           </table>
           <table className="table table-striped">
             <caption>Annual Inspections</caption>
             <thead>
               <tr>
-                <th>Inspection Date</th>
+                <th>
+                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
+                </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
                 <th>Performed By</th>
               </tr>
             </thead>
-            <tbody>
-                {this.props.SSInspecs.map(i => this.parseAnnualInspections(i))}
-            </tbody>
+            {this.parseAnnualInspections()}
           </table>
           <div>
             <h5>Notes</h5>

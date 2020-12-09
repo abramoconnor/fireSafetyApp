@@ -7,15 +7,50 @@ import {Button} from "react-bootstrap";
 import SearchField from "react-search-field"
 
 export class SprinklerSystemList extends Component {
+  state = {
+    search: null,
+    sortConfig: {
+      field: 'exnum',
+      direction: 'ascending'
+    },
+  };
 
   static propTypes = {
     SprinklerSystems: PropTypes.array.isRequired,
     getSpSysByBuilding: PropTypes.func.isRequired,
   };
 
-  state = {
-    search: null
-  };
+  // if user clicked field a second time, they want to change the direction of sort
+  // default is ascending
+  requestSort = (field) => {
+    const {sortConfig} = this.state;
+    if (sortConfig.field === field && sortConfig.direction === 'ascending') {
+      this.setState({sortConfig: {field: field, direction: 'descending'}});
+    } else {
+      this.setState({sortConfig: {field: field, direction: 'ascending'}});
+    }
+  }
+
+  sortRows = (building) => {
+    let sortedSprinklerSystems = [...this.props.SprinklerSystems];
+    const {sortConfig} = this.state;
+    if (sortConfig.field) {
+      sortedSprinklerSystems.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        } else if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        } else {
+          return 0;
+        }
+      })
+    }
+    return (
+      <tbody>
+        {sortedSprinklerSystems.map(ss => this.filter(ss, building))}
+      </tbody>
+    )
+  }
 
   filter = (ss ,building) => {
 		if (this.state.search == null) {
@@ -103,6 +138,7 @@ export class SprinklerSystemList extends Component {
   
   render() {
     const {building} = this.props.location.state;
+    const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
         <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
@@ -112,16 +148,14 @@ export class SprinklerSystemList extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>Coverage Area</th>
+                <th>
+                  <button type="button" onClick={() => this.requestSort('coverage')}>Coverage Area {sortButtonLabel}</button>
+                </th>
                 <th>System Type</th>
                 <th>Next Upcoming Inspection</th>
               </tr>
             </thead>
-            <tbody>
-              {this.props.SprinklerSystems.map((ss) => (
-               this.filter(ss, building)
-              ))}
-            </tbody>
+            {this.sortRows(building)}
           </table>
           <div className = "grid">
           <Link to={{ pathname: '/CreateSSForm', state:{building:building}}}>
