@@ -14,6 +14,7 @@ export class ASInspection extends Component {
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    AlarmSystems: PropTypes.array.isRequired,
     createASInspection: PropTypes.func.isRequired,
     updateASInspectionDate: PropTypes.func.isRequired,
     createASNote: PropTypes.func.isRequired
@@ -46,6 +47,7 @@ export class ASInspection extends Component {
   render() {
     const {building, as} = this.props.location.state
     const {type, note} = this.state;
+    const newAS = this.props.AlarmSystems.filter(a => a.id === as.id)[0];
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>Alarm System Inspection Form</h2>
@@ -75,7 +77,7 @@ export class ASInspection extends Component {
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/AlarmSystem", state: {building: building, AlarmSystem: as}}}>
+        <Link to={{ pathname: "/AlarmSystem", state: {building: building, AlarmSystem: newAS}}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		</Link>
   </div>
@@ -85,6 +87,7 @@ export class ASInspection extends Component {
 
   const mapStateToProps = (state) => ({
     auth: state.auth,
+    AlarmSystems: state.ALARMs.AlarmSystems,
   });
   
 export default connect(mapStateToProps, { createASInspection, updateASInspectionDate, createASNote })(ASInspection);

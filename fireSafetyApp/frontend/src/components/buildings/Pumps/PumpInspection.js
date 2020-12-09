@@ -17,6 +17,7 @@ export class PumpInspection extends Component {
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    Pumps: PropTypes.array.isRequired,
     createPumpInspection: PropTypes.func.isRequired,
     updatePumpInspectionDate: PropTypes.func.isRequired,
     createPumpNote: PropTypes.func.isRequired
@@ -58,6 +59,7 @@ export class PumpInspection extends Component {
   render() {
     const {building, pump} = this.props.location.state
     const {type, note, suction_pressure, discharge_pressure, run_time} = this.state;
+    const newP = this.props.Pumps.filter(p => p.id === pump.id)[0];
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>Fire Pump Inspection Form</h2>
@@ -116,7 +118,7 @@ export class PumpInspection extends Component {
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/FirePump", state: {building: building, pump: pump}}}>
+        <Link to={{ pathname: "/FirePump", state: {building: building, pump: newP}}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		</Link>
   </div>
@@ -126,6 +128,7 @@ export class PumpInspection extends Component {
 
   const mapStateToProps = (state) => ({
     auth: state.auth,
+    Pumps: state.Pumps.Pumps
   });
   
 export default connect(mapStateToProps, { createPumpInspection, updatePumpInspectionDate, createPumpNote })(PumpInspection);

@@ -134,7 +134,7 @@ export class FireExtinguisher extends Component {
     if (!this.props.FEInspecs) return;
     else {
       const {sortConfig} = this.state;
-      const sorted6Year = this.props.FEInspecs.filter(i => i.inspection_type === "6Year");
+      const sorted6Year = this.props.FEInspecs.filter(i => i.inspection_type === "6year");
       sorted6Year.sort((a, b) => {
         if (a[sortConfig.field] < b[sortConfig.field]) {
           return sortConfig.sixdirection === 'ascending' ? -1 : 1;
@@ -161,7 +161,7 @@ export class FireExtinguisher extends Component {
     if (!this.props.FEInspecs) return;
     else {
       const {sortConfig} = this.state;
-      const sorted12Year = this.props.FEInspecs.filter(i => i.inspection_type === "12Year");
+      const sorted12Year = this.props.FEInspecs.filter(i => i.inspection_type === "12year");
       sorted12Year.sort((a, b) => {
         if (a[sortConfig.field] < b[sortConfig.field]) {
           return sortConfig.twelvedirection === 'ascending' ? -1 : 1;
@@ -215,6 +215,7 @@ export class FireExtinguisher extends Component {
       return <Redirect to={{ pathname: '/FireExtinguisherList', state: this.props.location.state}}/>
     }
     const {building, fe} = this.props.location.state;
+    console.log(fe);
     const mButtonLabel = this.state.sortConfig.mdirection === 'ascending' ? '(asc)' : '(desc)';
     const yButtonLabel = this.state.sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
     const sixButtonLabel = this.state.sortConfig.sixdirection === 'ascending' ? '(asc)' : '(desc)';

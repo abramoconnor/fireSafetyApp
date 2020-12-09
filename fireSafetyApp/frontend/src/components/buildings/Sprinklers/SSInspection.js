@@ -17,6 +17,7 @@ export class SSInspection extends Component {
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    SprinklerSystems: PropTypes.array.isRequired,
     createSSInspection: PropTypes.func.isRequired,
     updateSSInspectionDate: PropTypes.func.isRequired,
     createSSNote: PropTypes.func.isRequired
@@ -56,6 +57,7 @@ export class SSInspection extends Component {
     const {building, ss} = this.props.location.state
     const {type, note, air_pressure, water_pressure} = this.state;
     const inputClass = ss.system_type === "Wet" ? 'hide' : 'form-group';
+    const newSS = this.props.SprinklerSystems.filter(s => s.id === ss.id)[0];
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>Sprinkler System Inspection Form</h2>
@@ -109,7 +111,7 @@ export class SSInspection extends Component {
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/SprinklerSystem", state: {building: building, ss: ss}}}>
+        <Link to={{ pathname: "/SprinklerSystem", state: {building: building, ss: newSS}}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		</Link>
   </div>
@@ -119,6 +121,7 @@ export class SSInspection extends Component {
 
   const mapStateToProps = (state) => ({
     auth: state.auth,
+    SprinklerSystems: state.SPRINKLERs.SprinklerSystems,
   });
   
 export default connect(mapStateToProps, { createSSInspection, updateSSInspectionDate, createSSNote, createMessage })(SSInspection);

@@ -17,6 +17,7 @@ export class AEDInspection extends Component {
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    AEDs: PropTypes.array.isRequired,
     createAEDInspection: PropTypes.func.isRequired,
     updateAEDInspectionDate: PropTypes.func.isRequired,
     createAEDNote: PropTypes.func.isRequired
@@ -60,6 +61,7 @@ export class AEDInspection extends Component {
   render() {
     const {building, aed} = this.props.location.state
     const {type, note} = this.state;
+    const newAED = this.props.AEDs.filter(a => a.id === aed.id)[0];
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>AED Inspection Form</h2>
@@ -89,7 +91,7 @@ export class AEDInspection extends Component {
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/AED", state: {building: building, aed: aed}}}>
+        <Link to={{ pathname: "/AED", state: {building: building, aed: newAED}}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		</Link>
   </div>
@@ -99,6 +101,7 @@ export class AEDInspection extends Component {
 
   const mapStateToProps = (state) => ({
     auth: state.auth,
+    AEDs: state.AEDs.AEDs,
   });
   
 export default connect(mapStateToProps, { createAEDInspection, updateAEDInspectionDate, createAEDNote })(AEDInspection);

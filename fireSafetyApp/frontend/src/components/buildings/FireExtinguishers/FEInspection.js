@@ -17,6 +17,7 @@ export class FEInspection extends Component {
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    FEs: PropTypes.array.isRequired,
     createFEInspection: PropTypes.func.isRequired,
     updateFEInspectionDate: PropTypes.func.isRequired,
     createFENote: PropTypes.func.isRequired
@@ -60,6 +61,7 @@ export class FEInspection extends Component {
   render() {
     const {building, fe} = this.props.location.state
     const {type, note} = this.state;
+    const newFE = this.props.FEs.filter(f => f.id === fe.id)[0];
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>Fire Extinguisher Inspection Form</h2>
@@ -92,7 +94,7 @@ export class FEInspection extends Component {
             </button>
           </div>
         </form>
-        <Link to={{ pathname: "/FireExtinguisher", state: {building: building, fe: fe}}}>
+        <Link to={{ pathname: "/FireExtinguisher", state: {building: building, fe: newFE}}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		</Link>
   </div>
@@ -102,6 +104,7 @@ export class FEInspection extends Component {
 
   const mapStateToProps = (state) => ({
     auth: state.auth,
+    FEs: state.FEs.FEs,
   });
   
 export default connect(mapStateToProps, { createFEInspection, updateFEInspectionDate, createFENote })(FEInspection);
