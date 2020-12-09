@@ -12,18 +12,31 @@
             th, td {
               padding-left: 3px;
             }
+            .inlineLeft {
+              font-size: 160%;
+            }
+            .inlineRight {
+              font-size: 160%;
+              text-align: right;
+            }
             </style>
     </head>
     <body>
         <div>
             <h1 style="font-size:450%; padding-bottom: 0px; margin-bottom: 0px; border-bottom: 0px;">Fire Extinguisher Report</h1>
-            <!-- <p style="position: absolute; top: 0px; right: 0px;">  {% now "F jS Y" %}</p> -->
         </div>
-        <p style="font-size:160%; padding-left:30px; text-decoration: underline;">Extinguisher Number - {{fe.exnum}}</p>
-        <p style="font-size:160%; padding-left:30px;">Location - {{building.name}}</p>
+        <div>
+            <p style="font-size:160%; padding-top: 0px; margin-top: 0px; border-top: 0px; display: inline;">Extinguisher Number: </p>
+            <p style="font-size:160%; padding-top: 0px; margin-top: 0px; border-top: 0px; display: inline; font-weight: bold;">{{fe.exnum}}</p>
+        </div>
+        <div style="padding-top: 10px;">
+            <p style="font-size:160%; display: inline;">Location: </p>
+            <p style="font-size:160%; display: inline; font-weight: bold;">{{building.name}}</p>
+        </div>
+            <p class="inlineRight">  {% now "F jS Y" %}</p>
         <hr>
         <br>
-        <h2 style="font-size:300%; margin-top: 8px;">Inspections Performed: </h2>
+        <h2 style="font-size:300%; margin-top: 8px;">Inspections Performed </h2>
         <table style="padding: 2px;">
             <thead>
                 <tr>
@@ -58,7 +71,7 @@
         <br>
         <hr>
         <br>
-        <h2 style="font-size:300%; margin-top: 8px;">Notes: </h2>
+        <h2 style="font-size:300%; margin-top: 8px; margin-bottom: 0px; border-bottom: 0px;">Notes </h2>
         <ol>
             {% for note in notes %}
                 <li style="font-size:160%; padding-left:30px;">{{ note.note }}</li>

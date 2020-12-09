@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sprinkler System Report</title>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: separate;
+              padding-top: 4px;
+              font-size: large;
+            }
+            th, td {
+              padding-left: 3px;
+            }
+            .inlineLeft {
+              font-size: 160%;
+            }
+            .inlineRight {
+              font-size: 160%;
+              text-align: right;
+            }
+            </style>
+    </head>
+    <body>
+        <div>
+            <h1 style="font-size:450%; padding-bottom: 0px; margin-bottom: 0px; border-bottom: 0px;">Sprinkler System Report</h1>
+        </div>
+        <div style="padding-top: 10px;">
+            <p style="font-size:160%; display: inline;">Type: </p>
+            <p style="font-size:160%; display: inline; font-weight: bold;">{{ss.system_type}}</p>
+        </div>
+        <div style="padding-top: 10px;">
+            <p style="font-size:160%; display: inline;">Location: </p>
+            <p style="font-size:160%; display: inline; font-weight: bold;">{{building.name}}</p>
+        </div>
+        <div style="padding-top: 10px;">
+            <p style="font-size:160%; display: inline;">Coverage Area: </p>
+            <p style="font-size:160%; display: inline; font-weight: bold;">{{ss.coverage}}</p>
+        </div>
+            <p class="inlineRight">  {% now "F jS Y" %}</p>
+        <hr>
+        <br>
+        <h2 style="font-size:300%; margin-top: 8px;">Inspections Performed </h2>
+        <table style="padding: 2px;">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Latest</th>
+                    <th>Air Pressure (PSI)</th>
+                    <th>Water Pressure (PSI)</th>
+                    <th>Upcoming</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Weekly</td>
+                    <td>{{ss.last_weekly_inspection}}</td>
+                    <td>{{pressures.weeklyA}}</td>
+                    <td>{{pressures.weeklyW}}</td>
+                    <td>{{ss.upcoming_weekly_inspection}}</td>
+                </tr>
+                <tr>
+                    <td>Monthly</td>
+                    <td>{{ss.last_monthly_inspection}}</td>
+                    <td>{{pressures.monthlyA}}</td>
+                    <td>{{pressures.monthlyW}}</td>
+                    <td>{{ss.upcoming_monthly_inspection}}</td>
+                </tr>
+                <tr>
+                    <td>Quarterly</td>
+                    <td>{{ss.last_quarterly_inspection}}</td>
+                    <td>{{pressures.quarterlyA}}</td>
+                    <td>{{pressures.quarterlyW}}</td>
+                    <td>{{ss.upcoming_quarterly_inspection}}</td>
+                </tr>
+                <tr>
+                    <td>Semi-Annual</td>
+                    <td>{{ss.last_semiannual_inspection}}</td>
+                    <td>{{pressures.semiA}}</td>
+                    <td>{{pressures.semiW}}</td>
+                    <td>{{ss.upcoming_semiannual_inspection}}</td>
+                </tr>
+                <tr>
+                    <td>Annual</td>
+                    <td>{{ss.last_annual_inspection}}</td>
+                    <td>{{pressures.annualA}}</td>
+                    <td>{{pressures.annualW}}</td>
+                    <td>{{ss.upcoming_annual_inspection}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+    </body>
+</html>

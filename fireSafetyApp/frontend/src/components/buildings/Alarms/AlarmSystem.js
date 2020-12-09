@@ -87,7 +87,7 @@ export class AlarmSystem extends Component {
           <Link to={{ pathname: '/ASInspection', state: {building: building, as: AlarmSystem}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
-          <Link to={{ pathname: '/ASReport', state: {building: building, as: AlarmSystem}}}>
+          <Link to={{ pathname: '/ASReport', state: {building: building, as: AlarmSystem, notes: this.props.ASNotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>   
           <table className="table table-striped">

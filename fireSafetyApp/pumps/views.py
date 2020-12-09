@@ -9,9 +9,17 @@ from rest_framework.decorators import api_view
 @csrf_exempt
 @api_view(['POST'])
 def pump_report_pdf_view(request, *args, **kwargs):
+    building = request.data['building']
+    pump = request.data['pump']
+    notes = request.data['notes']
+    attributes = request.data['attributes']
 
-    template_path = 'pump.html'
-    context = {}
+    if not notes:
+       template_path = 'pump.html'
+       context = {'building': building, 'pump': pump, 'attributes': attributes}
+    else:
+       template_path = 'pumpWithNotes.html'
+       context = {'building': building, 'pump': pump, 'notes': notes, 'attributes': attributes}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

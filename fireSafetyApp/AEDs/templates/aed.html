@@ -1,18 +1,55 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>AED Inspection Form</title>
+        <title>AED Report</title>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: separate;
+              padding-top: 4px;
+              font-size: large;
+            }
+            th, td {
+              padding-left: 3px;
+            }
+            .inlineLeft {
+              font-size: 160%;
+            }
+            .inlineRight {
+              font-size: 160%;
+              text-align: right;
+            }
+            </style>
     </head>
     <body>
-        <h1 style="font-size:300%;">AED Inspection Form</h1>
-        <p style="font-size:160%; padding-left:30px;">Test Date: {{aed.date_tested}}</p>
-        <p style="font-size:160%; padding-left:30px;">Performed By: {{aed.tester}}</p>
+        <div>
+            <h1 style="font-size:450%; padding-bottom: 0px; margin-bottom: 0px; border-bottom: 0px;">AED Report</h1>
+        </div>
+        <div style="padding-top: 10px;">
+            <p style="font-size:160%; display: inline;">Location: </p>
+            <p style="font-size:160%; display: inline; font-weight: bold;">{{building.name}} - {{aed.location}}</p>
+        </div>
+            <p class="inlineRight">  {% now "F jS Y" %}</p>
         <hr>
         <br>
-        <h2 style="font-size:300%;">Tests Performed: </h2>
-        <p style="font-size:160%; padding-left:30px;">Voltage Test: {{aed.voltage_test}}</p>     
-        {% comment %} <img src="C:\Users\abram\Pictures\wsu.jpg"> {% endcomment %}
+        <h2 style="font-size:300%; margin-top: 8px;">Inspections Performed </h2>
+        <table style="padding: 2px;">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Latest</th>
+                    <th>Upcoming</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monthly</td>
+                    <td>{{aed.last_monthly_inspection}}</td>
+                    <td>{{aed.upcoming_monthly_inspection}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <hr>
     </body>
 </html>
-
-{% comment %} https://www.youtube.com/watch?v=J3MuH6xaDjI ~28 minutes for img{% endcomment %}

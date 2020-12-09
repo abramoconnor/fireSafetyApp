@@ -45,7 +45,8 @@ export class FEReport extends Component {
           <p>Located in: {building.name}</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>
           <button className={buttonClass} onClick={() => this.setIncludeNotes(includeNotes)}>Include Notes?: {buttonYorN}</button>
-          <p>*Button will cause report to appear in a new window when . If it does not appear be sure your ad-blocker is turned off.*</p>
+          <p>*Button will cause report to appear in a new window when. If it does not appear be sure your ad-blocker is turned off.*</p>
+          <h3>----------Inspections----------</h3>
           <p>Last Monthly Inspection: {this.convertToLocalTime(fe.last_monthly_inspection)}</p>
           <p>Upcoming Monthly Inspection: {this.convertToLocalTime(fe.upcoming_monthly_inspection)}</p>
           <p>Last Annual Inspection: {this.convertToLocalTime(fe.last_annual_inspection)}</p>

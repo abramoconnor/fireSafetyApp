@@ -29,39 +29,28 @@ export class AEDReport extends Component {
     let pdfParams = {building, aed};
     if (includeNotes) {
       pdfParams.notes = notes;
-    }
+    } else pdfParams.notes = '';
     this.props.displayAEDReportPDF(pdfParams);
     this.setState({includeNotes: false});
-  }
-  
-  printNotes = () => {
-    const {notes} = this.props.location.state;
-    console.log(notes);
-    if (notes && notes.length > 0) {
-      console.log("hi");
-      return (
-        <div>
-          {notes.map(n => <p key={n.id}>{n.note}</p>)}
-        </div>
-      )
-    }
   }
 
   render() {
     const {building, aed, notes} = this.props.location.state;
     const {includeNotes} = this.state;
     const buttonClass = includeNotes ? 'green' : 'red';
+    const buttonYorN = includeNotes ? 'Yes' : 'No'
     return (
       <Fragment>
           <h2>Report for AED</h2>
           <p>Located in: {building.name} at {aed.location}</p>
           <button className={"btn btn--small"} onClick={() => this.renderPDF()}>View PDF</button>
-          <button className={buttonClass} onClick={() => this.setIncludeNotes(includeNotes)}>Include Notes?</button>
+          <button className={buttonClass} onClick={() => this.setIncludeNotes(includeNotes)}>Include Notes?: {buttonYorN}</button>
           <p>*Button will cause report to appear in a new window when . If it does not appear be sure your ad-blocker is turned off.*</p>
+          <h3>----------Inspections----------</h3>
           <p>Last Monthly Inspection: {this.convertToLocalTime(aed.last_monthly_inspection)}</p>
           <p>Upcoming Monthly Inspection: {this.convertToLocalTime(aed.upcoming_monthly_inspection)}</p>
           <h3>----------Notes----------</h3>
-          {this.printNotes()}
+          {notes.map(n => <p key={n.id}>{n.note}</p>)}
           <Link to={{ pathname: "/AED", state: {building: building, aed: aed}}}>
 			<Button className={"btn btn--back"}>Back</Button>
 		  </Link>

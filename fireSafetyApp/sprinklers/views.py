@@ -9,9 +9,23 @@ from rest_framework.decorators import api_view
 @csrf_exempt
 @api_view(['POST'])
 def sprinklersys_report_pdf_view(request, *args, **kwargs):
+    building = request.data['building']
+    ss = request.data['ss']
+    notes = request.data['notes']
+    pressures = request.data['pressures']
 
-    template_path = 'sprinkler.html'
-    context = {}
+    if not notes:
+       if ss['system_type'] == 'Wet':
+         template_path = 'wetSprinkler.html'
+       else:
+         template_path = 'dryOrPreActionSprinkler.html'
+       context = {'building': building, 'ss': ss, 'pressures': pressures}
+    else:
+       if ss['system_type'] == 'Wet':
+         template_path = 'wetSprinklerWithNotes.html'
+       else:
+         template_path = 'dryOrPreActionSprinklerWithNotes.html'
+       context = {'building': building, 'ss': ss, 'notes': notes, 'pressures': pressures}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

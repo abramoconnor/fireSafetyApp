@@ -177,7 +177,7 @@ export class SprinklerSystem extends Component {
           <Link to={{ pathname: '/SSInspection', state: {building: building, ss: ss}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
-          <Link to={{ pathname: '/SSReport', state: {building: building, ss: ss, inspections: this.props.SSInspecs}}}>
+          <Link to={{ pathname: '/SSReport', state: {building: building, ss: ss, inspections: this.props.SSInspecs, notes: this.props.SSNotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
           <table className={tableClass}>

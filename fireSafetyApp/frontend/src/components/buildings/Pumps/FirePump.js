@@ -78,7 +78,7 @@ export class FirePump extends Component {
           <Link to={{ pathname: '/PumpInspection', state: {building: building, pump: pump}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
-          <Link to={{ pathname: '/PumpReport', state: {building: building, pump: pump}}}>
+          <Link to={{ pathname: '/PumpReport', state: {building: building, pump: pump, notes: this.props.PumpNotes, inspections: this.props.PumpInspecs}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>   
           <table className="table table-striped">

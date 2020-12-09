@@ -9,8 +9,16 @@ from rest_framework.decorators import api_view
 @csrf_exempt
 @api_view(['POST'])
 def aed_generate_report_pdf_view(request, *args, **kwargs):
-    template_path = 'aed.html'
-    context = {}
+    building = request.data['building']
+    aed = request.data['aed']
+    notes = request.data['notes']
+
+    if not notes:
+       template_path = 'aed.html'
+       context = {'building': building, 'aed': aed}
+    else:
+       template_path = 'aedWithNotes.html'
+       context = {'building': building, 'aed': aed, 'notes': notes}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     # if download:

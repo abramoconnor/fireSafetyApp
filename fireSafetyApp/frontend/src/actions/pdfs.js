@@ -34,9 +34,21 @@ export const displayFEReportPDF = (params) => (dispatch, getState) => {
 
 // GET Alarm Report pdf
 export const displayASReportPDF = (params) => (dispatch, getState) => {
+  const lm = new Date(params.as.last_monthly_inspection);
+  params.as.last_monthly_inspection = lm.toLocaleDateString().split("T")[0]
+  const um = new Date(params.as.upcoming_monthly_inspection);
+  params.as.upcoming_monthly_inspection = um.toLocaleDateString().split("T")[0]
+  const ls = new Date(params.as.last_semiannual_inspection);
+  params.as.last_semiannual_inspection = ls.toLocaleDateString().split("T")[0]
+  const us = new Date(params.as.upcoming_semiannual_inspection);
+  params.as.upcoming_semiannual_inspection = us.toLocaleDateString().split("T")[0]
+  const la = new Date(params.as.last_annual_inspection);
+  params.as.last_annual_inspection = la.toLocaleDateString().split("T")[0]
+  const ua = new Date(params.as.upcoming_annual_inspection);
+  params.as.upcoming_annual_inspection = ua.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .get(`/alarmsys_report_pdf`, params, config)
+    .post(`/alarmsys_report_pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -47,9 +59,29 @@ export const displayASReportPDF = (params) => (dispatch, getState) => {
 
 // GET Sprinkler Inspection pdf
 export const displaySSReportPDF = (params) => (dispatch, getState) => {
+  const lw = new Date(params.ss.last_weekly_inspection);
+  params.ss.last_weekly_inspection = lw.toLocaleDateString().split("T")[0]
+  const uw = new Date(params.ss.upcoming_weekly_inspection);
+  params.ss.upcoming_weekly_inspection = uw.toLocaleDateString().split("T")[0]
+  const lm = new Date(params.ss.last_monthly_inspection);
+  params.ss.last_monthly_inspection = lm.toLocaleDateString().split("T")[0]
+  const um = new Date(params.ss.upcoming_monthly_inspection);
+  params.ss.upcoming_monthly_inspection = um.toLocaleDateString().split("T")[0]
+  const lq = new Date(params.ss.last_quarterly_inspection);
+  params.ss.last_quarterly_inspection = lq.toLocaleDateString().split("T")[0]
+  const uq = new Date(params.ss.upcoming_quarterly_inspection);
+  params.ss.upcoming_quarterly_inspection = uq.toLocaleDateString().split("T")[0]
+  const ls = new Date(params.ss.last_semiannual_inspection);
+  params.ss.last_semiannual_inspection = ls.toLocaleDateString().split("T")[0]
+  const us = new Date(params.ss.upcoming_semiannual_inspection);
+  params.ss.upcoming_semiannual_inspection = us.toLocaleDateString().split("T")[0]
+  const la = new Date(params.ss.last_annual_inspection);
+  params.ss.last_annual_inspection = la.toLocaleDateString().split("T")[0]
+  const ua = new Date(params.ss.upcoming_annual_inspection);
+  params.ss.upcoming_annual_inspection = ua.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .get(`/sprinkler_insp_pdf`, config)
+    .post(`/sprinkler_report_pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -60,9 +92,13 @@ export const displaySSReportPDF = (params) => (dispatch, getState) => {
 
 // GET AED Inspection pdf
 export const displayAEDReportPDF = (params) => (dispatch, getState) => {
+  const lm = new Date(params.aed.last_monthly_inspection);
+  params.aed.last_monthly_inspection = lm.toLocaleDateString().split("T")[0]
+  const um = new Date(params.aed.upcoming_monthly_inspection);
+  params.aed.upcoming_monthly_inspection = um.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .get(`/aed_report_pdf`, tokenConfig(getState))
+    .post(`/aed_report_pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -73,9 +109,17 @@ export const displayAEDReportPDF = (params) => (dispatch, getState) => {
 
 // GET Pump Report pdf
 export const displayPumpReportPDF = (params) => (dispatch, getState) => {
+  const lm = new Date(params.pump.last_monthly_inspection);
+  params.pump.last_monthly_inspection = lm.toLocaleDateString().split("T")[0]
+  const um = new Date(params.pump.upcoming_monthly_inspection);
+  params.pump.upcoming_monthly_inspection = um.toLocaleDateString().split("T")[0]
+  const la = new Date(params.pump.last_annual_inspection);
+  params.pump.last_annual_inspection = la.toLocaleDateString().split("T")[0]
+  const ua = new Date(params.pump.upcoming_annual_inspection);
+  params.pump.upcoming_annual_inspection = ua.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .get(`/pump_report_pdf`, params, config)
+    .post(`/pump_report_pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
