@@ -104,7 +104,7 @@ export class Register extends Component {
             </div>
           </form>
           <div>
-             <Link to={{ pathname: "/Home", state:{}}}>		
+             <Link to={{ pathname: "/", state:{}}}>		
                <Button className={"btn btn-primary"}>Back</Button>   
 		         </Link>
           </div> 

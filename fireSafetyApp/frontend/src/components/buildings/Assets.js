@@ -68,7 +68,7 @@ export class Assets extends Component {
 			} = this.state;
 		const {building} = this.props.history.location.state;
 		if(isDeleted) {
-			return <Redirect to={{ pathname: '/Home', state:{building:building}}}/>
+			return <Redirect to={{ pathname: '/', state:{building:building}}}/>
 		}
 		if (this.props.AlarmSystems[0]) {
 			createAlarmClass = 'hide';
@@ -136,7 +136,7 @@ export class Assets extends Component {
 			</div>
 			
 			<div className = "grid">
-			<Link to={{ pathname: '/Home', state:{building:building}}}>
+			<Link to={{ pathname: '/', state:{building:building}}}>
 						<Button 
 						className={"btn btn--back"}
 						onClick={() => {

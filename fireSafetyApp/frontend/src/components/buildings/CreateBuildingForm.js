@@ -50,7 +50,7 @@ export class CreateBuildingForm extends Component {
           </div>
         </form>
         <div>
-        <Link to={{ pathname: "/Home", state: this.props.location.state}}>
+        <Link to={{ pathname: "/", state: this.props.location.state}}>
 			    <Button className={"btn btn--back"}>Back</Button>
 		    </Link>
       </div>

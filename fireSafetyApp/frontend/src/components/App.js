@@ -67,7 +67,6 @@ class App extends Component {
 									<Route exact path="/login" component={Login} />
 									<PrivateRoute exact path="/" component={Dashboard} />
 									<PrivateRoute exact path="/register" component={Register} />
-									<PrivateRoute exact path="/Home" component={Home} />
 									<PrivateRoute exact path="/CreateBuildingForm" component={CreateBuildingForm} />
 									<PrivateRoute exact path="/Assets" component={Assets} />
 									<PrivateRoute exact path="/FireExtinguisherList" component={FireExtinguisherList} />
