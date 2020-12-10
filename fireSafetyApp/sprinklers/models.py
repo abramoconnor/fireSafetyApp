@@ -27,4 +27,6 @@ class SprinklerSystemInspection(models.Model):
 
 class SprinklerSystemNotes(models.Model):
     note = models.CharField(max_length=240)
+    author = models.CharField(max_length=100)
+    date_written = models.DateTimeField(default=timezone.now)
     sprinkler_system = models.ForeignKey(SprinklerSystem, on_delete=models.CASCADE, related_name="sprinkler_system", default=0)

@@ -19,4 +19,6 @@ class AlarmSystemInspection(models.Model):
 
 class AlarmSystemNotes(models.Model):
     note = models.CharField(max_length=240)
+    author = models.CharField(max_length=100)
+    date_written = models.DateTimeField(default=timezone.now)
     alarm_system = models.ForeignKey(AlarmSystem, on_delete=models.CASCADE, related_name="alarm_system", default=0)

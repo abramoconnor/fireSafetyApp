@@ -20,4 +20,6 @@ class PumpInspection(models.Model):
 
 class PumpNotes(models.Model):
     note = models.CharField(max_length=240)
+    author = models.CharField(max_length=100)
+    date_written = models.DateTimeField(default=timezone.now)
     fire_pump = models.ForeignKey(FirePump, on_delete=models.CASCADE, related_name="fpump", default=0)
