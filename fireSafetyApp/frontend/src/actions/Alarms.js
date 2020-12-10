@@ -7,7 +7,7 @@ import { GET_ALARM_SYS, DELETE_ALARM_SYS, ADD_ALARM_SYS, GET_AS_INSP, ADD_AS_INS
 // GET Alarm System
 export const getAlarmSystem = () => (dispatch, getState) => {
   axios
-    .get('/alarm_system', tokenConfig(getState))
+    .get('/alarm', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_ALARM_SYS,
@@ -23,7 +23,7 @@ export const getASByBuilding = (building_id) => (dispatch, getState) => {
   config.params = {};
   config.params.building = building_id;
   axios
-    .get('/alarm_system', config)
+    .get('/alarm', config)
     .then((res) => {
       dispatch({
         type: GET_ALARM_SYS,
@@ -36,7 +36,7 @@ export const getASByBuilding = (building_id) => (dispatch, getState) => {
 // DELETE Alarm System
 export const deleteAlarmSystem = (id) => (dispatch, getState) => {
   axios
-    .delete(`/alarm_system/${id}/`, tokenConfig(getState))
+    .delete(`/alarm/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ deleteAlarmSystem: 'Alarm System Deleted' }));
       dispatch({
@@ -63,7 +63,7 @@ export const createAlarmSystem = (AlarmSys) => (dispatch, getState) => {
     AlarmSys.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   axios
-    .post('/alarm_system/', AlarmSys, tokenConfig(getState))
+    .post('/alarm/', AlarmSys, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addAlarmSys: 'Alarm System Added' }));
       dispatch({
@@ -91,7 +91,7 @@ export const updateASInspectionDate = (AS, i) => (dispatch, getState) => {
     requestBody.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   axios
-    .patch(`/alarm_system/${AS.id}/`, requestBody, tokenConfig(getState))
+    .patch(`/alarm/${AS.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ updateAS: 'Inspection Date Updated' }));
       dispatch({
@@ -108,7 +108,7 @@ export const getAlarmSysInspecsById = (as_id) => (dispatch, getState) => {
   config.params = {};
   config.params.alarm_system = as_id;
   axios
-    .get('/alarmsys_insp', config)
+    .get('/alarm/inspection/', config)
     .then((res) => {
       dispatch({
         type: GET_AS_INSP,
@@ -121,7 +121,7 @@ export const getAlarmSysInspecsById = (as_id) => (dispatch, getState) => {
 // CREATE Alarm System Inspections
 export const createASInspection = (i) => (dispatch, getState) => {
   axios
-    .post('/alarmsys_insp/', i, tokenConfig(getState))
+    .post('/alarm/inspection/', i, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addASInspection: 'Inspection Completed' }));
       dispatch({

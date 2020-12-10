@@ -7,7 +7,7 @@ import { GET_SP_SYS, DELETE_SP_SYS, ADD_SP_SYS, UPDATE_SP_SYS, GET_SP_INSP, ADD_
 // GET Sprinkler Systems
 export const getSprinklerSystems = () => (dispatch, getState) => {
   axios
-    .get('/sprinkler_system', tokenConfig(getState))
+    .get('/ss', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_SP_SYS,
@@ -23,7 +23,7 @@ export const getSpSysByBuilding = (building_id) => (dispatch, getState) => {
   config.params = {};
   config.params.building = building_id;
   axios
-    .get('/sprinkler_system', config)
+    .get('/ss', config)
     .then((res) => {
       dispatch({
         type: GET_SP_SYS,
@@ -36,7 +36,7 @@ export const getSpSysByBuilding = (building_id) => (dispatch, getState) => {
 // DELETE Sprinkler System
 export const deleteSprinklerSystem = (id) => (dispatch, getState) => {
   axios
-    .delete(`/sprinkler_system/${id}/`, tokenConfig(getState))
+    .delete(`/ss/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ deleteSprinklerSystem: 'Sprinkler System Deleted' }));
       dispatch({
@@ -71,7 +71,7 @@ export const createSprinklerSystem = (SprinklerSys) => (dispatch, getState) => {
     SprinklerSys.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   axios
-    .post('/sprinkler_system/', SprinklerSys, tokenConfig(getState))
+    .post('/ss/', SprinklerSys, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addSprinklerSystem: 'Sprinkler System Added' }));
       dispatch({
@@ -107,7 +107,7 @@ export const updateSSInspectionDate = (ss, i) => (dispatch, getState) => {
     requestBody.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   axios
-    .patch(`/sprinkler_system/${ss.id}/`, requestBody, tokenConfig(getState))
+    .patch(`/ss/${ss.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ updateSS: 'Inspection Date Updated' }));
       dispatch({
@@ -124,7 +124,7 @@ export const getSprinklerSysInspecs = (ss_id) => (dispatch, getState) => {
   config.params = {};
   config.params.sprinkler_system = ss_id;
   axios
-    .get('/sprinklersys_insp', config)
+    .get('/ss/inspection/', config)
     .then((res) => {
       dispatch({
         type: GET_SP_INSP,
@@ -137,7 +137,7 @@ export const getSprinklerSysInspecs = (ss_id) => (dispatch, getState) => {
 // CREATE Sprinkler System Inspections
 export const createSSInspection = (i) => (dispatch, getState) => {
   axios
-    .post('/sprinklersys_insp/', i, tokenConfig(getState))
+    .post('/ss/inspection/', i, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addSSInspection: 'Inspection Completed' }));
       dispatch({

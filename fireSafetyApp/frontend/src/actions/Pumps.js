@@ -7,7 +7,7 @@ import { GET_PUMP, DELETE_PUMP, ADD_PUMP, GET_PUMP_INSP, ADD_PUMP_INSP, UPDATE_P
 // GET All Pumps
 export const getPumps = () => (dispatch, getState) => {
   axios
-    .get('/fire_pump', tokenConfig(getState))
+    .get('/pump', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_PUMP,
@@ -23,7 +23,7 @@ export const getPumpByBuilding = (building_id) => (dispatch, getState) => {
   config.params = {};
   config.params.building = building_id;
   axios
-    .get('/fire_pump', config)
+    .get('/pump', config)
     .then((res) => {
       dispatch({
         type: GET_PUMP,
@@ -36,7 +36,7 @@ export const getPumpByBuilding = (building_id) => (dispatch, getState) => {
 // DELETE Pump
 export const deletePump = (id) => (dispatch, getState) => {
   axios
-    .delete(`/fire_pump/${id}/`, tokenConfig(getState))
+    .delete(`/pump/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ deletePump: 'Fire Pump Deleted' }));
       dispatch({
@@ -59,7 +59,7 @@ export const createPump = (p) => (dispatch, getState) => {
     p.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   axios
-    .post('/fire_pump/', p, tokenConfig(getState))
+    .post('/pump/', p, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addPump: 'Fire Pump Added' }));
       dispatch({
@@ -83,7 +83,7 @@ export const updatePumpInspectionDate = (p, i) => (dispatch, getState) => {
     requestBody.upcoming_annual_inspection = new Date(d.setFullYear(d.getFullYear()+1));
   }
   axios
-    .patch(`/fire_pump/${p.id}/`, requestBody, tokenConfig(getState))
+    .patch(`/pump/${p.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ updatePump: 'Inspection Date Updated' }));
       dispatch({
@@ -100,7 +100,7 @@ export const getPumpInspecsById = (p_id) => (dispatch, getState) => {
   config.params = {};
   config.params.fire_pump = p_id;
   axios
-    .get('/pump_insp', config)
+    .get('/pump/inspection/', config)
     .then((res) => {
       dispatch({
         type: GET_PUMP_INSP,
@@ -113,7 +113,7 @@ export const getPumpInspecsById = (p_id) => (dispatch, getState) => {
 // CREATE Pump Inspections
 export const createPumpInspection = (i) => (dispatch, getState) => {
   axios
-    .post('/pump_insp/', i, tokenConfig(getState))
+    .post('/pump/inspection/', i, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addPumpInspection: 'Inspection Completed' }));
       dispatch({

@@ -23,7 +23,7 @@ export const displayFEReportPDF = (params) => (dispatch, getState) => {
   params.fe.upcoming_12year_test = u12.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .post(`/fe_report_pdf`, params, config)
+    .post(`/fe/pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -48,7 +48,7 @@ export const displayASReportPDF = (params) => (dispatch, getState) => {
   params.as.upcoming_annual_inspection = ua.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .post(`/alarmsys_report_pdf`, params, config)
+    .post(`/alarm/pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -81,7 +81,7 @@ export const displaySSReportPDF = (params) => (dispatch, getState) => {
   params.ss.upcoming_annual_inspection = ua.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .post(`/sprinkler_report_pdf`, params, config)
+    .post(`/ss/pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -98,7 +98,7 @@ export const displayAEDReportPDF = (params) => (dispatch, getState) => {
   params.aed.upcoming_monthly_inspection = um.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .post(`/aed_report_pdf`, params, config)
+    .post(`/aed/pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);
@@ -119,7 +119,7 @@ export const displayPumpReportPDF = (params) => (dispatch, getState) => {
   params.pump.upcoming_annual_inspection = ua.toLocaleDateString().split("T")[0]
   let config = tokenConfig(getState);
   axios
-    .post(`/pump_report_pdf`, params, config)
+    .post(`/pump/pdf`, params, config)
     .then((res) => {
         const file = new Blob([res.data], {type: 'application/pdf'});
         const pdf = URL.createObjectURL(file);

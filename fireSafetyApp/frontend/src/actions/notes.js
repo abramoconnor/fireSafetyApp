@@ -7,7 +7,7 @@ import { GET_FE_NOTES, ADD_FE_NOTES, DELETE_FE_NOTES, GET_AS_NOTES, ADD_AS_NOTES
 // CREATE FE Notes
 export const createFENote = (n) => (dispatch, getState) => {
     axios
-      .post('/fe_notes/', n, tokenConfig(getState))
+      .post('/fe/notes/', n, tokenConfig(getState))
       .then((res) => {
         dispatch(createMessage({ addFENote: 'Note Added' }));
         dispatch({
@@ -24,7 +24,7 @@ export const getFENotesById = (fe_id) => (dispatch, getState) => {
     config.params = {};
     config.params.fire_extinguisher = fe_id;
     axios
-      .get(`/fe_notes`, config)
+      .get(`/fe/notes/`, config)
       .then((res) => {
         dispatch({
           type: GET_FE_NOTES,
@@ -37,7 +37,7 @@ export const getFENotesById = (fe_id) => (dispatch, getState) => {
   // DELETE FE Notes
 export const deleteFENote = (id) => (dispatch, getState) => {
   axios
-    .delete(`/fe_notes/${id}/`, tokenConfig(getState))
+    .delete(`/fe/notes/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ deleteFENotes: 'Note Deleted' }));
       dispatch({
@@ -51,7 +51,7 @@ export const deleteFENote = (id) => (dispatch, getState) => {
 // CREATE Alarm System Notes
 export const createASNote = (n) => (dispatch, getState) => {
   axios
-    .post('/alarmsys_notes/', n, tokenConfig(getState))
+    .post('/alarm/notes/', n, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addASNote: 'Note Added' }));
       dispatch({
@@ -68,7 +68,7 @@ export const getASNotesById = (as_id) => (dispatch, getState) => {
   config.params = {};
   config.params.fire_extinguisher = as_id;
   axios
-    .get(`/alarmsys_notes`, config)
+    .get(`/alarm/notes/`, config)
     .then((res) => {
       dispatch({
         type: GET_AS_NOTES,
@@ -81,7 +81,7 @@ export const getASNotesById = (as_id) => (dispatch, getState) => {
 // DELETE Alarm System Notes
 export const deleteASNote = (id) => (dispatch, getState) => {
 axios
-  .delete(`/alarmsys_notes/${id}/`, tokenConfig(getState))
+  .delete(`/alarm/notes/${id}/`, tokenConfig(getState))
   .then((res) => {
     dispatch(createMessage({ deleteASNotes: 'Note Deleted' }));
     dispatch({
@@ -95,7 +95,7 @@ axios
 // CREATE Sprinkler System Notes
 export const createSSNote = (n) => (dispatch, getState) => {
   axios
-    .post('/sprinklersys_notes/', n, tokenConfig(getState))
+    .post('/ss/notes/', n, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addSSNote: 'Note Added' }));
       dispatch({
@@ -112,7 +112,7 @@ export const getSSNotesById = (ss_id) => (dispatch, getState) => {
   config.params = {};
   config.params.sprinkler_system = ss_id;
   axios
-    .get(`/sprinklersys_notes`, config)
+    .get(`/ss/notes/`, config)
     .then((res) => {
       dispatch({
         type: GET_SP_NOTES,
@@ -125,7 +125,7 @@ export const getSSNotesById = (ss_id) => (dispatch, getState) => {
 // DELETE Sprinkler System Notes
 export const deleteSSNote = (id) => (dispatch, getState) => {
 axios
-  .delete(`/sprinklersys_notes/${id}/`, tokenConfig(getState))
+  .delete(`/ss/notes/${id}/`, tokenConfig(getState))
   .then((res) => {
     dispatch(createMessage({ deleteSSNotes: 'Note Deleted' }));
     dispatch({
@@ -138,7 +138,7 @@ axios
 
 export const createAEDNote = (n) => (dispatch, getState) => {
   axios
-    .post('/aed_notes/', n, tokenConfig(getState))
+    .post('/aed/notes/', n, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addAEDNote: 'Note Added' }));
       dispatch({
@@ -155,7 +155,7 @@ export const getAEDNotesById = (aed_id) => (dispatch, getState) => {
   config.params = {};
   config.params.aed = aed_id;
   axios
-    .get(`/aed_notes`, config)
+    .get(`/aed/notes/`, config)
     .then((res) => {
       dispatch({
         type: GET_AED_NOTES,
@@ -168,7 +168,7 @@ export const getAEDNotesById = (aed_id) => (dispatch, getState) => {
 // DELETE AED Notes
 export const deleteAEDNote = (id) => (dispatch, getState) => {
 axios
-  .delete(`/aed_notes/${id}/`, tokenConfig(getState))
+  .delete(`/aed/notes/${id}/`, tokenConfig(getState))
   .then((res) => {
     dispatch(createMessage({ deleteAEDNotes: 'Note Deleted' }));
     dispatch({
@@ -182,7 +182,7 @@ axios
 // CREATE Pump Notes
 export const createPumpNote = (n) => (dispatch, getState) => {
   axios
-    .post('/pump_notes/', n, tokenConfig(getState))
+    .post('/pump/notes/', n, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addPumpNote: 'Note Added' }));
       dispatch({
@@ -199,7 +199,7 @@ export const getPumpNotesById = (p_id) => (dispatch, getState) => {
   config.params = {};
   config.params.fire_pump = p_id;
   axios
-    .get(`/pump_notes`, config)
+    .get(`/pump/notes/`, config)
     .then((res) => {
       dispatch({
         type: GET_PUMP_NOTES,
@@ -212,7 +212,7 @@ export const getPumpNotesById = (p_id) => (dispatch, getState) => {
 // DELETE Alarm System Notes
 export const deletePumpNote = (id) => (dispatch, getState) => {
 axios
-  .delete(`/pump_notes/${id}/`, tokenConfig(getState))
+  .delete(`/pump/notes/${id}/`, tokenConfig(getState))
   .then((res) => {
     dispatch(createMessage({ deletePumpNotes: 'Note Deleted' }));
     dispatch({

@@ -7,7 +7,7 @@ import { GET_FEs, DELETE_FEs, ADD_FEs, GET_FE_INSP, ADD_FE_INSP, UPDATE_FE } fro
 // GET all Fire Extinguishers
 export const getFEs = () => (dispatch, getState) => {
   axios
-    .get('/fire_extinguish', tokenConfig(getState))
+    .get('/fe', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_FEs,
@@ -23,7 +23,7 @@ export const getFEsByBuilding = (building_id) => (dispatch, getState) => {
   config.params = {};
   config.params.building = building_id;
   axios
-    .get('/fire_extinguish', config)
+    .get('/fe', config)
     .then((res) => {
       dispatch({
         type: GET_FEs,
@@ -36,7 +36,7 @@ export const getFEsByBuilding = (building_id) => (dispatch, getState) => {
 // DELETE Fire Extinguisher
 export const deleteFE = (id) => (dispatch, getState) => {
   axios
-    .delete(`/fire_extinguish/${id}/`, tokenConfig(getState))
+    .delete(`/fe/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ deleteFE: 'Fire Extinguisher Deleted' }));
       dispatch({
@@ -71,7 +71,7 @@ export const createFE = (FE) => (dispatch, getState) => {
     FE.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
   }
   axios
-    .post('/fire_extinguish/', FE, tokenConfig(getState))
+    .post('/fe/', FE, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addFE: 'Fire Extinguisher Added' }));
       dispatch({
@@ -103,7 +103,7 @@ export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
     requestBody.upcoming_12year_test = new Date(d.setFullYear(d.getFullYear()+12));
   }
   axios
-    .patch(`/fire_extinguish/${FE.id}/`, requestBody, tokenConfig(getState))
+    .patch(`/fe/${FE.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ updateFE: 'Inspection Date Updated' }));
       dispatch({
@@ -117,7 +117,7 @@ export const updateFEInspectionDate = (FE, i) => (dispatch, getState) => {
 // UPDATE Fire Extinguisher dates
 export const updateFELocation = (fe, requestBody, b) => (dispatch, getState) => {
   axios
-    .patch(`/fire_extinguish/${fe.id}/`, requestBody, tokenConfig(getState))
+    .patch(`/fe/${fe.id}/`, requestBody, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ feTransfer: `Fire Extinguisher ${fe.exnum} transferred to ${b[0].name}` }));
       dispatch({
@@ -134,7 +134,7 @@ export const getFEInspecsById = (fe_id) => (dispatch, getState) => {
   config.params = {};
   config.params.fire_extinguisher = fe_id;
   axios
-    .get(`/fe_inspection`, config)
+    .get(`/fe/inspection/`, config)
     .then((res) => {
       dispatch({
         type: GET_FE_INSP,
@@ -147,7 +147,7 @@ export const getFEInspecsById = (fe_id) => (dispatch, getState) => {
 // CREATE FE Inspections
 export const createFEInspection = (i) => (dispatch, getState) => {
   axios
-    .post('/fe_inspection/', i, tokenConfig(getState))
+    .post('/fe/inspection/', i, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addFEInspection: 'Inspection Completed' }));
       dispatch({

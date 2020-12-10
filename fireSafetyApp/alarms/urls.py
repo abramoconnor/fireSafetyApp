@@ -4,12 +4,12 @@ from .api import AlarmSystemViewSet, AlarmSystemInspectionViewSet, AlarmSystemNo
 from .views import alarmsys_report_pdf_view
 
 router = routers.DefaultRouter()
-router.register('alarm_system', AlarmSystemViewSet, 'alarmsystem')
-router.register('alarmsys_insp', AlarmSystemInspectionViewSet, 'alarmsys_insp')
-router.register('alarmsys_notes', AlarmSystemNotesViewSet, 'alarmsys_notes')
+router.register('inspection', AlarmSystemInspectionViewSet, 'alarmsys_insp')
+router.register('notes', AlarmSystemNotesViewSet, 'alarmsys_notes')
+router.register('', AlarmSystemViewSet, 'alarmsystem')
 
 urlpatterns = [
-    path('alarmsys_report_pdf', alarmsys_report_pdf_view, name='alarmsys_report_pdf'),
+    path('pdf', alarmsys_report_pdf_view, name='alarmsys_report_pdf'),
 ]
 
 urlpatterns += router.urls

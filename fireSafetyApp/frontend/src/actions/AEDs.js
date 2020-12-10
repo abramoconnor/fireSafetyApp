@@ -107,7 +107,7 @@ export const getAEDInspecsById = (aed_id) => (dispatch, getState) => {
   config.params = {};
   config.params.aed = aed_id;
   axios
-    .get(`/aed_inspection`, config)
+    .get(`/aed/inspection/`, config)
     .then((res) => {
       dispatch({
         type: GET_AED_INSP,
@@ -120,7 +120,7 @@ export const getAEDInspecsById = (aed_id) => (dispatch, getState) => {
 // CREATE AED Inspections
 export const createAEDInspection = (i) => (dispatch, getState) => {
   axios
-    .post('/aed_inspection/', i, tokenConfig(getState))
+    .post('/aed/inspection/', i, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ addAEDInspection: 'Inspection Completed' }));
       dispatch({

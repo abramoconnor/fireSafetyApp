@@ -4,12 +4,12 @@ from .views import aed_generate_report_pdf_view
 from django.urls import path
 
 router = routers.DefaultRouter()
-router.register('aed', AEDViewSet, 'aed')
-router.register('aed_inspection', AEDInspectionViewSet, 'aed_inspection')
-router.register('aed_notes', AEDNotesViewSet, 'aed_notes')
+router.register('inspection', AEDInspectionViewSet, 'aed_inspection')
+router.register('notes', AEDNotesViewSet, 'aed_notes')
+router.register('', AEDViewSet, 'aed')
 
 urlpatterns = [
-    path('aed_report_pdf', aed_generate_report_pdf_view, name='aed_report_pdf'),
+    path('pdf', aed_generate_report_pdf_view, name='aed_report_pdf'),
 ]
 
 urlpatterns += router.urls
