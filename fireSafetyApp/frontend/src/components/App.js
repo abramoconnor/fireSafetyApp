@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Provider as AlertProvider } from 'react-alert';
 import store from '../store';
@@ -48,7 +48,7 @@ const alertOptions = {
 	timeout: 3000,
 	position: 'top center'
 };
-//blane testing master push two
+
 class App extends Component {
 	componentDidMount() {
 		store.dispatch(loadUser());
@@ -66,7 +66,7 @@ class App extends Component {
 								<Switch>
 									<Route exact path="/login" component={Login} />
 									<PrivateRoute exact path="/" component={Dashboard} />
-									<Route exact path="/register" component={Register} />
+									<PrivateRoute exact path="/register" component={Register} />
 									<PrivateRoute exact path="/Home" component={Home} />
 									<PrivateRoute exact path="/CreateBuildingForm" component={CreateBuildingForm} />
 									<PrivateRoute exact path="/Assets" component={Assets} />

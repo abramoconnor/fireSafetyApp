@@ -5,8 +5,6 @@ import { getBuildings, deleteBuilding } from '../../actions/buildings';
 import '../../styles/buttonStyles.css';
 import '../../styles/format.css';
 import { Link, withRouter } from 'react-router-dom';
-import SearchField from "react-search-field";
-import { FaSearch } from "react-icons/fa";
 
 
 export class Buildings extends Component {
@@ -19,6 +17,7 @@ export class Buildings extends Component {
 
 	state = {search:null};
 
+	//This uses a state object to check if a searched letter (or string of letters) are in the buildings name then only returns the buttons that are
 	filter = (building) => {
 		if (this.state.search == null)
 		{
@@ -54,7 +53,7 @@ export class Buildings extends Component {
 			)
 		}
 	}
-
+//state object for searching
 	setSearchKey = (e) =>
 	{
 		this.setState({search:e.target.value})

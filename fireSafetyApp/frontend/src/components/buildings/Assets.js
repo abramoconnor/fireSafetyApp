@@ -7,6 +7,8 @@ import { getASByBuilding, deleteAlarmSystem } from '../../actions/Alarms';
 import { getPumpByBuilding, deletePump } from '../../actions/Pumps';
 import PropTypes from 'prop-types';
 
+//asset landing page. Reguardless of which asset type you pick you'll end up here. Keep that in mind when desiging changes.
+
 export class Assets extends Component {
 	state = {
 		isDeleted: false,
