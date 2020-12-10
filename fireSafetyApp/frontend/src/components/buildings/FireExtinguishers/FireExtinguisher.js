@@ -225,7 +225,8 @@ export class FireExtinguisher extends Component {
           <h2 className="center">Fire Extinguisher: {fe.exnum}</h2>
           <p className="center">Location: {building.name}</p>
           {this.nextInspection(fe)}
-				    
+				  
+          <div className="grid">
           <Link to={{ pathname: '/FEInspection', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
@@ -235,13 +236,15 @@ export class FireExtinguisher extends Component {
           <Link to={{ pathname: '/FETransfer', state: {building: building, fe: fe}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Transfer Asset</Button>
           </Link>
-          <p className={"black"}>Monthly Inspections</p>
+          </div>
+
+          <div className={"black container center table-text"}>Monthly Inspections</div>
           <div className={"tableScroll"}>
             <table className="table table-striped">
               <thead>
                 <tr>
                   <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
@@ -249,13 +252,13 @@ export class FireExtinguisher extends Component {
               {this.parseMonthlyInspections()}
             </table>
           </div>
-          <p className={"black"}>Annual Inspections</p>
+          <div className={"black container center table-text"}>Annual Inspections</div>
           <div className={"tableScroll"}>
             <table className="table table-striped">
               <thead>
                 <tr>
                   <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
                   </th>
                   <th className="align">Performed By</th>
                 </tr>
@@ -263,13 +266,13 @@ export class FireExtinguisher extends Component {
               {this.parseAnnualInspections()}
             </table>
           </div>
-          <p className={"black"}>6-Year Services</p>
+          <div className={"black container center table-text"}>6-Year Services</div>
           <div className={"tableScroll"}>
             <table className="table table-striped">
               <thead>
                 <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', '6Year')}>Service Date {sixButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', '6Year')}>Service Date {sixButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
@@ -277,13 +280,13 @@ export class FireExtinguisher extends Component {
               {this.parse6YearServices()}
             </table>
           </div>
-          <p className={"black"}>12-Year Tests</p>
+          <div className={"black container center table-text"}>12-Year Tests</div>
           <div className={"tableScroll"}>
             <table className="table table-striped">
               <thead>
                 <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', '12Year')}>Test Date {twelveButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', '12Year')}>Test Date {twelveButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
@@ -291,9 +294,12 @@ export class FireExtinguisher extends Component {
               {this.parse12YearTests()}
             </table>
           </div>
+          
+          <div className={"black container center table-text"}>Notes</div>
           <div>
-            <h5>Notes</h5>
+            <div className ="container">
             <FENotes fe={fe}/>
+            </div>
             <div className={"noteScroll"}>
               <table className="table table-striped">
                 <thead>

@@ -155,7 +155,7 @@ export class AlarmSystem extends Component {
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);
     return (
-      <p>Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
+      <p className="center red">Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
     )
   }
   
@@ -166,52 +166,65 @@ export class AlarmSystem extends Component {
     const yButtonLabel = this.state.sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
-          <h2>Fire Alarm System for {building.name}</h2>
+          <h2 className="center">Fire Alarm System for {building.name}</h2>
           {this.nextInspection(AlarmSystem)}
+
+          <div className="grid">
           <Link to={{ pathname: '/ASInspection', state: {building: building, as: AlarmSystem}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
           <Link to={{ pathname: '/ASReport', state: {building: building, as: AlarmSystem, notes: this.props.ASNotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
-          </Link>   
+          </Link>  
+          </div> 
+
+          <div className={"black container center table-text"}>Monthly Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Monthly Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
                 </th>
                 <th>Performed By</th>
               </tr>
             </thead>
             {this.parseMonthlyInspections()}
           </table>
+          </div>
+
+          <div className={"black container center table-text"}>Semi-Annual Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Semi-Annual Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'semiannual')}>Inspection Date {sButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'semiannual')}>Inspection Date {sButtonLabel}</button>
                 </th>
                 <th>Performed By</th>
               </tr>
             </thead>
             {this.parseSemiAnnualInspections()}
           </table>
+          </div>
+
+          <div className={"black container center table-text"}>Annual Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Annual Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
                 </th>
                 <th>Performed By</th>
               </tr>
             </thead>
             {this.parseAnnualInspections()}
           </table>
+          </div>
+
+          <div className={"black container center table-text"}>Notes</div>
           <div>
-            <h5>Notes</h5>
             <ASNotes as={AlarmSystem}/>
             <ul>
                 {this.props.ASNotes.map((n) => 

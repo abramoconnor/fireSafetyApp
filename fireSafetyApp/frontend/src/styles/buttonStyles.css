@@ -70,60 +70,6 @@ Then consecutive button styles were put together depending on need, etc.
 	font-weight: 100;
 }
 
-/* Button Colors and Styling for it */
-
-.btn--white--outline {
-	background-color: transparent;
-	border: 2px solid var(--white);
-	color: var(--white);
-}
-
-.btn--primary--solid {
-	background-color: var(--primary);
-	color: var(--white);
-	border: none;
-}
-
-.btn--warning--solid {
-	background-color: var(--warning);
-	color: var(--white);
-	border: none;
-}
-.btn--danger--solid {
-	background-color: var(--danger);
-	color: var(--white);
-	border: none;
-}
-.btn--success--solid {
-	background-color: var(--success);
-	color: var(--white);
-	border: none;
-}
-
-.btn--primary--outline {
-	background-color: transparent;
-	border: 2px solid var(--primary);
-	color: var(--primary);
-}
-
-.btn--warning--outline {
-	background-color: transparent;
-	border: 2px solid var(--warning);
-	color: var(--warning);
-}
-
-.btn--danger--outline {
-	background-color: transparent;
-	border: 2px solid var(--danger);
-	color: var(--danger);
-}
-
-.btn--success--outline {
-	background-color: transparent;
-	border: 2px solid var(--success);
-	color: var(--success);
-}
-
 .btn--medium {
 	height: 300px;
 	width: 300px;
@@ -155,6 +101,23 @@ Then consecutive button styles were put together depending on need, etc.
 	font-family: 'Manrope', sans-serif;
 	padding: 5px 10px;
 	font-size: 10px;
+}
+
+.btn--table {
+	font-family: 'Manrope', sans-serif;
+	font-weight: normal;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+	background-color: transparent;
+	border: 2px solid var(--dark);
+	color: var(--dark);
+	padding: 5px 10px;
+	font-size: 14px;
+}
+.btn--table:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tar {
@@ -198,6 +161,10 @@ Then consecutive button styles were put together depending on need, etc.
 .container {
 	position: relative;
 	padding: 10px 30px;
+}
+.table-text {
+	font-weight: normal;
+	font-size: 20px;
 }
 
 .input {

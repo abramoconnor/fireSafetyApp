@@ -57,10 +57,10 @@ export class FireExtinguisherList extends Component {
 		{
 			return(
         <tr key={fe.id}>
-        {/* ???Blane make this button blue text and underline, no box */}
+        
         <td>
           <Link to={{ pathname: '/FireExtinguisher', state:{building:building, fe: fe}}}>
-            <button>
+            <button className ="btn--table">
             {fe.exnum}
             </button>
           </Link>
@@ -74,10 +74,10 @@ export class FireExtinguisherList extends Component {
 		{
 			return(
         <tr key={fe.id}>
-        {/* ???Blane make this button blue text and underline, no box */}
+        
         <td>
           <Link to={{ pathname: '/FireExtinguisher', state:{building:building, fe: fe}}}>
-            <button>
+            <button className ="btn--table">
             {fe.exnum}
             </button>
           </Link>
@@ -109,10 +109,10 @@ export class FireExtinguisherList extends Component {
     )
   }
 
-	setSearchKey = (key) => {
-		this.setState({search:key});
-  }
-
+  setSearchKey = (e) =>
+	{
+		this.setState({search:e.target.value})
+	}
   componentDidMount() {
     this.props.getFEsByBuilding(this.props.location.state.building.id);
   }
@@ -122,7 +122,13 @@ export class FireExtinguisherList extends Component {
     const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
-        <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+        
+          <div className="wrapper right">
+						<div className= "container">
+							<input type="text" className="input" placeholder="Search..." onChange={(e)=>this.setSearchKey(e)}></input>											
+						</div>
+					</div>
+        
           <h2>Fire Extinguishers for {building.name}</h2>
           <p>Number of Extinguishers in {building.name}: {this.props.FEs.length}</p>
           {/* ???button on same line */}
@@ -130,7 +136,7 @@ export class FireExtinguisherList extends Component {
             <thead>
               <tr>
                 <th>
-                  <button type="button" onClick={() => this.requestSort('exnum')}>Extinguisher Number {sortButtonLabel}</button>
+                  <button type="button" className ="btn--table" onClick={() => this.requestSort('exnum')}>Extinguisher Number {sortButtonLabel}</button>
                 </th>
                 <th>
                   {/* <button type="button" onClick={() => this.setSortedField('next')}>Next Upcoming Inspection</button> */}

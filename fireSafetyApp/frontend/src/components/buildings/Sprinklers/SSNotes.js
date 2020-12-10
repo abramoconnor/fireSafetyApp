@@ -14,6 +14,7 @@ export class SSNotes extends Component {
 
     static propTypes = {
         createSSNote: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired,
     };
 
     onChange = (e) => {
@@ -37,10 +38,14 @@ export class SSNotes extends Component {
             
         }
         else {
+            const { user } = this.props.auth;
             let n = {
                 note: this.state.note,
+                author: `${user.first_name} ${user.last_name}`,
+                date_written: new Date(),
                 sprinkler_system: this.props.ss.id
             }
+            console.log(n);
             this.props.createSSNote(n);
         }
         this.setState({ note: '', charsLeft: MAX_NOTE_LENGTH});
@@ -55,12 +60,16 @@ export class SSNotes extends Component {
             <form onSubmit={this.createNote}>
                 <input type="text" name="note" value={note} onChange={this.onChange} className={inputClass}  />
                 <p className={inputClass}>Characters Left: {this.state.charsLeft}</p>
-                <button type="submit" onClick={this.toggleInput}>          
+                <button type="submit" className="btn--table" onClick={this.toggleInput}>          
                     {buttonLabel}
                 </button>
             </form>
         </span>
        )
     }
-  }
-export default connect(null, { createSSNote })(SSNotes);
+}
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+  });
+
+export default connect(mapStateToProps, { createSSNote })(SSNotes);

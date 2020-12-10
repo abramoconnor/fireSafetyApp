@@ -83,37 +83,9 @@ export class Assets extends Component {
         return (
             <Fragment>
                 <h1 className={"buildingNames"}>{building.name}'s Assets</h1>
-				<Button className={"btn btn--small"} onClick={() => {
-					if(window.confirm('Are you sure you want to DELETE this building? If you do, all assets, inspections and notes related to it will be gone.')) {
-						this.deleteBuilding(building);
-					}}}>
-					Delete Building
-				</Button>
-				<Link to={{ pathname: '/CreateASForm', state: {building: building}}}>
-					<Button className={createAlarmClass} onClick={()=>{}}>
-						Create Fire Alarm System
-					</Button>
-				</Link>
 				
-				<Button className={deleteAlarmClass} onClick={()=>{
-					if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
-						this.deleteAlarmSys(this.props.AlarmSystems[0].id);
-					}}}>
-					Delete Current Fire Alarm System
-				</Button>
 
-				<Link to={{ pathname: '/CreatePumpForm', state: {building: building}}}>
-					<Button className={createPumpClass} onClick={()=>{}}>
-						Create Fire Pump
-					</Button>
-				</Link>
 
-				<Button className={deletePumpClass} onClick={()=>{
-					if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
-						this.deletePump(this.props.Pumps[0].id);
-					}}}>
-					Delete Current Fire Pump
-				</Button>
 				<div className = "grid">
 				<li>
 					<Link to={{ pathname: '/FireExtinguisherList', state:{building:building}}}>
@@ -162,6 +134,7 @@ export class Assets extends Component {
 					</Link>
 				</li>   
 			</div>
+			
 			<div className = "grid">
 			<Link to={{ pathname: '/Home', state:{building:building}}}>
 						<Button 
@@ -172,6 +145,43 @@ export class Assets extends Component {
 							</Button>
 					</Link>
 			</div>
+
+			<div className = "grid">	
+				<Link to={{ pathname: '/CreateASForm', state: {building: building}}}>
+					<Button className={createAlarmClass} onClick={()=>{}}>
+						Create Fire Alarm System
+					</Button>
+				</Link>
+				
+				<Button className={deleteAlarmClass} onClick={()=>{
+					if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
+						this.deleteAlarmSys(this.props.AlarmSystems[0].id);
+					}}}>
+					Delete Current Fire Alarm System
+				</Button>
+
+				<Link to={{ pathname: '/CreatePumpForm', state: {building: building}}}>
+					<Button className={createPumpClass} onClick={()=>{}}>
+						Create Fire Pump
+					</Button>
+				</Link>
+
+				<Button className={deletePumpClass} onClick={()=>{
+					if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
+						this.deletePump(this.props.Pumps[0].id);
+					}}}>
+					Delete Current Fire Pump
+				</Button>
+
+				<Button className={"btn btn--small"} onClick={() => {
+					if(window.confirm('Are you sure you want to DELETE this building? If you do, all assets, inspections and notes related to it will be gone.')) {
+						this.deleteBuilding(building);
+					}}}>
+					Delete Building
+				</Button>
+
+				</div>					
+			
       </Fragment>
     );
 }

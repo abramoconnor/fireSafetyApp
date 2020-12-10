@@ -56,10 +56,9 @@ export class SprinklerSystemList extends Component {
 		if (this.state.search == null) {
 			return(
                 <tr key={ss.id}>
-                {/* ???Blane make this button blue text and underline, no box */}
                 <td>
                 <Link to={{ pathname: '/SprinklerSystem', state:{building:building, ss: ss}}}>
-                    <button>
+                    <button className ="btn--table">
                     {ss.coverage}
                     </button>
                 </Link>
@@ -70,11 +69,10 @@ export class SprinklerSystemList extends Component {
 			)
 		} else if(ss.coverage.toLowerCase().includes(this.state.search.toLowerCase())) {
 			return(
-                <tr key={ss.id}>
-                {/* ???Blane make this button blue text and underline, no box */}
+                <tr key={ss.id}>              
                     <td>
                         <Link to={{ pathname: '/SprinklerSystem', state:{building:building, ss: ss}}}>
-                            <button>
+                            <button className ="btn--table">
                                 {ss.coverage}
                             </button>
                         </Link>
@@ -87,8 +85,9 @@ export class SprinklerSystemList extends Component {
   }
 	
 
-	setSearchKey = (key) => {
-		this.setState({search:key})
+	setSearchKey = (e) =>
+	{
+		this.setState({search:e.target.value})
 	}
 
   componentDidMount() {
@@ -141,7 +140,13 @@ export class SprinklerSystemList extends Component {
     const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
-        <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+        
+          <div className="wrapper right">
+						<div className= "container">
+							<input type="text" className="input" placeholder="Search..." onChange={(e)=>this.setSearchKey(e)}></input>											
+						</div>
+					</div>
+
           <h2>Sprinkler Systems for {building.name}</h2>
           <p>Number of Systems in {building.name}: {this.props.SprinklerSystems.length}</p>
           {/* ???button on same line */}
@@ -149,7 +154,7 @@ export class SprinklerSystemList extends Component {
             <thead>
               <tr>
                 <th>
-                  <button type="button" onClick={() => this.requestSort('coverage')}>Coverage Area {sortButtonLabel}</button>
+                  <button type="button" className ="btn--table" onClick={() => this.requestSort('coverage')}>Coverage Area {sortButtonLabel}</button>
                 </th>
                 <th>System Type</th>
                 <th>Next Upcoming Inspection</th>

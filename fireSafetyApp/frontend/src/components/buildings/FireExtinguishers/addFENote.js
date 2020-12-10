@@ -59,7 +59,7 @@ export class FENotes extends Component {
             <form onSubmit={this.createNote}>
                 <input type="text" name="note" value={note} onChange={this.onChange} className={inputClass}  />
                 <p className={inputClass}>Characters Left: {this.state.charsLeft}</p>
-                <button type="submit" onClick={this.toggleInput}>          
+                <button type="submit" className="btn--table" onClick={this.toggleInput}>          
                     {buttonLabel}
                 </button>
             </form>

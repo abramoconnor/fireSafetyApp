@@ -44,6 +44,11 @@ export class SprinklerSystem extends Component {
     this.props.deleteSSNote(id);
   }
 
+  convertToLocalTime = (d) => {
+    const nd = new Date(d);
+    return nd.toLocaleDateString().split("T")[0]
+  }
+
   // if user clicked field a second time, they want to change the direction of sort
   // default is ascending
   requestSort = (field, type) => {
@@ -274,7 +279,7 @@ export class SprinklerSystem extends Component {
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);
     return (
-      <p>Next Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
+      <p className="center red">Next Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
     )
   }
 
@@ -293,28 +298,27 @@ export class SprinklerSystem extends Component {
     const yButtonLabel = sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
-          <h2>Sprinkler System Covers: {ss.coverage}</h2>
-          <p>Type: {ss.system_type}</p>
-          <p>Located in: {building.name}</p>
+          <h2 className="center">Sprinkler System Covers: {ss.coverage}</h2>
+          <p className="center">Type: {ss.system_type}</p>
+          <p className="center">Located in: {building.name}</p>
           {this.nextInspection(ss)}
-				    <Button className={"btn btn--small"} onClick={() => {
-              if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
-                this.deleteSprinklerSystem(ss.id);
-              }}}>
-              Delete
-            </Button>
+
+           <div className ="grid">
           <Link to={{ pathname: '/SSInspection', state: {building: building, ss: ss}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
           <Link to={{ pathname: '/SSReport', state: {building: building, ss: ss, inspections: this.props.SSInspecs, notes: this.props.SSNotes}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
           </Link>
+          </div> 
+
+          <div className={"black container center table-text"}>Weekly Inspections (Only for Dry and Pre-action)</div>
+          <div className={"tableScroll"}>
           <table className={tableClass}>
-            <caption>Weekly Inspections (Only for Dry and Pre-action)</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'weekly')}>Inspection Date {wButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'weekly')}>Inspection Date {wButtonLabel}</button>
                 </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
@@ -323,12 +327,15 @@ export class SprinklerSystem extends Component {
             </thead>
             {this.parseWeeklyInspections()}
           </table>
+          </div>
+
+          <div className={"black container center table-text"}>Monthly Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Monthly Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
                 </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
@@ -337,12 +344,16 @@ export class SprinklerSystem extends Component {
             </thead>
             {this.parseMonthlyInspections()}
           </table>
+          </div>
+
+          
+          <div className={"black container center table-text"}>Quarterly Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Quarterly Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'quarterly')}>Inspection Date {qButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'quarterly')}>Inspection Date {qButtonLabel}</button>
                 </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
@@ -351,12 +362,15 @@ export class SprinklerSystem extends Component {
             </thead>
             {this.parseQuarterlyInspections()}
           </table>
+          </div>
+
+          <div className={"black container center table-text"}>Semi-Annual Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Semi-Annual Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'semiannual')}>Inspection Date {sButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'semiannual')}>Inspection Date {sButtonLabel}</button>
                 </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
@@ -365,12 +379,15 @@ export class SprinklerSystem extends Component {
             </thead>
             {this.parseSemiAnnualInspections()}
           </table>
+          </div>
+
+          <div className={"black container center table-text"}>Annual Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Annual Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
                 </th>
                 <th className={headerClass}>Air Pressure (PSI)</th>
                 <th>Water Pressure (PSI)</th>
@@ -379,25 +396,60 @@ export class SprinklerSystem extends Component {
             </thead>
             {this.parseAnnualInspections()}
           </table>
-          <div>
-            <h5>Notes</h5>
-            <SSNotes ss={ss}/>
-            <ul>
-                {this.props.SSNotes.map((n) => 
-                <li key={n.id}>
-                  {n.note}
-                  <button className={"btn btn--small"} onClick={() => {
-                    if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
-                      this.deleteNote(n.id);
-                    }}}>
-                      Delete Note
-                  </button>
-                </li>)}
-            </ul>
           </div>
-          <Link to={{ pathname: '/SprinklerSystemList', state: {building: building}}}>
-				<Button className={"btn btn--back"} onClick={() => console.log(building)}>Back</Button>
-		  </Link>
+          
+          <div className={"black container center table-text"}>Notes</div>
+          <div>
+            <div className="container">
+            <SSNotes ss={ss}/>
+            </div>
+            <div className={"noteScroll"}>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Note</th>
+                    <th>Written By</th>
+                    <th>Date Written</th>
+                    <th/>
+                  </tr>
+                </thead>
+                <tbody>
+                    {this.props.SSNotes.map(n =>
+                     <tr key={n.id}>
+                        <td className={"note"}>{n.note}</td>
+                        <td>{n.author}</td>
+                        <td>{this.convertToLocalTime(n.date_written)}</td>
+                        <td>
+                        <button className={"btn btn--small"} onClick={() => {
+                            if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
+                              this.deleteNote(n.id);
+                            }}}>
+                          Delete Note
+                        </button>
+                        </td>
+                      </tr>  
+                    )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+
+
+
+          <div className="right">
+          <Button className={"btn btn--small"} onClick={() => {
+              if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {
+                this.deleteSprinklerSystem(ss.id);
+              }}}>
+              Delete
+          </Button>
+          </div>
+        
+        <Link to={{ pathname: '/SprinklerSystemList', state: {building: building}}}>
+				  <Button className={"btn btn--back"} onClick={() => console.log(building)}>Back</Button>
+		    </Link>
       </Fragment>
       );
     }

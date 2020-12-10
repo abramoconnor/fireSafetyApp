@@ -60,7 +60,7 @@ export class AEDList extends Component {
         {/* ???Blane make this button blue text and underline, no box */}
         <td>
           <Link to={{ pathname: '/AED', state:{building:building, aed: aed}}}>
-            <button>
+            <button className ="btn--table">
               {aed.location}
             </button>
           </Link>
@@ -77,7 +77,7 @@ export class AEDList extends Component {
         {/* ???Blane make this button blue text and underline, no box */}
         <td>
           <Link to={{ pathname: '/AED', state:{building:building, aed: aed}}}>
-            <button>
+            <button className ="btn--table">
               {aed.location}
             </button>
           </Link>
@@ -100,9 +100,10 @@ export class AEDList extends Component {
     )
   }
 
-	setSearchKey = (key) => {
-		this.setState({search:key});
-  }
+	setSearchKey = (e) =>
+	{
+		this.setState({search:e.target.value})
+	}
 
   componentDidMount() {
     this.props.getAEDsByBuilding(this.props.location.state.building.id);
@@ -113,7 +114,13 @@ export class AEDList extends Component {
     const sortButtonLabel = this.state.sortConfig.direction === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
-        <SearchField placeholder="Search..." type = "text" onChange={(e)=>this.setSearchKey(e)}/>
+        
+          <div className="wrapper right">
+						<div className= "container">
+							<input type="text" className="input" placeholder="Search..." onChange={(e)=>this.setSearchKey(e)}></input>											
+						</div>
+					</div>
+
           <h2>AED's for {building.name}</h2>
           <p>Number of AED's in {building.name}: {this.props.AEDs.length}</p>
           {/* ???button on same line */}
@@ -121,7 +128,7 @@ export class AEDList extends Component {
             <thead>
               <tr>
                 <th>
-                  <button type="button" onClick={() => this.requestSort('location')}>Location {sortButtonLabel}</button>
+                  <button type="button" className ="btn--table" onClick={() => this.requestSort('location')}>Location {sortButtonLabel}</button>
                 </th>
                 <th>
                   {/* <button type="button" onClick={() => this.setSortedField('next')}>Next Upcoming Inspection</button> */}

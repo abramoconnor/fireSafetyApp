@@ -97,6 +97,7 @@ li {
 }
 
 .note {
+	table-layout: fixed;
 	width: 500px;
 	word-wrap: break-word;
 }

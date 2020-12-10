@@ -37,7 +37,7 @@ export class FEReport extends Component {
   render() {
     const {building, fe, notes} = this.props.location.state;
     const {includeNotes} = this.state;
-    const buttonClass = includeNotes ? 'green' : 'red'
+    const buttonClass = includeNotes ? 'btn--table' : 'red'
     const buttonYorN = includeNotes ? 'Yes' : 'No'
     return (
       <Fragment>

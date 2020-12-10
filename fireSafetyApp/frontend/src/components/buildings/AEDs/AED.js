@@ -105,7 +105,8 @@ export class AED extends Component {
           <h2 className="center">AED Location: {aed.location}</h2>
           <p className="center">Building: {building.name}</p>
           {this.nextInspection(aed)}
-				    
+
+           <div className="grid">
           <Link to={{ pathname: '/AEDInspection', state: {building: building, aed: aed}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
@@ -115,13 +116,14 @@ export class AED extends Component {
           <Link to={{ pathname: '/AEDLocation', state: {building: building, aed: aed}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Change Location</Button>
           </Link>
-          <p className={"black"}>Monthly Inspections</p>
+          </div> 
+          <div className={"black container center table-text"}>Monthly Inspections</div>
           <div className={"tableScroll"}>
             <table className="table table-striped">
               <thead>
                 <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested')}>Inspection Date {sortButtonLabel}</button>
                   </th>
                   <th>Performed By</th>
                 </tr>
@@ -130,8 +132,10 @@ export class AED extends Component {
             </table>
           </div>
           <div>
-            <h5>Notes</h5>
+            <div className={"black container center table-text"}>Notes</div>
+            <div className ="container">
             <AEDNote aed={aed}/>
+            </div>
             <div className={"noteScroll"}>
               <table className="table table-striped">
                 <thead>
