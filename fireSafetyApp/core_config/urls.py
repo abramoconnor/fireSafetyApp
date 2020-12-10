@@ -8,6 +8,6 @@ urlpatterns = [
     path('ss/', include('sprinklers.urls')),
     path('alarm/', include('alarms.urls')),
     path('pump/', include('pumps.urls')),
-    path('', include('accounts.urls')),
+    path('auth/', include('accounts.urls')),
     path('', include('frontend.urls')),
 ]
