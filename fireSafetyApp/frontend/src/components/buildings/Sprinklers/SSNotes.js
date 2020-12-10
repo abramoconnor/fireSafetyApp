@@ -45,7 +45,6 @@ export class SSNotes extends Component {
                 date_written: new Date(),
                 sprinkler_system: this.props.ss.id
             }
-            console.log(n);
             this.props.createSSNote(n);
         }
         this.setState({ note: '', charsLeft: MAX_NOTE_LENGTH});

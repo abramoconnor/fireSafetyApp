@@ -123,30 +123,40 @@ export class FirePump extends Component {
     // dates are in UTC so creating date object (nd = newDate) from date string (next) and displaying it in local time
     const nd = new Date(next);
     return (
-      <p>Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
+      <p className="center red">Next Upcoming Inspection: {nd.toLocaleDateString().split("T")[0]} {type}</p>
     )
   }
   
+  convertToLocalTime = (d) => {
+    const nd = new Date(d);
+    return nd.toLocaleDateString().split("T")[0]
+  }
+
   render() {
     const {building, pump} = this.props.location.state;
     const mButtonLabel = this.state.sortConfig.mdirection === 'ascending' ? '(asc)' : '(desc)';
     const yButtonLabel = this.state.sortConfig.ydirection === 'ascending' ? '(asc)' : '(desc)';
     return (
       <Fragment>
-          <h2>Fire Pump for {building.name}</h2>
+          <h2 className="center">Fire Pump for {building.name}</h2>
           {this.nextInspection(pump)}
+          
+          <div className="grid">
           <Link to={{ pathname: '/PumpInspection', state: {building: building, pump: pump}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Perform Inspection</Button>
           </Link>
           <Link to={{ pathname: '/PumpReport', state: {building: building, pump: pump, notes: this.props.PumpNotes, inspections: this.props.PumpInspecs}}}>
             <Button className={"btn btn--small"} onClick={() => {}}>Generate Report</Button>
-          </Link>   
+          </Link>  
+          </div>
+
+          <div className={"black container center table-text"}>Monthly Inspections</div>
+          <div className={"tableScroll"}>
           <table className="table table-striped">
-            <caption>Monthly Inspections</caption>
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
+                    <button type="button" className="btn--table" onClick={() => this.requestSort('date_tested', 'monthly')}>Inspection Date {mButtonLabel}</button>
                 </th>
                 <th>Suction Pressure (PSI)</th>
                 <th>Discharge Pressure (PSI)</th>
@@ -156,12 +166,15 @@ export class FirePump extends Component {
             </thead>
             {this.parseMonthlyInspections()}
           </table>
-          <table className="table table-striped">
-            <caption>Annual Inspections</caption>
+          </div>
+
+          <div className={"black container center table-text"}>Annual Inspections</div>
+          <div className={"tableScroll"}>
+          <table className="table table-striped">       
             <thead>
               <tr>
                 <th>
-                    <button type="button" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
+                    <button type="button"  className="btn--table" onClick={() => this.requestSort('date_tested', 'annual')}>Inspection Date {yButtonLabel}</button>
                 </th>
                 <th>Suction Pressure (PSI)</th>
                 <th>Discharge Pressure (PSI)</th>
@@ -171,22 +184,44 @@ export class FirePump extends Component {
             </thead>
             {this.parseAnnualInspections()}
           </table>
-          <div>
-            <h5>Notes</h5>
-            <PumpNotes pump={pump}/>
-            <ul>
-                {this.props.PumpNotes.map((n) => 
-                <li key={n.id}>
-                  {n.note}
-                  <button className={"btn btn--small"} onClick={() => {
-                    if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
-                      this.deleteNote(n.id);
-                    }}}>
-                      Delete Note
-                  </button>
-                </li>)}
-            </ul>
           </div>
+          
+          <div className={"black container center table-text"}>Notes</div>
+          <div>
+            <div className ="container">
+            <PumpNotes pump={pump}/>
+            </div>
+            <div className={"noteScroll"}>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Note</th>
+                    <th>Written By</th>
+                    <th>Date Written</th>
+                    <th/>
+                  </tr>
+                </thead>
+                <tbody>
+                    {this.props.PumpNotes.map(n => 
+                      <tr key={n.id}>
+                        <td className={"note"}>{n.note}</td>
+                        <td>{n.author}</td>
+                        <td>{this.convertToLocalTime(n.date_written)}</td>
+                        <td>
+                        <button className={"btn btn--small"} onClick={() => {
+                            if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
+                              this.deleteNote(n.id);
+                            }}}>
+                          Delete Note
+                        </button>
+                        </td>
+                      </tr>  
+                    )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <Link to={{ pathname: '/Assets', state:{building:building, pump: pump }}}>
 						<Button 
 						className={"btn btn--back"}

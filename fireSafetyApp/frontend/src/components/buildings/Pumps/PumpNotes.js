@@ -14,6 +14,7 @@ export class PumpNotes extends Component {
 
     static propTypes = {
         createPumpNote: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired,
     };
 
     onChange = (e) => {
@@ -37,8 +38,11 @@ export class PumpNotes extends Component {
             
         }
         else {
+            const { user } = this.props.auth;
             let n = {
                 note: this.state.note,
+                author: `${user.first_name} ${user.last_name}`,
+                date_written: new Date(),
                 fire_pump: this.props.pump.id
             }
             this.props.createPumpNote(n);
@@ -55,7 +59,7 @@ export class PumpNotes extends Component {
             <form onSubmit={this.createNote}>
                 <input type="text" name="note" value={note} onChange={this.onChange} className={inputClass}  />
                 <p className={inputClass}>Characters Left: {this.state.charsLeft}</p>
-                <button type="submit" onClick={this.toggleInput}>          
+                <button type="submit" className="btn--table" onClick={this.toggleInput}>          
                     {buttonLabel}
                 </button>
             </form>
@@ -63,4 +67,8 @@ export class PumpNotes extends Component {
        )
     }
   }
-export default connect(null, { createPumpNote })(PumpNotes);
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+  });
+  
+export default connect(mapStateToProps, { createPumpNote })(PumpNotes);

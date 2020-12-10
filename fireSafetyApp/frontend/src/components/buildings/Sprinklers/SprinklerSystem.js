@@ -434,10 +434,6 @@ export class SprinklerSystem extends Component {
             </div>
           </div>
 
-
-
-
-
           <div className="right">
           <Button className={"btn btn--small"} onClick={() => {
               if(window.confirm('Are you sure you want to DELETE this asset? If you do, all inspections and notes related to it will be gone.')) {

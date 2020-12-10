@@ -112,7 +112,7 @@ export class SSReport extends Component {
   render() {
     const {building, ss, inspections, notes} = this.props.location.state;
     const {includeNotes} = this.state;
-    const buttonClass = includeNotes ? 'green' : 'red';
+    const buttonClass = includeNotes ? 'btn--yes' : 'btn--no';
     const buttonYorN = includeNotes ? 'Yes' : 'No';
     const paragraphClass = ss.system_type === "Wet" ? 'hide' : '';
     let pressures = inspections.length > 0 ? this.getPressures(inspections) : {};

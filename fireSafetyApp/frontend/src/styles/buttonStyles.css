@@ -120,6 +120,46 @@ Then consecutive button styles were put together depending on need, etc.
 	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
+.btn--yes {
+	font-family: 'Manrope', sans-serif;
+	font-weight: normal;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+	background-color: transparent;
+	border: 2px solid #29cf63;
+	color: var(--dark);
+	padding: 5px 10px;
+	font-size: 14px;
+}
+.btn--yes:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.btn--yes:focus {
+	outline: none;
+}
+
+.btn--no {
+	font-family: 'Manrope', sans-serif;
+	font-weight: normal;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+	background-color: transparent;
+	border: 2px solid #ff5c5c;
+	color: var(--dark);
+	padding: 5px 10px;
+	font-size: 14px;
+}
+.btn--no:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.btn--no:focus {
+	outline: none;
+}
+
 .tar {
 	text-align: right;
 }

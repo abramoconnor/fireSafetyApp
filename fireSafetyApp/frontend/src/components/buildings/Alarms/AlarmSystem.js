@@ -159,6 +159,12 @@ export class AlarmSystem extends Component {
     )
   }
   
+  convertToLocalTime = (d) => {
+    const nd = new Date(d);
+    return nd.toLocaleDateString().split("T")[0]
+  }
+
+
   render() {
     const {building, AlarmSystem} = this.props.location.state;
     const mButtonLabel = this.state.sortConfig.mdirection === 'ascending' ? '(asc)' : '(desc)';
@@ -225,20 +231,40 @@ export class AlarmSystem extends Component {
 
           <div className={"black container center table-text"}>Notes</div>
           <div>
-            <ASNotes as={AlarmSystem}/>
-            <ul>
-                {this.props.ASNotes.map((n) => 
-                <li key={n.id}>
-                  {n.note}
-                  <button className={"btn btn--small"} onClick={() => {
-                    if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
-                      this.deleteNote(n.id);
-                    }}}>
-                      Delete Note
-                  </button>
-                </li>)}
-            </ul>
+            <div className ="container">
+            <ASNotes AlarmSystem={AlarmSystem}/>
+            </div>
+            <div className={"noteScroll"}>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Note</th>
+                    <th>Written By</th>
+                    <th>Date Written</th>
+                    <th/>
+                  </tr>
+                </thead>
+                <tbody>
+                    {this.props.ASNotes.map(n => 
+                      <tr key={n.id}>
+                        <td className={"note"}>{n.note}</td>
+                        <td>{n.author}</td>
+                        <td>{this.convertToLocalTime(n.date_written)}</td>
+                        <td>
+                        <button className={"btn btn--small"} onClick={() => {
+                            if(window.confirm('Are you sure you want to DELETE this note? If you do, it cannot be retrieved.')) {
+                              this.deleteNote(n.id);
+                            }}}>
+                          Delete Note
+                        </button>
+                        </td>
+                      </tr>  
+                    )}
+                </tbody>
+              </table>
+            </div>
           </div>
+
           <Link to={{ pathname: '/Assets', state:{building:building, AlarmSystem: AlarmSystem }}}>
 						<Button 
 						className={"btn btn--back"}

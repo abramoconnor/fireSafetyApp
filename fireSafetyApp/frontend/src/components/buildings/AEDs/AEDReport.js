@@ -37,8 +37,8 @@ export class AEDReport extends Component {
   render() {
     const {building, aed, notes} = this.props.location.state;
     const {includeNotes} = this.state;
-    const buttonClass = includeNotes ? 'green' : 'red';
-    const buttonYorN = includeNotes ? 'Yes' : 'No'
+    const buttonClass = includeNotes ? 'btn--yes' : 'btn--no';
+    const buttonYorN = includeNotes ? 'Yes' : 'No';
     return (
       <Fragment>
           <h2>Report for AED</h2>

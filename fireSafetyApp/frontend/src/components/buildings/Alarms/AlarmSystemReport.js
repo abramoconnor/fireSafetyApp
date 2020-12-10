@@ -37,8 +37,8 @@ export class ASReport extends Component {
   render() {
     const {building, as, notes} = this.props.location.state;
     const {includeNotes} = this.state;
-    const buttonClass = includeNotes ? 'green' : 'red'
-    const buttonYorN = includeNotes ? 'Yes' : 'No'
+    const buttonClass = includeNotes ? 'btn--yes' : 'btn--no';
+    const buttonYorN = includeNotes ? 'Yes' : 'No';
     return (
       <Fragment>
           <h2>Report for Alarm System</h2>

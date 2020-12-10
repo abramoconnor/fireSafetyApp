@@ -72,7 +72,7 @@ export class PumpReport extends Component {
   render() {
     const {building, pump, notes, inspections} = this.props.location.state;
     const {includeNotes} = this.state;
-    const buttonClass = includeNotes ? 'green' : 'red';
+    const buttonClass = includeNotes ? 'btn--yes' : 'btn--no';
     const buttonYorN = includeNotes ? 'Yes' : 'No';
     let attributes = inspections.length > 0 ? this.getAttributes(inspections) : {};
     return (

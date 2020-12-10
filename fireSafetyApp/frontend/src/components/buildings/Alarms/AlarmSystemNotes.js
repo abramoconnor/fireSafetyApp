@@ -14,6 +14,7 @@ export class ASNotes extends Component {
 
     static propTypes = {
         createASNote: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired,
     };
 
     onChange = (e) => {
@@ -37,9 +38,12 @@ export class ASNotes extends Component {
             
         }
         else {
+            const { user } = this.props.auth;
             let n = {
                 note: this.state.note,
-                alarm_system: this.props.as.id
+                author: `${user.first_name} ${user.last_name}`,
+                date_written: new Date(),
+                alarm_system: this.props.AlarmSystem.id
             }
             this.props.createASNote(n);
         }
@@ -55,7 +59,7 @@ export class ASNotes extends Component {
             <form onSubmit={this.createNote}>
                 <input type="text" name="note" value={note} onChange={this.onChange} className={inputClass}  />
                 <p className={inputClass}>Characters Left: {this.state.charsLeft}</p>
-                <button type="submit" onClick={this.toggleInput}>          
+                <button type="submit" className="btn--table" onClick={this.toggleInput}>          
                     {buttonLabel}
                 </button>
             </form>
@@ -63,4 +67,7 @@ export class ASNotes extends Component {
        )
     }
   }
-export default connect(null, { createASNote })(ASNotes);
+  const mapStateToProps = (state) => ({
+    auth: state.auth,
+  });
+export default connect(mapStateToProps, { createASNote })(ASNotes);
